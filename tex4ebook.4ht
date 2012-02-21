@@ -7,7 +7,8 @@
 \:CheckOption{epub}
 \if:Option
 \TocAt-{part,chapter,section,subsection,subsubsection}
-\Configure{crosslinks*}{}
+%\Configure{crosslinks*}{}
+%\Configure{crosslinks+}{}{}{}{}
 \Configure{Picture}{.svg}
 \Configure{PicDisplay}
   {\edef\MathPar{\ifvmode par-\fi}\IgnorePar\endgraf\EndP
@@ -74,25 +75,28 @@
 }
 % 
 \def\ncx:title{%
-  \HCode{--><docTitle>\Hnewline<text>}\Title\HCode{</text>\Hnewline</docTitle>\Hnewline}
+  \HCode{<docTitle>\Hnewline<text>}\Title\HCode{</text>\Hnewline</docTitle>\Hnewline}
 }
 %\:CheckOption{kindle} \if:Option
 \def\:tempa{%
+\HtmlParOff
 \setcounter{tocdepth}{3}
+\special{t4ht>\jobname.ncx}
 % We don't want crosslinks in xml
-\Configure{crosslinks*}{}
-\Configure{crosslinks+}{}{}{}{}
+%\Configure{crosslinks*}{}
+%\Configure{crosslinks+}{}{}{}{}
 % Basic sctructure of the ncx file
-\Configure{PROLOG}{VERSION,DOCTYPE,*XML-STYLESHEET}
-\Configure{VERSION}
+%\Configure{PROLOG}{VERSION,DOCTYPE,*XML-STYLESHEET}
+%\Configure{VERSION}
       {\HCode{<?xml version="1.0"?>\Hnewline}}
-\Configure{DOCTYPE}
+%\Configure{DOCTYPE}
 {\HCode{<!DOCTYPE ncx PUBLIC "-//NISO//DTD ncx 2005-1//EN"\Hnewline
   "http://www.daisy.org/z3986/2005/ncx-2005-1.dtd">\Hnewline}}
-\Configure{HTML}{\Tg<ncx xmlns="http://www.daisy.org/z3986/2005/ncx/" version="2005-1">}{\Tg</ncx>}
-\Configure{TITLE}{}{}
-\Configure{@HEAD}{}
-\Configure{BODY}{\HCode{<!--}}{}
+%\Configure{HTML}
+{\Tg<ncx xmlns="http://www.daisy.org/z3986/2005/ncx/" version="2005-1">}{}
+%\Configure{TITLE}{}{}
+%\Configure{@HEAD}{}
+%\Configure{BODY}{\HCode{<!--}}{}
 % To print document map, we customize the tableofcontents. We don't want TOC title,
 % so:
 \let\contentsname=\empty
@@ -110,10 +114,10 @@
 \navsection{subsubsection}{subsubsection}
 % Maybe this is not most elegant way, how to tell tex4ht to start new file
 % mysection 
-\Configure{CutAt-filename}{\NextFile{\jobname.ncx}} 
+%\Configure{CutAt-filename}{\NextFile{\jobname.ncx}} 
  \HtmlParOff
  \Configure{toTocLink}{}{}
-\mysection{}%
+%\mysection{}%
 
 % Book title
 \ncx:title
@@ -121,6 +125,7 @@
 \tableofcontents%
 %Hack to get close tag working
 \HCode{</ncx>}
+\special{t4ht<\jobname.ncx}
  \HtmlParOn
 }
 \let\ncxtable\:tempa
@@ -154,7 +159,7 @@
 %\Configure{@HEAD}
 {\HCode{<dc:contributor>\Author</dc:contributor>\Hnewline}}
 %\Configure{@HEAD}
-{\HCode{<dc:contributor>\HP:file</dc:contributor>\Hnewline}}
+%{\HCode{<dc:contributor>\HP:file</dc:contributor>\Hnewline}}
 \Tg</metadata>
 %\Configure{TITLE}{}{}
 %\Configure{BODY}{\HCode{<!--}}{}
@@ -174,9 +179,7 @@
 \HCode{<item id="ncx" href="\jobname.ncx" media-type="application/x-dtbncx+xml" />\Hnewline}
 \renewcommand\do[1]{\HCode{<item id="\csuse{opf:entry##1}" href="##1" media-type="application/xhtml+xml" />\Hnewline}}
 \expandafter\docsvlist\expandafter{\opf:htmlfiles}
-
 %\Tg<manifest>
-
 \special{t4ht<content.opf}
 \special{t4ht>content-part2.opf}
 %\Configure{CutAt-filename}{\NextFile{content-part2.opf}}
@@ -188,7 +191,6 @@
 %\Configure{HTML}{}{}
 %\mysection{}
 %\HCode{-->\Hnewline}
-
 \HCode{</manifest>\Hnewline}
 \renewcommand\do[1]{\HCode{<itemref idref="\csuse{opf:entry##1}" />\Hnewline}}
 \HCode{\Hnewline<spine toc="ncx">\Hnewline}
@@ -197,6 +199,7 @@
 %Hack to get close tag working
 \HCode{</package>}
 \special{t4ht<content-part2.opf}
+\HtmlParOn
 %Hack!!
 %\Configure{BODY}{}{\Tg</body>}
 %\Configure{HTML}{}{\HCode{\Hnewline</html>\Hnewline}}%<!-- -->\Hnewline}}
