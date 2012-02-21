@@ -1,0 +1,19 @@
+\ProvidesPackage{tex4ebook}
+
+% Command for generating NCX file. Hard work is odne in the file
+% tex4ebook.4ht
+\def\ncxtable{}
+% Command for generating OPF file 
+\def\opftable{}
+
+\AtEndDocument{%
+\ncxtable
+\opftable
+}
+
+% We need to save values of title, author etc.
+\AtBeginDocument{
+\let\Title\@title
+\let\Author\@author
+\let\Date\@date
+}

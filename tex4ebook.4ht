@@ -1,0 +1,188 @@
+%\NewConfigure{ncxtable}{}
+\usepackage{etoolbox}
+%General configuration
+\Configure{DOCTYPE}{\HCode{<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"\Hnewline 
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">}}
+
+\:CheckOption{epub}
+\if:Option
+\TocAt-{part,chapter,section,subsection,subsubsection}
+\Configure{crosslinks*}{}
+\Configure{Picture}{.svg}
+\Configure{PicDisplay}
+  {\edef\MathPar{\ifvmode par-\fi}\IgnorePar\endgraf\EndP
+   \HCode{<div class="\MathPar math-display">}}
+  {\HCode{</div>}}  {}  {class="\MathPar math-display" }
+\Configure{()}{$}{$}
+\fi
+
+% \mysection is helper command for creating new files
+\NewSection\mysection{}
+\CutAt{mysection}
+\Configure{mysection}{}{}{}{}
+\Configure{section}{}{}{}{}
+%\Configure{HtmlPar}{}{}{}{}
+\Configure{+CutAt}{mysection}{}{}
+%%
+\newcount\navpoint
+\def\stepnavpoint{\advance\navpoint by1\relax\the\navpoint}
+
+% Commands for support of hiearchical table of contents
+% Support for: chapter, section, subsection
+
+\def\resettoclevels#1{%
+  \def\do##1{\csgdef{nav##1finish}{}}
+  \docsvlist{#1}
+}
+\def\usetoclevels#1{%
+  \def\do##1{\csuse{nav##1finish}}%
+  \docsvlist{#1}%
+}
+\def\finishtoclevel#1{%
+  \csgdef{nav#1finish}{\HCode{</navPoint>\Hnewline}}
+}
+\def\closelevels#1{%
+  \usetoclevels{#1}
+  \resettoclevels{#1}
+}
+
+% 1 - section type 2 - closed sections 
+\def\navsection#1#2{
+  \ConfigureToc{#1}%
+  {\closelevels{#2}%
+  \HCode{\Hnewline<navPoint id="navPoint-}%
+  \stepnavpoint\HCode{" playOrder="}%
+  \the\navpoint\HCode{">\Hnewline<navLabel>\Hnewline<text>}%
+  }
+  { }
+  {}
+  {\HCode{</text>\Hnewline
+    </navLabel>\Hnewline}
+    \HCode{<content src="\navmapsrc" />}%
+    \finishtoclevel{#1}
+  }
+}
+% 
+\edef\opf:htmlfiles{}
+\newcount\opf:htmlid
+\def\opf:registerfilename#1{%
+  \ifcsdef{opf:entry#1}{}{%
+    \global\advance\opf:htmlid by1\relax
+    \csxdef{opf:entry#1}{file\the\opf:htmlid}
+    \xdef\opf:htmlfiles{\opf:htmlfiles, #1}
+  }
+}
+% 
+\def\ncx:title{%
+  \HCode{--><docTitle>\Hnewline<text>}\Title\HCode{</text>\Hnewline</docTitle>\Hnewline}
+}
+%\:CheckOption{kindle} \if:Option
+\def\:tempa{%
+\setcounter{tocdepth}{3}
+% We don't want crosslinks in xml
+\Configure{crosslinks*}{}
+\Configure{crosslinks+}{}{}{}{}
+% Basic sctructure of the ncx file
+\Configure{PROLOG}{VERSION,DOCTYPE,*XML-STYLESHEET}
+\Configure{VERSION}
+      {\HCode{<?xml version="1.0"?>\Hnewline}}
+\Configure{DOCTYPE}
+{\HCode{<!DOCTYPE ncx PUBLIC "-//NISO//DTD ncx 2005-1//EN"\Hnewline
+  "http://www.daisy.org/z3986/2005/ncx-2005-1.dtd">\Hnewline}}
+\Configure{HTML}{\Tg<ncx xmlns="http://www.daisy.org/z3986/2005/ncx/" version="2005-1">}{\Tg</ncx>}
+\Configure{TITLE}{}{}
+\Configure{@HEAD}{}
+\Configure{BODY}{\HCode{<!--}}{}
+% To print document map, we customize the tableofcontents. We don't want TOC title,
+% so:
+\let\contentsname=\empty
+\Configure{tableofcontents}{\Tg<navMap>}{\usetoclevels{part,chapter,section,subsection,subsubsection}\Tg</navMap>}{}{}{}  
+% We need to configure TocLink
+% in navmapsrc is link to the file and anchor, where chapter or section is located
+\def\navmapsrc{}  
+\Configure{TocLink}{\def\navmapsrc{\get:hfile{##2}\:sharp ##2}\opf:registerfilename{\get:hfile{##2}}##4}
+% Configuraion of entries
+\resettoclevels{part,chapter,section,subsection,subsubsection}
+\navsection{part}{part,chapter,section,subsection,subsubsection}
+\navsection{chapter}{chapter,section,subsection,subsubsection}
+\navsection{section}{section,subsection,subsubsection}
+\navsection{subsection}{subsection,subsubsection}
+\navsection{subsubsection}{subsubsection}
+% Maybe this is not most elegant way, how to tell tex4ht to start new file
+% mysection 
+\Configure{CutAt-filename}{\NextFile{\jobname.ncx}} 
+ \HtmlParOff
+ \Configure{toTocLink}{}{}
+\mysection{}%
+
+% Book title
+\ncx:title
+\opf:registerfilename{\jobname.html} % 
+\tableofcontents%
+%Hack to get close tag working
+\HCode{</ncx>}
+ \HtmlParOn
+}
+\let\ncxtable\:tempa
+%\else
+%\fi
+
+\def\:tempa{%
+\setcounter{tocdepth}{3}
+% We don't want crosslinks in xml
+\Configure{crosslinks*}{}
+\Configure{crosslinks+}{}{}{}{}
+% Basic sctructure of the ncx file
+\Configure{PROLOG}{VERSION,*XML-STYLESHEET}
+\Configure{VERSION}
+      {\HCode{<?xml version="1.0"?>\Hnewline}}
+\Configure{HTML}{\Tg<package xmlns="http://www.idpf.org/2007/opf" unique-identifier="dcidid" 
+   version="2.0">}{}
+\Configure{HEAD}{\HCode{<metadata\Hnewline xmlns:dc="http://purl.org/dc/elements/1.1/"\Hnewline  xmlns:opf="http://www.idpf.org/2007/opf">\Hnewline}}{\Tg</metadata>}
+\Configure{@HEAD}{}
+\Configure{@HEAD}{\HCode{<dc:title>\Title</dc:title>\Hnewline}}
+%Hack: select language acording to babel
+\Configure{@HEAD}{\HCode{<dc:language>en</dc:language>\Hnewline}}
+%Add interface for such things
+\Configure{@HEAD}{\HCode{<dc:identifier id="dcidid" opf:scheme="URI">hello_world</dc:identifier>\Hnewline}}
+\Configure{@HEAD}{\HCode{<dc:contributor>\Author</dc:contributor>\Hnewline}}
+\Configure{@HEAD}{\HCode{<dc:contributor>\HP:file</dc:contributor>\Hnewline}}
+\Configure{TITLE}{}{}
+\Configure{BODY}{\HCode{<!--}}{}
+% To print document map, we customize the tableofcontents. We don't want TOC title,
+% so:
+\let\contentsname=\empty
+%\Configure{tableofcontents}{\Tg<navMap>}{\usetoclevels{part,chapter,section,subsection,subsubsection}\Tg</navMap>}{}{}{}  
+% We need to configure TocLink
+% in navmapsrc is link to the file and anchor, where chapter or section is located
+\def\navmapsrc{}
+\Configure{CutAt-filename}{\NextFile{content.opf}}
+\mysection{}
+\HCode{-->}
+%\Configure{tableofcontents}{\Tg<manifest>}{}{}{}{}{}
+%\tableofcontents
+\HCode{\Hnewline<manifest>\Hnewline}
+\HCode{<item id="ncx" href="\jobname.ncx" media-type="application/x-dtbncx+xml" />\Hnewline}
+\renewcommand\do[1]{\HCode{<item id="\csuse{opf:entry##1}" href="##1" media-type="application/xhtml+xml" />\Hnewline}}
+\expandafter\docsvlist\expandafter{\opf:htmlfiles}
+\Configure{CutAt-filename}{\NextFile{content-part2.opf}}
+\Configure{PROLOG}{}
+\Configure{HEAD}{\Tg<metadata>}{\Tg</metadata>}
+\Configure{HEAD}{}{}
+\Configure{@HEAD}{}{}
+\Configure{TITLE}{}{}
+\Configure{HTML}{}{}
+\mysection{}
+\HCode{-->\Hnewline}
+\HCode{</manifest>\Hnewline}
+\renewcommand\do[1]{\HCode{<itemref idref="\csuse{opf:entry##1}" />\Hnewline}}
+\HCode{\Hnewline<spine toc="ncx">\Hnewline}
+\expandafter\docsvlist\expandafter{\opf:htmlfiles}
+\HCode{</spine>\Hnewline}
+%Hack to get close tag working
+\HCode{</package><!--}
+%Hack!!
+\Configure{BODY}{}{\Tg</body>}
+\Configure{HTML}{}{\HCode{\Hnewline</html>\Hnewline}}%<!-- -->\Hnewline}}
+}
+\let\opftable\:tempa
