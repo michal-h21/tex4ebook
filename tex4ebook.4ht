@@ -7,7 +7,7 @@
 \:CheckOption{epub}
 \if:Option
 \TocAt-{part,chapter,section,subsection,subsubsection}
-%\Configure{crosslinks*}{}
+\Configure{crosslinks*}{}
 %\Configure{crosslinks+}{}{}{}{}
 \Configure{Picture}{.svg}
 \Configure{PicDisplay}
@@ -16,14 +16,10 @@
   {\HCode{</div>}}  {}  {class="\MathPar math-display" }
 \Configure{()}{$}{$}
 \fi
+\:CheckOption{kindle} \if:Option
+\Configure{Picture}{.png}
+\fi
 
-% \mysection is helper command for creating new files
-\NewSection\mysection{}
-\CutAt{mysection}
-\Configure{mysection}{}{}{}{}
-\Configure{section}{}{}{}{}
-%\Configure{HtmlPar}{}{}{}{}
-\Configure{+CutAt}{mysection}{}{}
 %%
 \newcount\navpoint
 \def\stepnavpoint{\advance\navpoint by1\relax\the\navpoint}
@@ -77,7 +73,7 @@
 \def\ncx:title{%
   \HCode{<docTitle>\Hnewline<text>}\Title\HCode{</text>\Hnewline</docTitle>\Hnewline}
 }
-%\:CheckOption{kindle} \if:Option
+
 \def\:tempa{%
 \HtmlParOff
 \setcounter{tocdepth}{3}
@@ -112,13 +108,8 @@
 \navsection{section}{section,subsection,subsubsection}
 \navsection{subsection}{subsection,subsubsection}
 \navsection{subsubsection}{subsubsection}
-% Maybe this is not most elegant way, how to tell tex4ht to start new file
-% mysection 
-%\Configure{CutAt-filename}{\NextFile{\jobname.ncx}} 
  \HtmlParOff
  \Configure{toTocLink}{}{}
-%\mysection{}%
-
 % Book title
 \ncx:title
 \opf:registerfilename{\jobname.html} % 
@@ -170,11 +161,6 @@
 % We need to configure TocLink
 % in navmapsrc is link to the file and anchor, where chapter or section is located
 \def\navmapsrc{}
-%\Configure{CutAt-filename}{\NextFile{content.opf}}
-%\mysection{}
-%\HCode{-->}
-%\Configure{tableofcontents}{\Tg<manifest>}{}{}{}{}{}
-%\tableofcontents
 \HCode{\Hnewline<manifest>\Hnewline}
 \HCode{<item id="ncx" href="\jobname.ncx" media-type="application/x-dtbncx+xml" />\Hnewline}
 \renewcommand\do[1]{\HCode{<item id="\csuse{opf:entry##1}" href="##1" media-type="application/xhtml+xml" />\Hnewline}}
@@ -182,15 +168,6 @@
 %\Tg<manifest>
 \special{t4ht<content.opf}
 \special{t4ht>content-part2.opf}
-%\Configure{CutAt-filename}{\NextFile{content-part2.opf}}
-%\Configure{PROLOG}{}
-%\Configure{HEAD}{\Tg<metadata>}{\Tg</metadata>}
-%\Configure{HEAD}{}{}
-%\Configure{@HEAD}{}{}
-%\Configure{TITLE}{}{}
-%\Configure{HTML}{}{}
-%\mysection{}
-%\HCode{-->\Hnewline}
 \HCode{</manifest>\Hnewline}
 \renewcommand\do[1]{\HCode{<itemref idref="\csuse{opf:entry##1}" />\Hnewline}}
 \HCode{\Hnewline<spine toc="ncx">\Hnewline}
