@@ -79,20 +79,11 @@
 \setcounter{tocdepth}{3}
 \special{t4ht>\jobname.ncx}
 % We don't want crosslinks in xml
-%\Configure{crosslinks*}{}
-%\Configure{crosslinks+}{}{}{}{}
 % Basic sctructure of the ncx file
-%\Configure{PROLOG}{VERSION,DOCTYPE,*XML-STYLESHEET}
-%\Configure{VERSION}
-      {\HCode{<?xml version="1.0"?>\Hnewline}}
-%\Configure{DOCTYPE}
+{\HCode{<?xml version="1.0"?>\Hnewline}}
 {\HCode{<!DOCTYPE ncx PUBLIC "-//NISO//DTD ncx 2005-1//EN"\Hnewline
   "http://www.daisy.org/z3986/2005/ncx-2005-1.dtd">\Hnewline}}
-%\Configure{HTML}
 {\Tg<ncx xmlns="http://www.daisy.org/z3986/2005/ncx/" version="2005-1">}{}
-%\Configure{TITLE}{}{}
-%\Configure{@HEAD}{}
-%\Configure{BODY}{\HCode{<!--}}{}
 % To print document map, we customize the tableofcontents. We don't want TOC title,
 % so:
 \let\contentsname=\empty
@@ -125,35 +116,19 @@
 
 \def\:tempa{%
 \setcounter{tocdepth}{3}
-% We don't want crosslinks in xml
-%\Configure{crosslinks*}{}
-%\Configure{crosslinks+}{}{}{}{}
-% Basic sctructure of the ncx file
-%\Configure{PROLOG}{VERSION,*XML-STYLESHEET}
-%\Configure{VERSION}
+% Basic sctructure of the opf file
 \special{t4ht>content.opf}
-      {\HCode{<?xml version="1.0"?>\Hnewline}}
-%\Configure{HTML}
-{\Tg<package xmlns="http://www.idpf.org/2007/opf" unique-identifier="dcidid" 
-   version="2.0">}{}
-%\Configure{HEAD}
+{\HCode{<?xml version="1.0"?>\Hnewline}}
+\HCode{<package xmlns="http://www.idpf.org/2007/opf" unique-identifier="dcidid" 
+   version="2.0">\Hnewline}
 {\HCode{<metadata\Hnewline xmlns:dc="http://purl.org/dc/elements/1.1/"\Hnewline  xmlns:opf="http://www.idpf.org/2007/opf">\Hnewline}}
-%\Configure{@HEAD}{}
-%\Configure{@HEAD}
 {\HCode{<dc:title>\Title</dc:title>\Hnewline}}
-%Hack: select language acording to babel
-%\Configure{@HEAD}
-{\HCode{<dc:language>en</dc:language>\Hnewline}}
+{\HCode{<dc:language>\GetLanguage</dc:language>\Hnewline}}
 %Add interface for such things
-%\Configure{@HEAD}
 {\HCode{<dc:identifier id="dcidid" opf:scheme="URI">hello_world</dc:identifier>\Hnewline}}
-%\Configure{@HEAD}
 {\HCode{<dc:contributor>\Author</dc:contributor>\Hnewline}}
-%\Configure{@HEAD}
 %{\HCode{<dc:contributor>\HP:file</dc:contributor>\Hnewline}}
 \Tg</metadata>
-%\Configure{TITLE}{}{}
-%\Configure{BODY}{\HCode{<!--}}{}
 % To print document map, we customize the tableofcontents. We don't want TOC title,
 % so:
 \let\contentsname=\empty
