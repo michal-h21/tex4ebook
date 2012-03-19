@@ -23,6 +23,7 @@ tex4ebook [switches] inputfile
   -f,--format (default epub) Output format
   -l,--lua  Runs htlualatex instead of htlatex
   -s,--shell_escape  Enable shell escape in htlatex run
+  -r,--resolution (default 167)
   -u,--utf8 
 ]]
 local args=lapp(arg_message)
@@ -88,6 +89,6 @@ else
 end
 
 print("${htlatex} ${input} \"${config}${tex4ht_sty_par}\" \"${tex4ht_par}\" \"${t4ht_par}\" \"\${latex_par}\"" % params)
-executor.run(ebookutils.remove_extension(input_file))
+executor.run(ebookutils.remove_extension(input_file),params)
 executor.clean()
 --print(args[1])

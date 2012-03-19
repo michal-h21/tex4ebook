@@ -20,7 +20,7 @@ function prepare(params)
   return(params)
 end
 
-function run(outputfile)
+function run(outputfile,params)
   --local currentdir=
   outputfile = outputfile..".epub"
   print("Output file: "..outputfile)
@@ -39,21 +39,21 @@ function run(outputfile)
   m=io.open(mimetype,"w")
   m:write("application/epub+zip")
   m:close()
+  local htlatex_run = "${htlatex} ${input} \"${config}${tex4ht_sty_par}\" \"${tex4ht_par}\" \"${t4ht_par}\" \"\${latex_par}\"" % params
+  print(os.execute(htlatex_run))
 end
 
 function writeContainer(path)
 
 end
 local function deldir(path)
-  lfs.chdir(path)
-  for entry in lfs.dir(path) do
-    print("Remove file: "..entry)
-    if entry~="." and entry~=".." then 
-      os.remove(path.."/"..entry)
-      print("Remove file: "..entry)
+    for entry in lfs.dir(path) do
+      if entry~="." and entry~=".." then  
+        os.remove(path.."/"..entry)
+      end
     end
-  end
-  lfs.rmdir(path)
+    os.remove(path)
+  --]]
 end
 
 function clean()
