@@ -93,5 +93,6 @@ end
 
 print("${htlatex} ${input} \"${config}${tex4ht_sty_par}\" \"${tex4ht_par}\" \"${t4ht_par}\" \"\${latex_par}\"" % params)
 executor.run(ebookutils.remove_extension(input_file),params)
+executor.writeContainer()
 executor.clean()
 --print(args[1])
