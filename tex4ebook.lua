@@ -54,16 +54,18 @@ if os.type=="unix" then
   env_param="$"
   copy_cmd="cp"
   move_cmd="mv"
+  t4ht_dir_format="%s/"
 else 
   env_param="%%"
   copy_cmd="copy"
   move_cmd="move"
+  t4ht_dir_format="%s"
 end
 
 
 
-print ("nazdar ${world}" % {world="svete"})
-print(args.config)
+--print ("nazdar ${world}" % {world="svete"})
+--print(args.config)
 
 tex4ht_sty_par = tex4ht_sty_par..","+args.format
 tex4ht_sty_par = tex4ht_sty_par +args[2]
@@ -78,6 +80,7 @@ local params = {
   ,tex4ht_sty_par=tex4ht_sty_par
   ,tex4ht_par=tex4ht_par
   ,t4ht_par=t4ht_par
+  ,t4ht_dir_format=t4ht_dir_format
 }  
 
 if output_formats[args.format] then

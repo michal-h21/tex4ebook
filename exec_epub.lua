@@ -19,7 +19,7 @@ function prepare(params)
   mimetype= "mimetype.tmp"--os.tmpname()
   print(outputdir)
   print(mimetype)
-  params["t4ht_par"] = params["t4ht_par"] + "-d"..outputdir.."/"
+  params["t4ht_par"] = params["t4ht_par"] + "-d"..string.format(params["t4ht_dir_format"],outputdir)
   return(params)
 end
 
@@ -43,7 +43,7 @@ function run(outputfile,params)
   m:write("application/epub+zip")
   m:close()
   local htlatex_run = "${htlatex} ${input} \"${config}${tex4ht_sty_par}\" \"${tex4ht_par}\" \"${t4ht_par}\" \"\${latex_par}\"" % params
-  print(os.execute(htlatex_run))
+  --print(os.execute(htlatex_run))
 end
 
 function writeContainer(path)
