@@ -11,12 +11,15 @@ local metadir=""
 local mimetype=""
 
 function prepare(params)
-  outputdir=os.tmpdir()
-  metadir = os.tmpdir()
+  local randname=tostring(math.random(12000))
+  outputdir= "outdir-"..randname --os.tmpdir()
+  lfs.mkdir(outputdir)
+  metadir = "metadir-"..randname
+  lfs.mkdir(metadir)
   mimetype= "mimetype.tmp"--os.tmpname()
   print(outputdir)
   print(mimetype)
-  params["t4ht_par"] = params["t4ht_par"] + "-d"..outputdir
+  params["t4ht_par"] = params["t4ht_par"] + "-d"..outputdir.."/"
   return(params)
 end
 
@@ -57,7 +60,7 @@ local function deldir(path)
 end
 
 function clean()
-  deldir(outputdir)
+  --deldir(outputdir)
   deldir(metadir)
   os.remove(mimetype)
 end
