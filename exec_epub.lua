@@ -39,6 +39,7 @@ function run(outputfilename,params)
    </rootfiles>
 </container>
   ]])
+  m:close()
   lfs.chdir("..")
   m=io.open(mimetype,"w")
   m:write("application/epub+zip")
