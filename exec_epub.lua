@@ -49,6 +49,8 @@ function run(outputfilename,params)
 end
 
 function writeContainer()
+  print("Existuje content.opf?: ")
+   if ebookutils.file_exists(outputdir.."/content.opf") then print("existuje") else print("neexistuje") end
   print(os.execute("zip -q0X "..outputfile .." mimetype"))
   print(os.execute("zip -qXr9D " .. outputfile.." "..metadir))
   print(os.execute("zip -qXr9D " .. outputfile.." "..outputdir))
