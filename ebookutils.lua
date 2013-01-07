@@ -37,13 +37,15 @@ end
 
 -- searching for converted images
 function parse_lg(filename)
+  local outputfiles,status={},nil
   if not file_exists(filename) then
     print("Cannot read log file: "..filename)
+  else
+    for line in io.lines(filename) do
+      line:gsub("==> ([%a%d%p.]*)",function(k) table.insert(outputfiles,k) end)
+    end
+    status=true
   end
-  local outputfiles={}
-  for line in io.lines(filename) do
-    line:gsub("==> ([%a%d%p.]*)",function(k) table.insert(outputfiles,k) end)
-  end
-  return outputfiles
+  return outputfiles,status
 end
 
