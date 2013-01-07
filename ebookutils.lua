@@ -26,3 +26,24 @@ function remove_extension(path)
 		return path
 	end
 end
+
+-- 
+
+function file_exists(file)
+  local f = io.open(file, "rb")
+  if f then f:close() end
+  return f ~= nil
+end
+
+-- searching for converted images
+function parse_lg(filename)
+  if not file_exists(filename) then
+    print("Cannot read log file: "..filename)
+  end
+  local outputfiles={}
+  for line in io.lines(filename) do
+    line:gsub("==> ([%a%d%p.]*)",function(k) table.insert(outputfiles,k) end)
+  end
+  return outputfiles
+end
+
