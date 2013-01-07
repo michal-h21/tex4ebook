@@ -44,7 +44,6 @@
   \usetoclevels{#1}
   \resettoclevels{#1}
 }
-
 % 1 - section type 2 - closed sections 
 \def\navsection#1#2{
   \ConfigureToc{#1}%
@@ -71,10 +70,20 @@
     \xdef\opf:htmlfiles{\opf:htmlfiles, #1}
   }
 }
-% 
+%
+\def\ncx:head{%
+\HCode{<head>\Hnewline}
+\HCode{<meta name="dtb:uid" content="\t@epub@id"/>\Hnewline}
+\HCode{<meta name="dtb:depth" content="3"/>\Hnewline}
+\HCode{<meta name="dtb:totalPageCount" content="0"/>\Hnewline}
+\HCode{<meta name="dtb:maxPageNumber" content="0"/>\Hnewline}
+\HCode{</head>\Hnewline}
+}
+
 \def\ncx:title{%
   \HCode{<docTitle>\Hnewline<text>}\Title\HCode{</text>\Hnewline</docTitle>\Hnewline}
 }
+
 
 \def\:tempa{%
 \HtmlParOff
@@ -103,6 +112,8 @@
 \navsection{subsubsection}{subsubsection}
  \HtmlParOff
  \Configure{toTocLink}{}{}
+% Meta inf
+\ncx:head
 % Book title
 \ncx:title
 \opf:registerfilename{\jobname.html} % 
@@ -120,8 +131,9 @@
 \setcounter{tocdepth}{3}
 % Basic sctructure of the opf file
 \special{t4ht>content.opf}
+\HtmlParOff
 {\HCode{<?xml version="1.0"?>\Hnewline}}
-\HCode{<package xmlns="http://www.idpf.org/2007/opf" unique-identifier="dcidid" 
+\HCode{<package xmlns="http://www.idpf.org/2007/opf" unique-identifier="\t@epub@id"
    version="2.0">\Hnewline}
 {\HCode{<metadata\Hnewline xmlns:dc="http://purl.org/dc/elements/1.1/"\Hnewline  xmlns:opf="http://www.idpf.org/2007/opf">\Hnewline}}
 {\HCode{<dc:title>\Title</dc:title>\Hnewline}}
