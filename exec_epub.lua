@@ -36,7 +36,7 @@ function run(out,params)
 <?xml version="1.0"?>
 <container version="1.0" xmlns="urn:oasis:names:tc:opendocument:xmlns:container">
    <rootfiles>
-      <rootfile full-path="content.opf"
+      <rootfile full-path="OEBPS/content.opf"
       media-type="application/oebps-package+xml"/>
    </rootfiles>
 </container>
@@ -50,11 +50,22 @@ function run(out,params)
   print(os.execute(htlatex_run))
 end
 
+local mimetypes = {
+  png = "image/png", 
+  jpg = "image/jpeg",
+  gif = "image/gif",
+  svg = "image/svg+xml"
+}
+
 local function make_opf()
+  -- Join files content.opf and content-part2.opf
+  -- make item record for every converted image
   local lg_item = function(item)
+  -- Find mimetype and make item tag for each converted file in the lg file
     local fname,ext = item:match("([%a%d%_%-]*)%p([%a%d]*)")
-    print(fname.."_"..ext)
-    return ("<item id='"..fname.."_"..ext.."' href='"..item.."' mediatype='"..ext.."' />")
+    local mimetype = mimetypes[ext] or ""
+    if mimetype == "" then print("Mimetype for "..ext.."is not registered") end
+    return ("<item id='"..fname.."_"..ext.."' href='"..item.."' media-type='"..mimetype.."' />")
   end
   local opf_first_part = outputdir .. "/content.opf" 
   local opf_second_part = outputdir .. "/content-part2.opf"
@@ -68,6 +79,14 @@ local function make_opf()
     for _,f in ipairs(ebookutils.parse_lg(outputfilename..".lg")) do
       table.insert(opf_complete,lg_item(f))
     end
+    table.insert(opf_complete,h_second:read("*all"))
+    h_first:close()
+    h_second:close()
+    h_first = io.open(opf_first_part,"w")
+    h_first:write(table.concat(opf_complete,"\n"))
+    h_first:close()
+    os.remove(opf_second_part)
+    --print(table.concat(opf_complete,"\n"))
   else
     print("Missing opf file")
   end
