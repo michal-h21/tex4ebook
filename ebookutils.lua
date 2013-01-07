@@ -42,7 +42,7 @@ function parse_lg(filename)
     print("Cannot read log file: "..filename)
   else
     for line in io.lines(filename) do
-      line:gsub("==> ([%a%d%p.]*)",function(k) table.insert(outputfiles,k) end)
+      line:gsub("==> ([%a%d%p%.%-%_]*)",function(k) table.insert(outputfiles,k) end)
     end
     status=true
   end
