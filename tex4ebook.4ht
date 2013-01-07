@@ -9,7 +9,9 @@
 \TocAt-{part,chapter,section,subsection,subsubsection}
 \Configure{crosslinks*}{}
 %\Configure{crosslinks+}{}{}{}{}
-\Configure{Picture}{.svg}
+% Support for SVG isn't ready
+%\Configure{Picture}{.svg}
+\Configure{Picture}{.png}
 \Configure{PicDisplay}
   {\edef\MathPar{\ifvmode par-\fi}\IgnorePar\endgraf\EndP
    \HCode{<div class="\MathPar math-display">}}
@@ -140,6 +142,7 @@
 \def\navmapsrc{}
 \HCode{\Hnewline<manifest>\Hnewline}
 \HCode{<item id="ncx" href="\jobname.ncx" media-type="application/x-dtbncx+xml" />\Hnewline}
+\HCode{<item id="stylesheet" href="\jobname.css" media-type="text/css"/>\Hnewline}
 \renewcommand\do[1]{\HCode{<item id="\csuse{opf:entry##1}" href="##1" media-type="application/xhtml+xml" />\Hnewline}}
 \expandafter\docsvlist\expandafter{\opf:htmlfiles}
 %\Tg<manifest>
