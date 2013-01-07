@@ -8,6 +8,7 @@ local metadir_name = "META-INF"
 local mimetype_name="mimetype"
 local outputdir=""
 local outputfile=""
+local outputfilename=""
 local metadir=""
 local mimetype=""
 
@@ -24,8 +25,9 @@ function prepare(params)
   return(params)
 end
 
-function run(outputfilename,params)
+function run(out,params)
   --local currentdir=
+  outputfilename=out
   outputfile = outputfilename..".epub"
   print("Output file: "..outputfile)
   lfs.chdir(metadir)
@@ -48,9 +50,30 @@ function run(outputfilename,params)
   print(os.execute(htlatex_run))
 end
 
+local function make_opf()
+  local lg_item = function(item)
+    local fname,ext = item:match("([%a%d%_%-]*)%p([%a%d]*)")
+    print(fname.."_"..ext)
+    return ("<item id='"..fname.."_"..ext.."' href='"..item.."' mediatype='"..ext.."' />")
+  end
+  local opf_first_part = outputdir .. "/content.opf" 
+  local opf_second_part = outputdir .. "/content-part2.opf"
+  if 
+    ebookutils.file_exists(opf_first_part) and ebookutils.file_exists(opf_second_part) 
+  then
+    local h_first  = io.open(opf_first_part,"r")
+    local h_second = io.open(opf_second_part,"r")
+    local opf_complete = {}
+    table.insert(opf_complete,h_first:read("*all"))
+    for _,f in ipairs(ebookutils.parse_lg(outputfilename..".lg")) do
+      table.insert(opf_complete,lg_item(f))
+    end
+  else
+    print("Missing opf file")
+  end
+end
 function writeContainer()
-  print("Existuje content.opf?: ")
-   if ebookutils.file_exists(outputdir.."/content.opf") then print("existuje") else print("neexistuje") end
+  make_opf()
   print(os.execute("zip -q0X "..outputfile .." mimetype"))
   print(os.execute("zip -qXr9D " .. outputfile.." "..metadir))
   print(os.execute("zip -qXr9D " .. outputfile.." "..outputdir))
