@@ -59,7 +59,8 @@ local mimetypes = {
   png = "image/png", 
   jpg = "image/jpeg",
   gif = "image/gif",
-  svg = "image/svg+xml"
+  svg = "image/svg+xml",
+  html= "application/xhtml+xml"
 }
 
 local function make_opf()
@@ -72,6 +73,13 @@ local function make_opf()
     if mimetype == "" then print("Mimetype for "..ext.."is not registered") end
     return ("<item id='"..fname.."_"..ext.."' href='"..item.."' media-type='"..mimetype.."' />")
   end
+  local find_all_html = function(s)
+    local files = {}
+    for i in s:gmatch("([%a%d%-%-]*)%.html") do
+      files[i] =  true
+    end
+    return files
+  end
   local opf_first_part = outputdir .. "/content.opf" 
   local opf_second_part = outputdir .. "/content-part2.opf"
   if 
@@ -81,6 +89,18 @@ local function make_opf()
     local h_second = io.open(opf_second_part,"r")
     local opf_complete = {}
     table.insert(opf_complete,h_first:read("*all"))
+    local used_html = find_all_html(opf_complete[1])
+    local used_files = {}
+    for f in lfs.dir("./OEBPS") do
+       table.insert(used_files,f)
+       --used_files[f] = true
+    end
+    local all_html = find_all_html(table.concat(used_files,"\n"))
+    for i,_ in pairs(all_html) do
+      if used_html[i] ~= true then
+        table.insert(opf_complete,lg_item(i..".html"))
+      end
+    end
     for _,f in ipairs(ebookutils.parse_lg(outputfilename..".lg")) do
       table.insert(opf_complete,lg_item(f))
     end

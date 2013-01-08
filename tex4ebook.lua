@@ -67,7 +67,11 @@ end
 
 if not ebookutils.file_exists("tex4ht.env") then
    local env_file = kpse.find_file("epub2.env")
-   ebookutils.copy(env_file,"tex4ht.env",function(s) return s % {move = move_cmd,copy = copy_cmd} end)
+   ebookutils.copy(env_file,"tex4ht.env",function(s) return s % {
+	   move = move_cmd,
+	   copy = copy_cmd,
+	   resolution = args.resolution
+   } end)
 end
 
 --print ("nazdar ${world}" % {world="svete"})
