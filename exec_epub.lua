@@ -10,10 +10,15 @@ local outputdir=""
 local outputfile=""
 local outputfilename=""
 local metadir=""
-local mimetype=""
+
 
 function prepare(params)
   local randname=tostring(math.random(12000))
+  -- if not ebookutils.file_exists("tex4ht.env") then
+  --  local env_file = kpse.find_file("epub2.env")
+    --print("Local env file: "..env_file)
+  --  ebookutils.copy(env_file,"tex4ht.env")
+  -- end
   outputdir= outputdir_name --"outdir-"..randname --os.tmpdir()
   lfs.mkdir(outputdir)
   metadir = metadir_name --"metadir-"..randname

@@ -49,3 +49,13 @@ function parse_lg(filename)
   return outputfiles,status
 end
 
+function copy(src,dest, filter)
+  local src_f,dst_f=io.open(src,"r"),io.open(dest,"w")
+  local contents = src_f:read("*all")
+  local filter = filter or function(s) return s end
+  dst_f:write(filter(contents))
+  src_f:close()
+  dst_f:close()
+end
+
+
