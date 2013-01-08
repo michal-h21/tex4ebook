@@ -1,8 +1,7 @@
 %\NewConfigure{ncxtable}{}
 %\usepackage{etoolbox}
 %General configuration
-\Configure{DOCTYPE}{\HCode{<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"\Hnewline 
-  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">}}
+\Configure{DOCTYPE}{\HCode{<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">}}
 
 \:CheckOption{epub}
 \if:Option
@@ -133,13 +132,13 @@
 \special{t4ht>content.opf}
 \HtmlParOff
 {\HCode{<?xml version="1.0"?>\Hnewline}}
-\HCode{<package xmlns="http://www.idpf.org/2007/opf" unique-identifier="\t@epub@id"
+\HCode{<package xmlns="http://www.idpf.org/2007/opf" unique-identifier="dcidid"
    version="2.0">\Hnewline}
 {\HCode{<metadata\Hnewline xmlns:dc="http://purl.org/dc/elements/1.1/"\Hnewline  xmlns:opf="http://www.idpf.org/2007/opf">\Hnewline}}
 {\HCode{<dc:title>\Title</dc:title>\Hnewline}}
 {\HCode{<dc:language>\GetLanguage</dc:language>\Hnewline}}
 %Add interface for such things
-{\HCode{<dc:identifier id="dcidid" opf:scheme="URI">hello_world</dc:identifier>\Hnewline}}
+{\HCode{<dc:identifier id="dcidid" opf:scheme="URI">\t@epub@id</dc:identifier>\Hnewline}}
 \def\and{</dc:contributor>\Hnewline<dc:contributor>}
 {\HCode{<dc:contributor>\Author</dc:contributor>\Hnewline}}
 
