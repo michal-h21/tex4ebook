@@ -93,9 +93,15 @@ local function make_opf()
 end
 function writeContainer()
   make_opf()
-  print(os.execute("zip -q0X "..outputfile .." mimetype"))
-  print(os.execute("zip -qXr9D " .. outputfile.." "..metadir))
-  print(os.execute("zip -qXr9D " .. outputfile.." "..outputdir))
+  print("Tidy ncx "..
+    os.execute("tidy -xml -i -q -m " .. 
+      outputdir .. "/" .. outputfilename .. ".ncx"))
+  print("Tidy opf "..
+    os.execute("tidy -xml -i -q -m " .. 
+      outputdir .. "/" .. "content.opf"))
+  print("Pack mimetype " .. os.execute("zip -q0X "..outputfile .." mimetype"))
+  print("Pack metadir "   .. os.execute("zip -qXr9D " .. outputfile.." "..metadir))
+  print("Pack outputdir " .. os.execute("zip -qXr9D " .. outputfile.." "..outputdir))
 end
 local function deldir(path)
     for entry in lfs.dir(path) do
