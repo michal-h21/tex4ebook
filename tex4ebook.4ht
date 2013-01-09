@@ -170,6 +170,7 @@
 \renewcommand\do[1]{\HCode{<itemref idref="\csuse{opf:entry##1}" />\Hnewline}}
 \HCode{\Hnewline<spine toc="ncx">\Hnewline}
 \expandafter\docsvlist\expandafter{\opf:htmlfiles}
+\HCode{\Hnewline$\string{spine\string}\Hnewline}
 \HCode{</spine>\Hnewline}
 %Hack to get close tag working
 \HCode{</package>}

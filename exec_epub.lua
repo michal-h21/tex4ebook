@@ -71,7 +71,8 @@ local function make_opf()
     local fname,ext = item:match("([%a%d%_%-]*)%p([%a%d]*)")
     local mimetype = mimetypes[ext] or ""
     if mimetype == "" then print("Mimetype for "..ext.."is not registered") end
-    return ("<item id='"..fname.."_"..ext.."' href='"..item.."' media-type='"..mimetype.."' />")
+    local id=fname.."_"..ext
+    return "<item id='"..id .. "' href='"..item.."' media-type='"..mimetype.."' />",id
   end
   local find_all_html = function(s)
     local files = {}
@@ -96,15 +97,25 @@ local function make_opf()
        --used_files[f] = true
     end
     local all_html = find_all_html(table.concat(used_files,"\n"))
+    local outside_spine = {}
     for i,_ in pairs(all_html) do
       if used_html[i] ~= true then
-        table.insert(opf_complete,lg_item(i..".html"))
+	local item, id = lg_item(i..".html") 
+        table.insert(opf_complete,item)
+	table.insert(outside_spine,id)
       end
     end
     for _,f in ipairs(ebookutils.parse_lg(outputfilename..".lg")) do
-      table.insert(opf_complete,lg_item(f))
+      local p = lg_item(f)
+      table.insert(opf_complete,p)
     end
-    table.insert(opf_complete,h_second:read("*all"))
+    local end_opf = h_second:read("*all")
+    local spine_items = {}
+    for _,i in ipairs(outside_spine) do
+      table.insert(spine_items,
+        '<itemref idref="${idref}" linear="no" />' % {idref=i})
+    end
+    table.insert(opf_complete,end_opf % {spine = table.concat(spine_items,"\n")})
     h_first:close()
     h_second:close()
     h_first = io.open(opf_first_part,"w")
