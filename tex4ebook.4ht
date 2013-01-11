@@ -82,14 +82,9 @@
 \def\ncx:title{%
   \HCode{<docTitle>\Hnewline<text>}\Title\HCode{</text>\Hnewline</docTitle>\Hnewline}
 }
-\def\ncx:hfile#1{%
-	\expandafter\ifx\csname
-	                cw:)Q\aXrefFile #1\endcsname\relax%
-	\get:hfile{#1}%
-	\else%
-	\jobname.html%
-	\fi%
-}
+
+% Get filename from tableofcontents anchor
+\def\ncx:hfile#1{\Ref{)F\Ref{)Q#1}F-}}
 
 \def\:tempa{%
 \HtmlParOff
