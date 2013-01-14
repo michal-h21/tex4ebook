@@ -58,4 +58,32 @@ function copy(src,dest, filter)
   dst_f:close()
 end
 
+-- Config loading
+local function run(untrusted_code, env)
+  if untrusted_code:byte(1) == 27 then return nil, "binary bytecode prohibited" end
+  local untrusted_function, message = loadstring(untrusted_code)
+  if not untrusted_function then return nil, message end
+  setfenv(untrusted_function, env)
+  return pcall(untrusted_function)
+end
+
+local main_settings = {}
+main_settings.fonts = {}
+local env = {}
+env.Font = function(s)
+  local font_name = s["name"]
+  if not font_name then return nil, "Cannot find font name" end
+  env.settings.fonts[font_name] = s
+end
+function load_config(settings, config_name)
+  local settings = settings or main_settings
+  env.settings = settings
+  local config_name = config_name or "config.lua"
+  local f = io.open(config_name,"r")
+  if not f then return nil, "Cannot open config file" end
+  local code = f:read("*all")
+  assert(run(code,env))
+  return settings
+end
+
 
