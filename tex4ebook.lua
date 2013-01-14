@@ -21,9 +21,10 @@ Usage:
 tex4ebook [switches] inputfile 
   -c,--config (default xhtml) Custom config file
   -f,--format (default epub) Output format
+  -i,--include-fonts  Include fonts in ebook 
   -l,--lua  Runs htlualatex instead of htlatex
-  -s,--shell_escape  Enable shell escape in htlatex run
   -r,--resolution (default 167)
+  -s,--shell-escape  Enable shell escape in htlatex run
   -u,--utf8 
 ]]
 local args=lapp(arg_message)
