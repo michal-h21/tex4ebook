@@ -12,6 +12,10 @@ Clone this repository to `tex/latex/` directory in your local `texmf tree`. It's
 
 This package depends on `tidy` and `zip` commands, both are available for linux and windows platforms.
 
+Create script named `tex4ebook` or `tex4ebook.bat` on windows. 
+It should run `texlua path/to/tex4ebook.lua` and pass all parameters there.
+Sample script can be found in file `tex4ebook`. Place this script somewhere in yout path so it can be called from the terminal.
+
 
 Usage
 -----
