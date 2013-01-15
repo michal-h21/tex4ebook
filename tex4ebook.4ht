@@ -103,7 +103,7 @@
 % We need to configure TocLink
 % in navmapsrc is link to the file and anchor, where chapter or section is located
 \def\navmapsrc{}  
-\Configure{TocLink}{\def\navmapsrc{\ncx:hfile{##2}\:sharp ##2}\opf:registerfilename{\get:hfile{##2}}##4}
+\Configure{TocLink}{\def\navmapsrc{\ncx:hfile{##2}\:sharp ##2}\opf:registerfilename{\ncx:hfile{##2}}##4}
 % Configuraion of entries
 \resettoclevels{part,chapter,section,subsection,subsubsection}
 \navsection{part}{part,chapter,section,subsection,subsubsection}
