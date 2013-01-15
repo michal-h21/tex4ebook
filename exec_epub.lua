@@ -74,9 +74,10 @@ local function make_opf()
     local id=fname.."_"..ext
     return "<item id='"..id .. "' href='"..item.."' media-type='"..mimetype.."' />",id
   end
-  local find_all_html = function(s)
+  local find_all_files= function(s,r)
+    local r = r or "([%a%d%-%-]*)%.html"
     local files = {}
-    for i in s:gmatch("([%a%d%-%-]*)%.html") do
+    for i in s:gmatch(r) do
       files[i] =  true
     end
     return files
@@ -90,14 +91,14 @@ local function make_opf()
     local h_second = io.open(opf_second_part,"r")
     local opf_complete = {}
     table.insert(opf_complete,h_first:read("*all"))
-    local used_html = find_all_html(opf_complete[1])
+    local used_html = find_all_files(opf_complete[1])
     local lg_file = ebookutils.parse_lg(outputfilename..".lg")
     local used_files = lg_file["files"]
-    for f in lfs.dir("./OEBPS") do
+    --[[for f in lfs.dir("./OEBPS") do
        --table.insert(used_files,f)
        --used_files[f] = true
-    end
-    local all_html = find_all_html(table.concat(used_files,"\n"))
+    end--]]
+    local all_html = find_all_files(table.concat(used_files,"\n"))
     local outside_spine = {}
     for i,_ in pairs(all_html) do
       if used_html[i] ~= true then
@@ -107,7 +108,12 @@ local function make_opf()
       end
     end
     for _,k in ipairs(lg_file["files"]) do
-	    print("!"..k.."!")
+      local ext = k:match("%.([%a]*)$")
+      if string.find("jpg gif png", ext) then
+        --print("!"..k.."!"..ext)
+	local item = lg_item(k) 
+	table.insert(opf_complete,item)
+      end
     end
     for _,f in ipairs(lg_file["images"]) do
       local p = lg_item(f)
