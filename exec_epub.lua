@@ -91,9 +91,10 @@ local function make_opf()
     local opf_complete = {}
     table.insert(opf_complete,h_first:read("*all"))
     local used_html = find_all_html(opf_complete[1])
-    local used_files = {}
+    local lg_file = ebookutils.parse_lg(outputfilename..".lg")
+    local used_files = lg_file["files"]
     for f in lfs.dir("./OEBPS") do
-       table.insert(used_files,f)
+       --table.insert(used_files,f)
        --used_files[f] = true
     end
     local all_html = find_all_html(table.concat(used_files,"\n"))
@@ -105,7 +106,10 @@ local function make_opf()
 	table.insert(outside_spine,id)
       end
     end
-    for _,f in ipairs(ebookutils.parse_lg(outputfilename..".lg")) do
+    for _,k in ipairs(lg_file["files"]) do
+	    print("!"..k.."!")
+    end
+    for _,f in ipairs(lg_file["images"]) do
       local p = lg_item(f)
       table.insert(opf_complete,p)
     end
