@@ -20,6 +20,10 @@ Sample script can be found in file `tex4ebook`. Place this script somewhere in y
 Usage
 -----
 
+Add to your source file preamble:
+
+    \usepackage{tex4ebook}
+
 Run on the command line:
 
     tex4ebook [options] filename
