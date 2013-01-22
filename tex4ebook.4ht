@@ -3,6 +3,9 @@
 %General configuration
 \Configure{DOCTYPE}{\HCode{<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">}}
 
+
+%Get sanitized value of \title
+\def\Title{\Ref{TITLE+}}
 \:CheckOption{epub}
 \if:Option
 \TocAt-{part,chapter,section,subsection,subsubsection}
@@ -87,6 +90,7 @@
 \def\ncx:hfile#1{\Ref{)F\Ref{)Q#1}F-}}
 
 \def\:tempa{%
+\EndP
 \HtmlParOff
 \setcounter{tocdepth}{3}
 \special{t4ht>\jobname.ncx}
@@ -129,6 +133,7 @@
 %\fi
 
 \def\:tempa{%
+\bgroup
 \setcounter{tocdepth}{3}
 % Basic sctructure of the opf file
 \special{t4ht>content.opf}
@@ -143,7 +148,6 @@
 {\HCode{<dc:identifier id="dcidid" opf:scheme="URI">\t@epub@id</dc:identifier>\Hnewline}}
 \def\and{</dc:contributor>\Hnewline<dc:contributor>}
 {\HCode{<dc:contributor>\Author</dc:contributor>\Hnewline}}
-
 %{\HCode{<dc:contributor>\HP:file</dc:contributor>\Hnewline}}
 \Tg</metadata>
 % To print document map, we customize the tableofcontents. We don't want TOC title,
@@ -171,6 +175,7 @@
 \HCode{</package>}
 \special{t4ht<content-part2.opf}
 \HtmlParOn
+\egroup
 %Hack!!
 %\Configure{BODY}{}{\Tg</body>}
 %\Configure{HTML}{}{\HCode{\Hnewline</html>\Hnewline}}%<!-- -->\Hnewline}}
