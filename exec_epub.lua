@@ -108,7 +108,7 @@ local function make_opf()
       end
     end
     for _,k in ipairs(lg_file["files"]) do
-      local ext = k:match("%.([%a]*)$")
+      local ext = k:match("%.([%a%d]*)$")
       if string.find("jpg gif png", ext) then
         --print("!"..k.."!"..ext)
 	local item = lg_item(k) 
