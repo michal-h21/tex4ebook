@@ -3,7 +3,8 @@
 %General configuration
 \Configure{DOCTYPE}{\HCode{<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">}}
 
-
+\NewConfigure{EpubVersion}{1}
+\Configure{EpubVersion}{2.0}
 %Get sanitized value of \title
 \def\Title{\Ref{TITLE+}}
 \:CheckOption{epub}
@@ -140,7 +141,7 @@
 \HtmlParOff
 {\HCode{<?xml version="1.0"?>\Hnewline}}
 \HCode{<package xmlns="http://www.idpf.org/2007/opf" unique-identifier="dcidid"
-   version="2.0">\Hnewline}
+   version="\a:EpubVersion">\Hnewline}
 {\HCode{<metadata\Hnewline xmlns:dc="http://purl.org/dc/elements/1.1/"\Hnewline  xmlns:opf="http://www.idpf.org/2007/opf">\Hnewline}}
 {\HCode{<dc:title>\Title</dc:title>\Hnewline}}
 {\HCode{<dc:language>\GetLanguage</dc:language>\Hnewline}}
@@ -195,4 +196,5 @@
 \Configure{@HEAD}{\HCode{<link
  rel="stylesheet" type="text/css"
  href="\expandafter\csname aa:CssFile\endcsname" />\Hnewline}}
+\Configure{EpubVersion}{3.0}
 \fi

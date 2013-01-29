@@ -6,9 +6,9 @@ require("ebookutils")
 local outputdir_name="OEBPS"
 local metadir_name = "META-INF"
 local mimetype_name="mimetype"
-local outputdir=""
-local outputfile=""
-local outputfilename=""
+outputdir=""
+outputfile=""
+outputfilename=""
 local metadir=""
 
 
