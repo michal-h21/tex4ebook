@@ -13,14 +13,14 @@ local tex4ht_sty_par=""
 local tex4ht_par=""
 local t4ht_par=""
 local latex_par=""
-local output_formats={epub=true,mobi=true}
+local output_formats={epub=true,mobi=true,epub3=true}
 local executor=nil
 local arg_message = [[
 tex4ebook - ebook generation support for LaTeX
 Usage:
 tex4ebook [switches] inputfile 
   -c,--config (default xhtml) Custom config file
-  -f,--format (default epub) Output format
+  -f,--format (default epub) Output format. Supported values: epub, epub3, mobi
   -i,--include-fonts  Include fonts in ebook 
   -l,--lua  Runs htlualatex instead of htlatex
   -r,--resolution (default 167)
