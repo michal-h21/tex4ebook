@@ -181,3 +181,18 @@
 %\Configure{HTML}{}{\HCode{\Hnewline</html>\Hnewline}}%<!-- -->\Hnewline}}
 }
 \let\opftable\:tempa
+
+\:CheckOption{epub3}
+\if:Option
+%\typeout{!!!!!!!!!!!!!!!!!!!!!!!!!!!epub3!!!!!!!!!!!!}
+\Configure{VERSION}{}
+\Configure{DOCTYPE}{\HCode{<!DOCTYPE html>\Hnewline}}
+\Configure{HTML}{\HCode{<html>\Hnewline}}{\HCode{\Hnewline</html>}}
+\Configure{@HEAD}{}
+\Configure{@HEAD}{\HCode{<meta charset="UTF-8" />\Hnewline}}
+\Configure{@HEAD}{\HCode{<meta name="generator" content="TeX4ht
+		(http://www.cse.ohio-state.edu/\string~gurari/TeX4ht/)" />\Hnewline}}
+\Configure{@HEAD}{\HCode{<link
+ rel="stylesheet" type="text/css"
+ href="\expandafter\csname aa:CssFile\endcsname" />\Hnewline}}
+\fi
