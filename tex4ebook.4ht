@@ -5,6 +5,16 @@
 
 \NewConfigure{EpubVersion}{1}
 \Configure{EpubVersion}{2.0}
+
+\edef\t4ht:xmlns{}
+\NewConfigure{xmlns}[2]{%
+  \ifx\relax#2\relax%
+    \edef\t4ht:xmlns{}%
+  \else%
+    %\def\:prefix:xmlns{\ifx\relax#1\relax\else:#1\fi}
+    \edef\t4ht:xmlns{\t4ht:xmlns xmlns\ifx\relax#1\relax\else :#1\fi="#2"}%
+  \fi%
+}
 %Get sanitized value of \title
 \def\Title{\Ref{TITLE+}}
 \:CheckOption{epub}
@@ -187,8 +197,12 @@
 \if:Option
 %\typeout{!!!!!!!!!!!!!!!!!!!!!!!!!!!epub3!!!!!!!!!!!!}
 \Configure{VERSION}{}
+
 \Configure{DOCTYPE}{\HCode{<!DOCTYPE html>\Hnewline}}
-\Configure{HTML}{\HCode{<html>\Hnewline}}{\HCode{\Hnewline</html>}}
+\Configure{xmlns}{}{http://www.w3.org/1999/xhtml}
+\Configure{xmlns}{epub}{http://www.idpf.org/2007/ops}
+\Configure{xmlns}{m}{http://www.w3.org/1998/Math/MathML}
+\Configure{HTML}{\HCode{<html\t4ht:xmlns>\Hnewline}}{\HCode{\Hnewline</html>}}
 \Configure{@HEAD}{}
 \Configure{@HEAD}{\HCode{<meta charset="UTF-8" />\Hnewline}}
 \Configure{@HEAD}{\HCode{<meta name="generator" content="TeX4ht
