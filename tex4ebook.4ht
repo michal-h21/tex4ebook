@@ -6,6 +6,12 @@
 \NewConfigure{EpubVersion}{1}
 \Configure{EpubVersion}{2.0}
 
+\NewConfigure{UniqueIdentifier}{1}
+\Configure{UniqueIdentifier}{dcidd}
+
+\NewConfigure{OpfScheme}{1}
+\Configure{OpfScheme}{ opf:scheme="URI"}
+%Interface for setting xmlns
 \edef\t4ht:xmlns{}
 \NewConfigure{xmlns}[2]{%
   \ifx\relax#2\relax%
@@ -18,6 +24,10 @@
 
 \TocAt-{part,chapter,section,subsection,subsubsection}
 \Configure{crosslinks*}{}
+
+\NewConfigure{NcxDoctype}{1}
+\Configure{NcxDoctype}{\HCode{<!DOCTYPE ncx PUBLIC "-//NISO//DTD ncx 2005-1//EN"\Hnewline
+  "http://www.daisy.org/z3986/2005/ncx-2005-1.dtd">\Hnewline}}
 
 %Get sanitized value of \title
 \def\Title{\Ref{TITLE+}}
@@ -88,7 +98,7 @@
 %
 \def\ncx:head{%
 \HCode{<head>\Hnewline}
-\HCode{<meta name="dtb:uid" content="\t@epub@id"/>\Hnewline}
+\HCode{<meta name="dtb:uid" content="\a:UniqueIdentifier"/>\Hnewline}
 \HCode{<meta name="dtb:depth" content="3"/>\Hnewline}
 \HCode{<meta name="dtb:totalPageCount" content="0"/>\Hnewline}
 \HCode{<meta name="dtb:maxPageNumber" content="0"/>\Hnewline}
@@ -110,8 +120,7 @@
 % We don't want crosslinks in xml
 % Basic sctructure of the ncx file
 {\HCode{<?xml version="1.0"?>\Hnewline}}
-{\HCode{<!DOCTYPE ncx PUBLIC "-//NISO//DTD ncx 2005-1//EN"\Hnewline
-  "http://www.daisy.org/z3986/2005/ncx-2005-1.dtd">\Hnewline}}
+{\a:NcxDoctype}
 {\Tg<ncx xmlns="http://www.daisy.org/z3986/2005/ncx/" version="2005-1">}{}
 % To print document map, we customize the tableofcontents. We don't want TOC title,
 % so:
@@ -158,7 +167,7 @@
 {\HCode{<dc:title>\Title</dc:title>\Hnewline}}
 {\HCode{<dc:language>\GetLanguage</dc:language>\Hnewline}}
 %Add interface for such things
-{\HCode{<dc:identifier id="dcidid" opf:scheme="URI">\t@epub@id</dc:identifier>\Hnewline}}
+{\HCode{<dc:identifier id="dcidid" \a:OpfScheme>\a:UniqueIdentifier</dc:identifier>\Hnewline}}
 \def\and{</dc:contributor>\Hnewline<dc:contributor>}
 {\HCode{<dc:contributor>\Author</dc:contributor>\Hnewline}}
 %{\HCode{<dc:contributor>\HP:file</dc:contributor>\Hnewline}}
@@ -198,7 +207,10 @@
 \:CheckOption{epub3}
 \if:Option
 %\typeout{!!!!!!!!!!!!!!!!!!!!!!!!!!!epub3!!!!!!!!!!!!}
+\Configure{NcxDoctype}{}
 \Configure{VERSION}{}
+
+\Configure{OpfScheme}{}
 
 \Configure{DOCTYPE}{\HCode{<!DOCTYPE html>\Hnewline}}
 \Configure{xmlns}{}{http://www.w3.org/1999/xhtml}
