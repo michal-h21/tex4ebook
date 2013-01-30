@@ -15,12 +15,14 @@
     \edef\t4ht:xmlns{\t4ht:xmlns xmlns\ifx\relax#1\relax\else :#1\fi="#2"}%
   \fi%
 }
+
+\TocAt-{part,chapter,section,subsection,subsubsection}
+\Configure{crosslinks*}{}
+
 %Get sanitized value of \title
 \def\Title{\Ref{TITLE+}}
 \:CheckOption{epub}
 \if:Option
-\TocAt-{part,chapter,section,subsection,subsubsection}
-\Configure{crosslinks*}{}
 %\Configure{crosslinks+}{}{}{}{}
 % Support for SVG isn't ready
 %\Configure{Picture}{.svg}
@@ -200,8 +202,8 @@
 
 \Configure{DOCTYPE}{\HCode{<!DOCTYPE html>\Hnewline}}
 \Configure{xmlns}{}{http://www.w3.org/1999/xhtml}
-\Configure{xmlns}{epub}{http://www.idpf.org/2007/ops}
-\Configure{xmlns}{m}{http://www.w3.org/1998/Math/MathML}
+%\Configure{xmlns}{epub}{http://www.idpf.org/2007/ops}
+%\Configure{xmlns}{m}{http://www.w3.org/1998/Math/MathML}
 \Configure{HTML}{\HCode{<html\t4ht:xmlns>\Hnewline}}{\HCode{\Hnewline</html>}}
 \Configure{@HEAD}{}
 \Configure{@HEAD}{\HCode{<meta charset="UTF-8" />\Hnewline}}
