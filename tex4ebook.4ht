@@ -4,14 +4,14 @@
   \ifnum #1<10 0\fi 
     #1%    Then output the argument
 }% --- \zeroPadTwo ---
-
+\def\time:round:corr{\ifnum\the\numexpr\the\time-\the\time/60*60\relax<0 1\else 0\fi}
 \def\:iso:date{%
 	\the\year-%
 	\:zeropadtwo{\the\month}-%
 	\:zeropadtwo{\the\day}% 
 	%Timestamp will be zero seconds
-	T\:zeropadtwo{\the\numexpr(\the\time/60)-1\relax}:%
-	\:zeropadtwo{\the\numexpr\the\time-((\the\time/60)-1)*60\relax}:%
+	T\:zeropadtwo{\the\numexpr(\the\time/60)-\time:round:corr\relax}:%
+	\:zeropadtwo{\the\numexpr\the\time-((\the\time/60)-\time:round:corr)*60\relax}:%
 	00Z}
 %General configuration
 \Configure{DOCTYPE}{\HCode{<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">}}
@@ -34,6 +34,16 @@
   \fi
 }
 \Configure{OpfMetadata}{}
+
+\NewConfigure{OpfManifest}[1]{%
+  \ifx\relax#1\relax%
+    \edef\a:OpfManifest{}
+  \else
+    \edef\a:OpfManifest{\a:OpfManifest\HCode{\Hnewline}#1}
+  \fi
+}
+\Configure{OpfManifest}{}
+
 
 %Interface for setting xmlns
 \edef\t4ht:xmlns{}
@@ -115,6 +125,7 @@
 \def\opf:registerfilename#1{%
   \ifcsdef{opf:entry#1}{}{%
     \global\advance\opf:htmlid by1\relax
+    %\ifcsdef{opf:entry#1}{}{\csxdef{opf:entry#1}{Neni opf}}
     \csxdef{opf:entry#1}{file\the\opf:htmlid}
     \xdef\opf:htmlfiles{\opf:htmlfiles, #1}
   }
@@ -208,8 +219,9 @@
 \HCode{\Hnewline<manifest>\Hnewline}
 \HCode{<item id="ncx" href="\jobname.ncx" media-type="application/x-dtbncx+xml" />\Hnewline}
 \HCode{<item id="stylesheet" href="\jobname.css" media-type="text/css"/>\Hnewline}
-\renewcommand\do[1]{\HCode{<item id="\csuse{opf:entry##1}" href="##1" media-type="application/xhtml+xml" />\Hnewline}}
+\renewcommand\do[1]{\HCode{<item id="\csuse{opf:entry##1}" \opf:properties{#1}	href="##1" media-type="application/xhtml+xml" />\Hnewline}}
 \expandafter\docsvlist\expandafter{\opf:htmlfiles}
+\a:OpfManifest
 %\Tg<manifest>
 \special{t4ht<content.opf}
 \special{t4ht>content-part2.opf}
@@ -238,10 +250,15 @@
 
 \Configure{OpfScheme}{}
 \Configure{OpfMetadata}{\HCode{<meta property="dcterms:modified">}\:iso:date\HCode{</meta>}}
-%\Configure{tableofcontents}{\HCode{<nav id="toc" epub:type="toc">\Hnewline}}{\HCode{</nav>}}{}{}{}
+\Configure{tableofcontents}{\HCode{<nav id="toc" epub:type="toc">\Hnewline}%
+%\gdef\toc:file{\FileName}%
+%\toc:file
+\csxdef{opf:entry\FileName}{opf:entry\FileName" property="nav}
+%\Configure{OpfManifest}{\HCode{<item id="toc" properties="nav" href="}\toc:file\HCode{" media-type="application/xhtml+xml" />}}
+}{\HCode{</nav>}}{}{}{}
 \Configure{DOCTYPE}{\HCode{<!DOCTYPE html>\Hnewline}}
 \Configure{xmlns}{}{http://www.w3.org/1999/xhtml}
-%\Configure{xmlns}{epub}{http://www.idpf.org/2007/ops}
+\Configure{xmlns}{epub}{http://www.idpf.org/2007/ops}
 %\Configure{xmlns}{m}{http://www.w3.org/1998/Math/MathML}
 \Configure{HTML}{\HCode{<html\t4ht:xmlns>\Hnewline}}{\HCode{\Hnewline</html>}}
 \Configure{@HEAD}{}
