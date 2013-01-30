@@ -44,6 +44,16 @@
 }
 \Configure{OpfManifest}{}
 
+\NewConfigure{OpfItemProperties}{2}
+\Configure{OpfItemProperties}{}{}
+\def\opf:properties#1{%
+\ifcsdef{opf:properties:#1}{
+\a:OpfItemProperties\csuse{opf:properties:#1}\b:OpfItemProperties%
+}{}%
+}
+\def\opf:add:property#1{%
+\csgdef{opf:properties:\FileName}{#1}
+}
 
 %Interface for setting xmlns
 \edef\t4ht:xmlns{}
@@ -219,7 +229,7 @@
 \HCode{\Hnewline<manifest>\Hnewline}
 \HCode{<item id="ncx" href="\jobname.ncx" media-type="application/x-dtbncx+xml" />\Hnewline}
 \HCode{<item id="stylesheet" href="\jobname.css" media-type="text/css"/>\Hnewline}
-\renewcommand\do[1]{\HCode{<item id="\csuse{opf:entry##1}" \opf:properties{#1}	href="##1" media-type="application/xhtml+xml" />\Hnewline}}
+\renewcommand\do[1]{\HCode{<item id="\csuse{opf:entry##1}" \opf:properties{##1}	href="##1" media-type="application/xhtml+xml" />\Hnewline}}
 \expandafter\docsvlist\expandafter{\opf:htmlfiles}
 \a:OpfManifest
 %\Tg<manifest>
@@ -253,7 +263,8 @@
 \Configure{tableofcontents}{\HCode{<nav id="toc" epub:type="toc">\Hnewline}%
 %\gdef\toc:file{\FileName}%
 %\toc:file
-\csxdef{opf:entry\FileName}{opf:entry\FileName" property="nav}
+\opf:add:property{nav}
+%\csxdef{opf:entry\FileName}{opf:entry\FileName" property="nav}
 %\Configure{OpfManifest}{\HCode{<item id="toc" properties="nav" href="}\toc:file\HCode{" media-type="application/xhtml+xml" />}}
 }{\HCode{</nav>}}{}{}{}
 \Configure{DOCTYPE}{\HCode{<!DOCTYPE html>\Hnewline}}
@@ -269,4 +280,5 @@
  rel="stylesheet" type="text/css"
  href="\expandafter\csname aa:CssFile\endcsname" />\Hnewline}}
 \Configure{EpubVersion}{3.0}
+\Configure{OpfItemProperties}{properties="}{"}
 \fi
