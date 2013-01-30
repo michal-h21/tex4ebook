@@ -1,5 +1,18 @@
 %\NewConfigure{ncxtable}{}
-%\usepackage{etoolbox}
+%Configure date meta info
+\def\:zeropadtwo#1{%
+  \ifnum #1<10 0\fi 
+    #1%    Then output the argument
+}% --- \zeroPadTwo ---
+
+\def\:iso:date{%
+	\the\year-%
+	\:zeropadtwo{\the\month}-%
+	\:zeropadtwo{\the\day}% 
+	%Timestamp will be zero seconds
+	T\:zeropadtwo{\the\numexpr\the\time/60\relax}:%
+	\:zeropadtwo{\the\numexpr\the\time-(\the\time/60)*60\relax}:%
+	00Z}
 %General configuration
 \Configure{DOCTYPE}{\HCode{<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">}}
 
@@ -9,8 +22,19 @@
 \NewConfigure{UniqueIdentifier}{1}
 \Configure{UniqueIdentifier}{dcidd}
 
+
 \NewConfigure{OpfScheme}{1}
 \Configure{OpfScheme}{ opf:scheme="URI"}
+
+\NewConfigure{OpfMetadata}[1]{
+  \ifx\relax#1\relax%
+    \edef\a:OpfMetadata{}
+  \else
+    \edef\a:OpfMetadata{\a:OpfMetadata\HCode{\Hnewline}#1}
+  \fi
+}
+\Configure{OpfMetadata}{}
+
 %Interface for setting xmlns
 \edef\t4ht:xmlns{}
 \NewConfigure{xmlns}[2]{%
@@ -171,7 +195,8 @@
 \def\and{</dc:creator>\Hnewline<dc:creator>}
 {\HCode{<dc:creator>\Author</dc:creator>\Hnewline}}
 %{\HCode{<dc:contributor>\HP:file</dc:contributor>\Hnewline}}
-%{\HCode{<dc}}
+{\HCode{<dc:date>}\:iso:date\HCode{</dc:date>}}
+\a:OpfMetadata
 \Tg</metadata>
 % To print document map, we customize the tableofcontents. We don't want TOC title,
 % so:
@@ -212,7 +237,7 @@
 \Configure{VERSION}{}
 
 \Configure{OpfScheme}{}
-
+\Configure{OpfMetadata}{\HCode{<meta property="dcterms:modified">}\:iso:date\HCode{</meta>}}
 \Configure{DOCTYPE}{\HCode{<!DOCTYPE html>\Hnewline}}
 \Configure{xmlns}{}{http://www.w3.org/1999/xhtml}
 %\Configure{xmlns}{epub}{http://www.idpf.org/2007/ops}
