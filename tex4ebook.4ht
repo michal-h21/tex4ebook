@@ -10,8 +10,8 @@
 	\:zeropadtwo{\the\month}-%
 	\:zeropadtwo{\the\day}% 
 	%Timestamp will be zero seconds
-	T\:zeropadtwo{\the\numexpr\the\time/60\relax}:%
-	\:zeropadtwo{\the\numexpr\the\time-(\the\time/60)*60\relax}:%
+	T\:zeropadtwo{\the\numexpr(\the\time/60)-1\relax}:%
+	\:zeropadtwo{\the\numexpr\the\time-((\the\time/60)-1)*60\relax}:%
 	00Z}
 %General configuration
 \Configure{DOCTYPE}{\HCode{<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">}}
@@ -238,6 +238,7 @@
 
 \Configure{OpfScheme}{}
 \Configure{OpfMetadata}{\HCode{<meta property="dcterms:modified">}\:iso:date\HCode{</meta>}}
+%\Configure{tableofcontents}{\HCode{<nav id="toc" epub:type="toc">\Hnewline}}{\HCode{</nav>}}{}{}{}
 \Configure{DOCTYPE}{\HCode{<!DOCTYPE html>\Hnewline}}
 \Configure{xmlns}{}{http://www.w3.org/1999/xhtml}
 %\Configure{xmlns}{epub}{http://www.idpf.org/2007/ops}
