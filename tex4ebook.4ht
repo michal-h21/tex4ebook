@@ -1,4 +1,5 @@
 %\NewConfigure{ncxtable}{}
+
 %Configure date meta info
 \def\:zeropadtwo#1{%
   \ifnum #1<10 0\fi 
@@ -13,6 +14,7 @@
 	T\:zeropadtwo{\the\numexpr(\the\time/60)-\time:round:corr\relax}:%
 	\:zeropadtwo{\the\numexpr\the\time-((\the\time/60)-\time:round:corr)*60\relax}:%
 	00Z}
+
 %General configuration
 \Configure{DOCTYPE}{\HCode{<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">}}
 
@@ -44,6 +46,8 @@
 }
 \Configure{OpfManifest}{}
 
+% This is for add properties like toc or cover image in opf manifest
+% Property must be added from document usinf \opf:add:property, current output filename is used
 \NewConfigure{OpfItemProperties}{2}
 \Configure{OpfItemProperties}{}{}
 \def\opf:properties#1{%
@@ -55,6 +59,8 @@
 \csgdef{opf:properties:\FileName}{#1}
 }
 
+\NewConfigure{NavMap}{2}
+\NewConfigure{NavSection}{4}
 %Interface for setting xmlns
 \edef\t4ht:xmlns{}
 \NewConfigure{xmlns}[2]{%
@@ -107,9 +113,9 @@
   \docsvlist{#1}%
 }
 \def\finishtoclevel#1{%
-  \csgdef{nav#1finish}{\HCode{</navPoint>\Hnewline}}
+  \csgdef{nav#1finish}{\d:NavSection}
 }
-\def\closelevels#1{%
+\def\closelevels#1{
   \usetoclevels{#1}
   \resettoclevels{#1}
 }
@@ -117,16 +123,11 @@
 \def\navsection#1#2{
   \ConfigureToc{#1}%
   {\closelevels{#2}%
-  \HCode{\Hnewline<navPoint id="navPoint-}%
-  \stepnavpoint\HCode{" playOrder="}%
-  \the\navpoint\HCode{">\Hnewline<navLabel>\Hnewline<text>}%
-  }
-  { }
+  \a:NavSection}
+  {\c:NavSection}
   {}
-  {\HCode{</text>\Hnewline
-    </navLabel>\Hnewline}
-    \HCode{<content src="\navmapsrc" />}%
-    \finishtoclevel{#1}
+  {\b:NavSection%
+    \finishtoclevel{#1}%
   }
 }
 % 
@@ -184,6 +185,13 @@
 \navsection{subsubsection}{subsubsection}
  \HtmlParOff
  \Configure{toTocLink}{}{}
+ \Configure{NavSection}{\HCode{\Hnewline<navPoint id="navPoint-}%
+  \stepnavpoint\HCode{" playOrder="}%
+  \the\navpoint\HCode{">\Hnewline<navLabel>\Hnewline<text>}%
+}{\HCode{</text>\Hnewline%
+  </navLabel>\Hnewline}%
+ \HCode{<content src="\navmapsrc" />}%
+}{ }{\HCode{</navPoint>\Hnewline}}
 % Meta inf
 \ncx:head
 % Book title
@@ -260,13 +268,21 @@
 
 \Configure{OpfScheme}{}
 \Configure{OpfMetadata}{\HCode{<meta property="dcterms:modified">}\:iso:date\HCode{</meta>}}
-\Configure{tableofcontents}{\HCode{<nav id="toc" epub:type="toc">\Hnewline}%
-%\gdef\toc:file{\FileName}%
-%\toc:file
+\Configure{tableofcontents}{
+  \a:NavMap
+  \resettoclevels{part,chapter,section,subsection,subsubsection}
+  \navsection{part}{part,chapter,section,subsection,subsubsection}
+  \navsection{chapter}{chapter,section,subsection,subsubsection}
+  \navsection{section}{section,subsection,subsubsection}
+  \navsection{subsection}{subsection,subsubsection}
+  \navsection{subsubsection}{subsubsection}
+   \HtmlParOff
+    \Configure{toTocLink}{}{}   
+}{\b:NavMap}{}{}{}
+\Configure{NavMap}{\HCode{<nav id="toc" epub:type="toc">\Hnewline<ol>}%
 \opf:add:property{nav}
-%\csxdef{opf:entry\FileName}{opf:entry\FileName" property="nav}
-%\Configure{OpfManifest}{\HCode{<item id="toc" properties="nav" href="}\toc:file\HCode{" media-type="application/xhtml+xml" />}}
-}{\HCode{</nav>}}{}{}{}
+}{\usetoclevels{part,chapter,section,subsection,subsubsection}\HCode{</ol></nav>}}
+\Configure{NavSection}{\HCode{<li><span>}}{\HCode{</li></ol></li>\Hnewline}}{\HCode{</span><ol><li>}}{}
 \Configure{DOCTYPE}{\HCode{<!DOCTYPE html>\Hnewline}}
 \Configure{xmlns}{}{http://www.w3.org/1999/xhtml}
 \Configure{xmlns}{epub}{http://www.idpf.org/2007/ops}
