@@ -56,9 +56,13 @@
 }{}%
 }
 \def\opf:add:property#1{%
-\csgdef{opf:properties:\FileName}{#1}
+\ifcsdef{opf:properties:\FileName}{%
+\csxdef{opf:properties:\FileName}{\csuse{opf:properties:\FileName}\ #1}
+}{\csgdef{opf:properties:\FileName}{#1}}
 }
 
+%Set property only once
+\def\opf:set:property#1{}
 \NewConfigure{NavMap}{2}
 \NewConfigure{NavSection}{4}
 %Interface for setting xmlns
@@ -268,6 +272,10 @@
 
 \Configure{OpfScheme}{}
 \Configure{OpfMetadata}{\HCode{<meta property="dcterms:modified">}\:iso:date\HCode{</meta>}}
+
+%%%%%%%%%%%%%%%%%%%%%%%
+%% Configure toc nav %%
+%%%%%%%%%%%%%%%%%%%%%%%
 \Configure{tableofcontents}{
   \a:NavMap
   \resettoclevels{part,chapter,section,subsection,subsubsection}
@@ -279,10 +287,19 @@
    \HtmlParOff
     \Configure{toTocLink}{}{}   
 }{\b:NavMap}{}{}{}
+%%%%%%%%%%%
 \Configure{NavMap}{\HCode{<nav id="toc" epub:type="toc">\Hnewline<ol>}%
 \opf:add:property{nav}
 }{\usetoclevels{part,chapter,section,subsection,subsubsection}\HCode{</ol></nav>}}
+%%%%%%%%%%%
 \Configure{NavSection}{\HCode{<li><span>}}{\HCode{</li></ol></li>\Hnewline}}{\HCode{</span><ol><li>}}{}
+%%%% End toc nav configuration
+
+%\:CheckOption{mathml}
+%\if:Option
+\apptocmd{\a:DviMath}{\opf:add:property{mathml}}{}{}
+
+%\fi
 \Configure{DOCTYPE}{\HCode{<!DOCTYPE html>\Hnewline}}
 \Configure{xmlns}{}{http://www.w3.org/1999/xhtml}
 \Configure{xmlns}{epub}{http://www.idpf.org/2007/ops}
