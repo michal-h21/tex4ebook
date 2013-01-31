@@ -58,7 +58,7 @@
 \def\opf:add:property#1{%
 \ifcsdef{opf:properties:\FileName}{%
 \csxdef{opf:properties:\FileName}{\csuse{opf:properties:\FileName}\ #1}
-}{\csgdef{opf:properties:\FileName}{#1}}
+}{\csxdef{opf:properties:\FileName}{#1}}
 }
 
 %Set property only once
