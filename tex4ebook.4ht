@@ -293,7 +293,7 @@
 \opf:add:property{nav}
 }{\usetoclevels{part,chapter,section,subsection,subsubsection}\HCode{</ol></nav>}}
 %%%%%%%%%%%
-\Configure{NavSection}{\HCode{<li>}\setbox0=\hbox\bgroup}{\HCode{</li>\Hnewline}}{\egroup}{}
+\Configure{NavSection}{\HCode{<li>}\setbox0=\hbox\bgroup}{\HCode{<ol>\Hnewline}}{\egroup}{\Tg</ol>\Tg</li>}
 %%%% End toc nav configuration
 
 %\:CheckOption{mathml}
