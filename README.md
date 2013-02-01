@@ -53,7 +53,7 @@ This config file will create `xhtml` file for every section. For bigger document
   
 *-f,--format* (default epub) 
 
-Output format. Currently, only `epub` is supported
+Output format. epub, epub3 and mobi are supported.
 
 *-i,--include-fonts*  
 
@@ -74,3 +74,19 @@ Enable shell escape in htlatex run. This may be needed if you run external comma
 *-u,--utf8* 
 
 If your sources are in utf8 encoding, you must use this option.
+
+Troubleshooting
+---------------
+
+After document compilation use command line tool epubcheck to find if your document contains any error.
+
+Type 
+ 
+    epubcheck filename.epub
+
+### Common issues:
+
+    WARNING: filename.epub: item (OEBPS/foo.boo) exists in the zip file, but is not declared in the OPF file
+
+Delete all files in `OEBPS` folder and `filename.epub`. Then run `tex4ebook` again.
+
