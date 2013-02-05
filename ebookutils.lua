@@ -42,9 +42,15 @@ function parse_lg(filename)
   if not file_exists(filename) then
     print("Cannot read log file: "..filename)
   else
+    local usedfiles={}
     for line in io.lines(filename) do
       line:gsub("==> ([%a%d%p%.%-%_]*)",function(k) table.insert(outputimages,k)end)
-      line:gsub("File: (.*)",  function(k) table.insert(outputfiles,k) end)
+      line:gsub("File: (.*)",  function(k) 
+	 if not usedfiles[k] then
+	   table.insert(outputfiles,k)
+	   usedfiles[k] = true
+         end
+      end)
     end
     status=true
   end
