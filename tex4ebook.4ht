@@ -85,7 +85,7 @@
   "http://www.daisy.org/z3986/2005/ncx-2005-1.dtd">\Hnewline}}
 
 %Get sanitized value of \title
-\def\Title{\Ref{TITLE+}}
+%\def\Title{\Ref{TITLE+}}
 \:CheckOption{epub}
 \if:Option
 %\Configure{crosslinks+}{}{}{}{}
@@ -170,13 +170,14 @@
 \special{t4ht>\jobname.ncx}
 % We don't want crosslinks in xml
 % Basic sctructure of the ncx file
+\NoFonts
 {\HCode{<?xml version="1.0"?>\Hnewline}}
 {\a:NcxDoctype}
 {\Tg<ncx xmlns="http://www.daisy.org/z3986/2005/ncx/" version="2005-1">}{}
 % To print document map, we customize the tableofcontents. We don't want TOC title,
 % so:
 \let\contentsname=\empty
-\Configure{tableofcontents}{\Tg<navMap>\NoFonts}{\usetoclevels{part,chapter,section,subsection,subsubsection}\EndNoFonts\Tg</navMap>}{}{}{}  
+\Configure{tableofcontents}{\Tg<navMap>}{\usetoclevels{part,chapter,section,subsection,subsubsection}\Tg</navMap>}{}{}{}  
 % We need to configure TocLink
 % in navmapsrc is link to the file and anchor, where chapter or section is located
 \def\navmapsrc{}  
@@ -205,6 +206,7 @@
 \tableofcontents%
 %Hack to get close tag working
 \HCode{</ncx>}
+\EndNoFonts
 \special{t4ht<\jobname.ncx}
  \HtmlParOn
 }
@@ -217,6 +219,7 @@
 \setcounter{tocdepth}{3}
 % Basic sctructure of the opf file
 \special{t4ht>content.opf}
+\NoFonts
 \HtmlParOff
 {\HCode{<?xml version="1.0"?>\Hnewline}}
 \HCode{<package xmlns="http://www.idpf.org/2007/opf" unique-identifier="dcidid"
@@ -258,6 +261,7 @@
 \HCode{</package>}
 \special{t4ht<content-part2.opf}
 \HtmlParOn
+\EndNoFonts
 \egroup
 %Hack!!
 %\Configure{BODY}{}{\Tg</body>}
@@ -285,7 +289,7 @@
   \navsection{section}{section,subsection,subsubsection}
   \navsection{subsection}{subsection,subsubsection}
   \navsection{subsubsection}{subsubsection}
-   \HtmlParOff
+   %\HtmlParOff
     \Configure{toTocLink}{}{}   
 }{\b:NavMap}{}{}{}
 %%%%%%%%%%%
