@@ -28,7 +28,12 @@
 
 % We need to save values of title, author etc.
 %\AtBeginDocument{
-%\let\Title\@title
+\let\origtitle\title
+\renewcommand\title[1]{%
+  \origtitle{#1}
+  \let\Title\@title
+}
+
 \let\origauthor\author
 \renewcommand\author[1]{%
   \origauthor{#1}%
