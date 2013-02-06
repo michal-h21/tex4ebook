@@ -176,7 +176,7 @@
 % To print document map, we customize the tableofcontents. We don't want TOC title,
 % so:
 \let\contentsname=\empty
-\Configure{tableofcontents}{\Tg<navMap>}{\usetoclevels{part,chapter,section,subsection,subsubsection}\Tg</navMap>}{}{}{}  
+\Configure{tableofcontents}{\Tg<navMap>\NoFonts}{\usetoclevels{part,chapter,section,subsection,subsubsection}\EndNoFonts\Tg</navMap>}{}{}{}  
 % We need to configure TocLink
 % in navmapsrc is link to the file and anchor, where chapter or section is located
 \def\navmapsrc{}  
