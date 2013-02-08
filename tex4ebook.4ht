@@ -77,6 +77,17 @@
   \fi%
 }
 
+\NewConfigure{CoverImage}{2}
+\renewcommand\coverimage[2][]{%
+\edef\CoverImageName{#2}%
+\a:CoverImage%
+\includegraphics[#1]{#2}%
+\b:CoverImage%
+}
+
+\NewConfigure{CoverMimeType}{1}
+\Configure{CoverMimeType}{image/png}
+
 \TocAt-{part,chapter,section,subsection,subsubsection}
 \Configure{crosslinks*}{}
 
@@ -299,7 +310,15 @@
 %%%%%%%%%%%
 \Configure{NavSection}{\HCode{<li>}\setbox0=\hbox\bgroup}{\HCode{<ol>\Hnewline}}{\egroup}{\Tg</ol>\Tg</li>}
 %%%% End toc nav configuration
-
+\Configure{CoverImage}{%
+  \HPage{}%
+  \Configure{OpfManifest}{\HCode{<item id="cover-image" properties="cover-image" href="}\CoverImageName\HCode{" media-type="\a:CoverMimeType" />}}%
+  \ifvmode \IgnorePar\fi \EndP%
+  \HCode{<section epub:type="cover">\Hnewline}}
+  {\ifvmode \IgnorePar\fi \EndP%
+   \HCode{</section>\Hnewline}%
+   \EndHPage{}
+}
 %\:CheckOption{mathml}
 %\if:Option
 \apptocmd{\a:DviMath}{\opf:add:property{ mathml}}{}{}

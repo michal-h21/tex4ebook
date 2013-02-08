@@ -1,6 +1,7 @@
 \ProvidesPackage{tex4ebook}
 \RequirePackage{etoolbox}
 \RequirePackage{kvoptions}
+\RequirePackage{graphicx}
 % Command for generating NCX file. Hard work is odne in the file
 % tex4ebook.4ht
 \def\ncxtable{}
@@ -48,3 +49,4 @@
 }
 %}
 
+\newcommand\coverimage[2][]{\includegraphics[#1]{#2}}
