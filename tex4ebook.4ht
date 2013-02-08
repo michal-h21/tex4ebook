@@ -225,12 +225,12 @@
 \HCode{<package xmlns="http://www.idpf.org/2007/opf" unique-identifier="dcidid"
    version="\a:EpubVersion">\Hnewline}
 {\HCode{<metadata\Hnewline xmlns:dc="http://purl.org/dc/elements/1.1/"\Hnewline  xmlns:opf="http://www.idpf.org/2007/opf">\Hnewline}}
-{\HCode{<dc:title>\Title</dc:title>\Hnewline}}
-{\HCode{<dc:language>\GetLanguage</dc:language>\Hnewline}}
+{\HCode{<dc:title>}\Title\HCode{</dc:title>\Hnewline}}
+{\HCode{<dc:language>}\GetLanguage\HCode{</dc:language>\Hnewline}}
 %Add interface for such things
-{\HCode{<dc:identifier id="dcidid" \a:OpfScheme>\a:UniqueIdentifier</dc:identifier>\Hnewline}}
-\def\and{</dc:creator>\Hnewline<dc:creator>}
-{\HCode{<dc:creator>\Author</dc:creator>\Hnewline}}
+{\HCode{<dc:identifier id="dcidid" \a:OpfScheme>}\a:UniqueIdentifier\HCode{</dc:identifier>\Hnewline}}
+\def\and{<\HCode{/dc:creator>\Hnewline<dc:creator>}}
+{\HCode{<dc:creator>}\Author\HCode{</dc:creator>\Hnewline}}
 %{\HCode{<dc:contributor>\HP:file</dc:contributor>\Hnewline}}
 {\HCode{<dc:date>}\:iso:date\HCode{</dc:date>}}
 \a:OpfMetadata
