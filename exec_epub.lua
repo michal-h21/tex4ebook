@@ -107,9 +107,10 @@ local function make_opf()
 	table.insert(outside_spine,id)
       end
     end
+    local all_used_files = find_all_files(opf_complete[1],"([%a%d%-%-]*%.[%a%d]+)")
     for _,k in ipairs(lg_file["files"]) do
       local ext = k:match("%.([%a%d]*)$")
-      if string.find("jpg gif png", ext) then
+      if string.find("jpg gif png", ext) and not all_used_files[k] then
         --print("!"..k.."!"..ext)
 	local item = lg_item(k) 
 	table.insert(opf_complete,item)
