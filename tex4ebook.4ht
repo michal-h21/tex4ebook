@@ -311,13 +311,16 @@
 \Configure{NavSection}{\HCode{<li>}\setbox0=\hbox\bgroup}{\HCode{<ol>\Hnewline}}{\egroup}{\Tg</ol>\Tg</li>}
 %%%% End toc nav configuration
 \Configure{CoverImage}{%
-  \HPage{}%
+%  \HPage{}%
   \Configure{OpfManifest}{\HCode{<item id="cover-image" properties="cover-image" href="}\CoverImageName\HCode{" media-type="\a:CoverMimeType" />}}%
-  \ifvmode \IgnorePar\fi \EndP%
-  \HCode{<section epub:type="cover">\Hnewline}}
-  {\ifvmode \IgnorePar\fi \EndP%
-   \HCode{</section>\Hnewline}%
-   \EndHPage{}
+  %\box0=\hbox\bgroup
+%  \ifvmode \IgnorePar\fi \EndP%
+%  \HCode{<section epub:type="cover">\Hnewline}}
+}
+  {%\ifvmode \IgnorePar\fi \EndP%
+   %\HCode{</section>\Hnewline}%
+   %\EndHPage{}
+   %\egroup
 }
 %\:CheckOption{mathml}
 %\if:Option
