@@ -331,7 +331,9 @@
 \Configure{xmlns}{}{http://www.w3.org/1999/xhtml}
 \Configure{xmlns}{epub}{http://www.idpf.org/2007/ops}
 %\Configure{xmlns}{m}{http://www.w3.org/1998/Math/MathML}
-\Configure{HTML}{\HCode{<html\t4ht:xmlns>\Hnewline}}{\HCode{\Hnewline</html>}}
+%\Configure{HTML}{\HCode{<html\t4ht:xmlns lang=\"}\GetLanguage\HCode{">\Hnewline}}{\HCode{\Hnewline</html>}}
+\Configure{HTML}{\HCode{<html\t4ht:xmlns lang="}\NoFonts\GetLanguage\EndNoFonts
+\HCode{">\Hnewline}}{\HCode{\Hnewline</html>}}
 \Configure{@HEAD}{}
 \Configure{@HEAD}{\HCode{<meta charset="UTF-8" />\Hnewline}}
 \Configure{@HEAD}{\HCode{<meta name="generator" content="TeX4ht
