@@ -114,6 +114,9 @@
 \fi
 
 %%
+% We must test, it tableofcontents is empty, if yes, we must take special care to navmap
+\newbool{tocnoempty}
+
 \newcount\navpoint
 \def\stepnavpoint{\advance\navpoint by1\relax\the\navpoint}
 
@@ -188,7 +191,14 @@
 % To print document map, we customize the tableofcontents. We don't want TOC title,
 % so:
 \let\contentsname=\empty
-\Configure{tableofcontents}{\Tg<navMap>}{\usetoclevels{part,chapter,section,subsection,subsubsection}\Tg</navMap>}{}{}{}  
+\Configure{tableofcontents}{\boolfalse{tocnoempty}\Tg<navMap>}{%
+	\usetoclevels{part,chapter,section,subsection,subsubsection}%
+	\ifbool{tocnoempty}{}%
+	{\HCode{<navPoint id="mainentry" playOrder=1>
+	  <navLabel><text>Document</text></navLabel>
+	  <content src="\jobname.html" />
+	  </navPoint>}}%
+	\Tg</navMap>}{}{}{}  
 % We need to configure TocLink
 % in navmapsrc is link to the file and anchor, where chapter or section is located
 \def\navmapsrc{}  
@@ -202,7 +212,7 @@
 \navsection{subsubsection}{subsubsection}
  \HtmlParOff
  \Configure{toTocLink}{}{}
- \Configure{NavSection}{\HCode{\Hnewline<navPoint id="navPoint-}%
+ \Configure{NavSection}{\booltrue{tocnoempty}\HCode{\Hnewline<navPoint id="navPoint-}%
   \stepnavpoint\HCode{" playOrder="}%
   \the\navpoint\HCode{">\Hnewline<navLabel>\Hnewline<text>}%
 }{\HCode{</text>\Hnewline%
