@@ -314,11 +314,15 @@
     \Configure{toTocLink}{}{}   
 }{\b:NavMap}{}{}{}
 %%%%%%%%%%%
-\Configure{NavMap}{\HCode{<nav id="toc" epub:type="toc">\Hnewline<ol>}%
+\Configure{NavMap}{\boolfalse{tocnoempty}\HCode{<nav id="toc" epub:type="toc">\Hnewline<ol>}%
 \opf:add:property{nav}
-}{\usetoclevels{part,chapter,section,subsection,subsubsection}\HCode{</ol></nav>}}
+}{\usetoclevels{part,chapter,section,subsection,subsubsection}%
+	\ifbool{tocnoempty}{}{\HCode{<li><a href="\jobname.html">Document</a></li>}}
+	\HCode{</ol></nav>}}
 %%%%%%%%%%%
-\Configure{NavSection}{\HCode{<li>}\setbox0=\hbox\bgroup}{\HCode{<ol>\Hnewline}}{\egroup}{\Tg</ol>\Tg</li>}
+\Configure{NavSection}{%
+	\booltrue{tocnoempty}
+	\HCode{<li>}\setbox0=\hbox\bgroup}{\HCode{<ol>\Hnewline}}{\egroup}{\Tg</ol>\Tg</li>}
 %%%% End toc nav configuration
 \Configure{CoverImage}{%
 %  \HPage{}%
