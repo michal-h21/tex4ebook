@@ -75,11 +75,14 @@ local function make_opf()
     return "<item id='"..id .. "' href='"..item.."' media-type='"..mimetype.."' />",id
   end
   local find_all_files= function(s,r)
-    local r = r or "([%a%d%-%-]*)%.html"
+    local r = r or "([%a%d%-%-]*)%.([x]?html)"
     local files = {}
-    for i in s:gmatch(r) do
-      files[i] =  true
-    end
+    --for i, ext in s:match(r) do
+    local i, ext = s:match(r)-- do
+    ext = ext or "true"
+      files[i] = ext 
+      --print(i .. ext)
+    --end
     return files
   end
   local opf_first_part = outputdir .. "/content.opf" 
@@ -100,9 +103,9 @@ local function make_opf()
     end--]]
     local all_html = find_all_files(table.concat(used_files,"\n"))
     local outside_spine = {}
-    for i,_ in pairs(all_html) do
-      if used_html[i] ~= true then
-	local item, id = lg_item(i..".html") 
+    for i, ext in pairs(all_html) do
+      if not used_html[i] then
+	local item, id = lg_item(i.."."..ext) 
         table.insert(opf_complete,item)
 	table.insert(outside_spine,id)
       end
