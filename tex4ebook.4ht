@@ -121,8 +121,8 @@
 \def\stepnavpoint{\advance\navpoint by1\relax\the\navpoint}
 
 % As default, make new files on every part, chapter and section
-
-\CutAt{part,chapter,section}
+\ifdef\chapter{\CutAt{chapter,section}}
+{\CutAt{section}}
 
 % Commands for support of hiearchical table of contents
 % Support for: chapter, section, subsection
