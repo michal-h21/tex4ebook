@@ -25,8 +25,10 @@ tex4ebook [switches] inputfile
   -l,--lua  Runs htlualatex instead of htlatex
   -r,--resolution (default 167)
   -s,--shell-escape  Enable shell escape in htlatex run
-  -u,--utf8 
 ]]
+
+-- This option is no longer available, all files must be unicode
+-- -u,--utf8 
 local args=lapp(arg_message)
 
 if args[1] == nil then
@@ -41,10 +43,10 @@ if args.lua then
   latex_cmd="htlualatex"
 end
 
-if args.utf8 then
-  tex4ht_sty_par=tex4ht_sty_par .. ", charset=utf-8"
-  tex4ht_par=tex4ht_par .. " -cunihtf -utf8"
-end
+--if args.utf8 then
+tex4ht_sty_par=tex4ht_sty_par .. ", charset=utf-8"
+tex4ht_par=tex4ht_par .. " -cunihtf -utf8"
+--end
 
 if args.shell_escape then 
   latex_par = latex_par .. " -shell-escape"
