@@ -200,7 +200,7 @@
 	\ifbool{tocnoempty}{}%
 	{\HCode{<navPoint id="mainentry" playOrder=1>
 	  <navLabel><text>Document</text></navLabel>
-	  <content src="\jobname.html" />
+	  <content src="\jobname.\:html" />
 	  </navPoint>}}%
 	\Tg</navMap>}{}{}{}  
 % We need to configure TocLink
@@ -227,7 +227,7 @@
 \ncx:head
 % Book title
 \ncx:title
-\opf:registerfilename{\jobname.html} % 
+\opf:registerfilename{\jobname.\:html} % 
 \tableofcontents%
 %Hack to get close tag working
 \HCode{</ncx>}
@@ -321,7 +321,7 @@
 \Configure{NavMap}{\boolfalse{tocnoempty}\HCode{<nav id="toc" epub:type="toc">\Hnewline<ol>}%
 \opf:add:property{nav}
 }{\usetoclevels{part,chapter,section,subsection,subsubsection}%
-	\ifbool{tocnoempty}{}{\HCode{<li><a href="\jobname.html">Document</a></li>}}
+	\ifbool{tocnoempty}{}{\HCode{<li><a href="\jobname.\:html">Document</a></li>}}
 	\HCode{</ol></nav>}}
 %%%%%%%%%%%
 \Configure{NavSection}{%
