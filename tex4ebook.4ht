@@ -123,6 +123,18 @@
 % As default, make new files on every part, chapter and section
 \ifdef\chapter{\CutAt{chapter,section}}
 {\CutAt{section}}
+% Default extension should be xhtml
+% This is somewhat mysterious configuration
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+                \ConfigureHinput{Preamble}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+    \Configure{ext}{xhtml}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+  
+\endinput\empty\empty\empty\empty\empty\empty
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 % Commands for support of hiearchical table of contents
 % Support for: chapter, section, subsection
