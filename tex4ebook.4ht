@@ -22,7 +22,7 @@
 \Configure{EpubVersion}{2.0}
 
 \NewConfigure{UniqueIdentifier}{1}
-\Configure{UniqueIdentifier}{dcidd}
+\Configure{UniqueIdentifier}{http://example.com/\jobname}
 
 
 \NewConfigure{OpfScheme}{1}
@@ -119,6 +119,10 @@
 
 \newcount\navpoint
 \def\stepnavpoint{\advance\navpoint by1\relax\the\navpoint}
+
+% As default, make new files on every part, chapter and section
+
+\CutAt{part,chapter,section}
 
 % Commands for support of hiearchical table of contents
 % Support for: chapter, section, subsection
