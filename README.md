@@ -1,7 +1,7 @@
 TeX4ebook
 =========
 
-`TeX4ebook` is bundle of lua scripts and `LaTeX` packages for conversion of LaTeX files to ebook formats, for example `epub`. 
+`TeX4ebook` is bundle of lua scripts and `LaTeX` packages for conversion of LaTeX files to ebook formats, for example `epub`. `tex4ht` is used as conversion engine. 
 
 Installation
 ------------
@@ -71,9 +71,6 @@ Resolution of generated images, for example math. It should meet resolution of t
 
 Enable shell escape in htlatex run. This may be needed if you run external commands from your source files.
 
-*-u,--utf8* 
-
-If your sources are in utf8 encoding, you must use this option.
 
 Troubleshooting
 ---------------
