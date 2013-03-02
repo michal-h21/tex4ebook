@@ -75,13 +75,21 @@ Enable shell escape in htlatex run. This may be needed if you run external comma
 Troubleshooting
 ---------------
 
-After document compilation use command line tool epubcheck to find if your document contains any error.
+When compilation of the document breaks with error during `LaTeX` run, it may be caused by some problem in `tex4ht` configuration. Comment out line `\usepackage{tex4ebook}` in your source file and run command:
+
+    htlatex filename 
+
+if same error as in `tex4ebook` run arises, the problem is in some `tex4ht` configuration. Try to identify the source of problem and if you cannot find the solution, make minimal example showing the error and ask for help either on [tex4ht mailinglist](http://tug.org/mailman/listinfo/tex4ht) or on [TeX-sx](http://tex.stackexchange.com/). 
+
+### Validation
+
+In case of successful compilation, use command line tool epubcheck to find if your document contains any error.
 
 Type 
  
     epubcheck filename.epub
 
-### Common issues:
+#### Common issues:
 
     WARNING: filename.epub: item (OEBPS/foo.boo) exists in the zip file, but is not declared in the OPF file
 
