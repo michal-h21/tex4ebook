@@ -72,6 +72,19 @@ Resolution of generated images, for example math. It should meet resolution of t
 Enable shell escape in htlatex run. This may be needed if you run external commands from your source files.
 
 
+Configuration
+-------------
+
+`tex4ebook` uses (tex4ht)[http://www.tug.org/tex4ht/] for conversion from LaTeX to html. `tex4ht` is highly configurable using config files. Basic config file structure is
+
+    \Preamble{xhtml, comma separated list of options}
+    ...
+    \begin{document}
+    ...
+    \EndPreamble
+
+Basic info about command configurations can be found in (tex4ht documentation)[http://www.tug.org/applications/tex4ht/mn11.html], and in series of blogposts on CV Radhakrishnan's blog (Configure part 1)[http://www.cvr.cc/?p=323], (Configurepart 2)[http://www.cvr.cc/?p=362], (Low level commands)[http://www.cvr.cc/?p=482]. Available options for `\Preamble` command are listed in the article (TeX4ht: options)[http://www.cvr.cc/?p=504].
+
 Troubleshooting
 ---------------
 
@@ -89,7 +102,7 @@ Type
  
     epubcheck filename.epub
 
-#### Common issues:
+#### Common validation issues:
 
     WARNING: filename.epub: item (OEBPS/foo.boo) exists in the zip file, but is not declared in the OPF file
 
