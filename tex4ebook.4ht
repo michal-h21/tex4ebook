@@ -56,10 +56,13 @@
 }{}%
 }
 \def\opf:add:property#1{%
-\ifcsdef{opf:properties:\FileName}{%
-\edef\:opf:prop:tmp{\csuse{opf:properties:\FileName}}
-\csxdef{opf:properties:\FileName}{\:opf:prop:tmp #1}
-}{\csxdef{opf:properties:\FileName}{#1}}
+ \ifcsdef{opf:properties:\FileName #1}{}{%
+  \csxdef{opf:properties:\FileName #1}{#1}% 
+  \ifcsdef{opf:properties:\FileName}{%
+    \edef\:opf:prop:tmp{\csuse{opf:properties:\FileName}}
+    \csxdef{opf:properties:\FileName}{\:opf:prop:tmp\space #1}
+  }{\csxdef{opf:properties:\FileName}{#1}}
+ }
 }
 
 %Set property only once
@@ -354,7 +357,7 @@
 }
 %\:CheckOption{mathml}
 %\if:Option
-\apptocmd{\a:DviMath}{\opf:add:property{ mathml}}{}{}
+\apptocmd{\a:DviMath}{\opf:add:property{mathml}}{}{}
 
 %\fi
 \Configure{DOCTYPE}{\HCode{<!DOCTYPE html>\Hnewline}}
