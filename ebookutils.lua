@@ -64,14 +64,43 @@ function parse_lg(filename)
   return {files = outputfiles, images = outputimages},status
 end
 
-function copy(src,dest, filter)
-  local src_f,dst_f=io.open(src,"r"),io.open(dest,"w")
-  local contents = src_f:read("*all")
-  local filter = filter or function(s) return s end
-  dst_f:write(filter(contents))
-  src_f:close()
-  dst_f:close()
+--function copy(src,dest, filter)
+--  local src_f,dst_f=io.open(src,"r"),io.open(dest,"w")
+--  local contents = src_f:read("*all")
+--  local filter = filter or function(s) return s end
+--  dst_f:write(filter(contents))
+--  src_f:close()
+--  dst_f:close()
+--end
+
+local cp_func = os.type == "unix" and "cp" or "copy"
+function copy(src,dest)
+	os.execute(string.format("%s %s %s", cp_func, src, dest))
 end
+
+mkdirectories = function(dirs)
+  local currdir = lfs.currentdir()
+  --print("Path: "..path) 
+  --local dirs = path:split("/")
+  --table.remove(dirs,#dirs) 
+  for _,dir in ipairs(dirs) do
+    local status = lfs.chdir(dir)
+    if not status then  
+      local status, msg = lfs.mkdir(dir)
+      if not status then 
+        print("Path making error: "..msg)
+        break
+      else
+        lfs.chdir(dir)
+      end
+    end
+    print(dir)
+  end
+  --lfs.copy(currdir.."/".."make.lua",currdir.."/"..path.."/make.lua")
+  lfs.chdir(currdir)
+  --os.execute("cp make.lua "..path)
+end
+
 
 -- Config loading
 local function run(untrusted_code, env)

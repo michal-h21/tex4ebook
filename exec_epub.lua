@@ -26,7 +26,7 @@ function prepare(params)
 	mimetype= mimetype_name --os.tmpname()
 	print(outputdir)
 	print(mimetype)
-	params["t4ht_par"] = params["t4ht_par"] + "-d"..string.format(params["t4ht_dir_format"],outputdir)
+	params["t4ht_par"] = params["t4ht_par"] -- + "-d"..string.format(params["t4ht_dir_format"],outputdir)
 	return(params)
 end
 
@@ -60,7 +60,8 @@ local mimetypes = {
 	jpg = "image/jpeg",
 	gif = "image/gif",
 	svg = "image/svg+xml",
-	html= "application/xhtml+xml"
+	html= "application/xhtml+xml",
+	ncx = "application/x-dtbncx+xml"
 }
 
 local function make_opf()
@@ -84,8 +85,10 @@ local function make_opf()
 		end 
 		return files
 	end
-	local opf_first_part = outputdir .. "/content.opf" 
-	local opf_second_part = outputdir .. "/content-part2.opf"
+	--local opf_first_part = outputdir .. "/content.opf" 
+	local opf_first_part =   "content.opf" 
+	local opf_second_part =  "content-part2.opf"
+	--local opf_second_part = outputdir .. "/content-part2.opf"
 	if 
 		ebookutils.file_exists(opf_first_part) and ebookutils.file_exists(opf_second_part) 
 		then
@@ -110,19 +113,31 @@ local function make_opf()
 				end
 			end
 			local all_used_files = find_all_files(opf_complete[1],"([%a%d%-%_]+%.[%a%d]+)")
+			local used_paths = {}
 			for _,k in ipairs(lg_file["files"]) do
 				local ext = k:match("%.([%a%d]*)$")
 				local parts = k:split "/"
 				local fn = parts[#parts]
-				print("SSSSS "..fn)
+				table.remove(parts,#parts)
+				table.insert(parts,1,"OEBPS")
+				print("SSSSS "..fn.." ext .." .. ext)
 				--if string.find("jpg gif png", ext) and not all_used_files[k] then
-				if not all_used_files[fn] then
-					local item = lg_item(k) 
-					table.insert(opf_complete,item)
+				local item = lg_item(k) 
+				if item then
+					local path = table.concat(parts)
+					if not used_paths[path] then
+						ebookutils.mkdirectories(parts)
+						used_paths[path]=true
+					end
+					ebookutils.copy(k, outputdir .. "/"..k)
+					if not all_used_files[fn] then
+						table.insert(opf_complete,item)
+					end
 				end
 			end
 			for _,f in ipairs(lg_file["images"]) do
 				local p = lg_item(f)
+				ebookutils.copy(f, outputdir .. "/"..f)
 				table.insert(opf_complete,p)
 			end
 			local end_opf = h_second:read("*all")
@@ -138,6 +153,8 @@ local function make_opf()
 			h_first:write(table.concat(opf_complete,"\n"))
 			h_first:close()
 			os.remove(opf_second_part)
+			ebookutils.copy(outputfilename ..".css",outputdir.."/")
+			ebookutils.copy(opf_first_part,outputdir.."/"..opf_first_part)
 			--print(table.concat(opf_complete,"\n"))
 		else
 			print("Missing opf file")
