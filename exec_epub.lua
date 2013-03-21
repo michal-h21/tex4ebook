@@ -35,8 +35,8 @@ function run(out,params)
 	outputfilename=out
 	outputfile = outputfilename..".epub"
 	print("Output file: "..outputfile)
-	lfs.chdir(metadir)
-	local m= io.open("container.xml","w")
+	--lfs.chdir(metadir)
+	local m= io.open(metadir.."/container.xml","w")
 	m:write([[
 <?xml version="1.0"?>
 <container version="1.0" xmlns="urn:oasis:names:tc:opendocument:xmlns:container">
@@ -47,7 +47,7 @@ media-type="application/oebps-package+xml"/>
 </container>
 	]])
 	m:close()
-	lfs.chdir("..")
+	--lfs.chdir("..")
 	m=io.open(mimetype,"w")
 	m:write("application/epub+zip")
 	m:close()
@@ -56,6 +56,7 @@ media-type="application/oebps-package+xml"/>
 end
 
 local mimetypes = {
+	css = "text/css",
 	png = "image/png", 
 	jpg = "image/jpeg",
 	gif = "image/gif",
@@ -72,7 +73,9 @@ local function make_opf()
 		local fname,ext = item:match("([%a%d%_%-]*)%p([%a%d]*)$")
 		local mimetype = mimetypes[ext] or ""
 		if mimetype == "" then print("Mimetype for "..ext.." is not registered"); return nil end
-		local id=fname.."_"..ext
+		local dir_part = item:split("/")
+		table.remove(dir_part,#dir_part)
+		local id=table.concat(dir_part,"-")..fname.."_"..ext
 		return "<item id='"..id .. "' href='"..item.."' media-type='"..mimetype.."' />",id
 	end
 	local find_all_files= function(s,r)
@@ -120,7 +123,7 @@ local function make_opf()
 				local fn = parts[#parts]
 				table.remove(parts,#parts)
 				table.insert(parts,1,"OEBPS")
-				print("SSSSS "..fn.." ext .." .. ext)
+				--print("SSSSS "..fn.." ext .." .. ext)
 				--if string.find("jpg gif png", ext) and not all_used_files[k] then
 				local item = lg_item(k) 
 				if item then
@@ -153,7 +156,7 @@ local function make_opf()
 			h_first:write(table.concat(opf_complete,"\n"))
 			h_first:close()
 			os.remove(opf_second_part)
-			ebookutils.copy(outputfilename ..".css",outputdir.."/")
+			--ebookutils.copy(outputfilename ..".css",outputdir.."/")
 			ebookutils.copy(opf_first_part,outputdir.."/"..opf_first_part)
 			--print(table.concat(opf_complete,"\n"))
 		else
