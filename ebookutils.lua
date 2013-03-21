@@ -18,6 +18,13 @@ getmetatable("").__add = addProperty
 --print( "${name} is ${value}" % {name = "foo", value = "bar"} )
 -- Outputs "foo is bar"
 
+function string:split(sep)
+  local sep, fields = sep or ":", {}
+  local pattern = string.format("([^%s]+)", sep)
+  self:gsub(pattern, function(c) fields[#fields+1] = c end)
+  return fields
+end
+
 function remove_extension(path)
 	local found, len, remainder = string.find(path, "^(.*)%.[^%.]*$")
 	if found then
