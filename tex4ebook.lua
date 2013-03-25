@@ -80,14 +80,15 @@ end
 --print ("nazdar ${world}" % {world="svete"})
 --print(args.config)
 
-tex4ht_sty_par = tex4ht_sty_par..","+args.format
-tex4ht_sty_par = tex4ht_sty_par +args[2]
-tex4ht_par = tex4ht_par +args[3]
-t4ht_par = t4ht_par + args[4]
-latex_par = latex_par + args[5]
+local input = ebookutils.remove_extension(input_file)
+local tex4ht_sty_par = tex4ht_sty_par..","+args.format
+local tex4ht_sty_par = tex4ht_sty_par +args[2]
+local tex4ht_par = tex4ht_par +args[3]
+local t4ht_par = t4ht_par + args[4]
+local latex_par = latex_par + args[5]
 local params = {
   htlatex=latex_cmd
-  ,input=input_file 
+  ,input=input 
   ,latex_par=latex_par
   ,config=args.config
   ,tex4ht_sty_par=tex4ht_sty_par
@@ -104,8 +105,12 @@ else
   return
 end
 
+local config_file = ebookutils.load_config(nil, input.. ".mk4")
+
+params["config_file"] = config_file
+--config_file.Make:run()
 print("${htlatex} ${input} \"${config}${tex4ht_sty_par}\" \"${tex4ht_par}\" \"${t4ht_par}\" \"\${latex_par}\"" % params)
-executor.run(ebookutils.remove_extension(input_file),params)
+executor.run(input,params)
 executor.writeContainer()
 executor.clean()
 --print(args[1])

@@ -1,6 +1,9 @@
 module("ebookutils",package.seeall)
+
+local make4ht = require("make4ht")
 --template engine
 function interp(s, tab)
+	local tab = tab or {}
   return (s:gsub('($%b{})', function(w) return tab[w:sub(3, -2)] or w end))
 end
 --print( interp("${name} is ${value}", {name = "foo", value = "bar"}) )
@@ -119,6 +122,9 @@ env.Font = function(s)
   if not font_name then return nil, "Cannot find font name" end
   env.settings.fonts[font_name] = s
 end
+
+env.Make = make4ht.Make
+env.Make.params = env.settings
 function load_config(settings, config_name)
   local settings = settings or main_settings
   env.settings = settings
@@ -127,7 +133,7 @@ function load_config(settings, config_name)
   if not f then return nil, "Cannot open config file" end
   local code = f:read("*all")
   assert(run(code,env))
-  return settings
+  return env
 end
 
 

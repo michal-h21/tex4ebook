@@ -1,8 +1,8 @@
 module("exec_epub",package.seeall)
-require("lfs")
-require("os")
-require("io")
-require("ebookutils")
+local lfs = require("lfs")
+local os = require("os")
+local io = require("io")
+local ebookutils = require("ebookutils")
 local outputdir_name="OEBPS"
 local metadir_name = "META-INF"
 local mimetype_name="mimetype"
@@ -52,7 +52,11 @@ media-type="application/oebps-package+xml"/>
 	m:write("application/epub+zip")
 	m:close()
 	local htlatex_run = "${htlatex} ${input} \"${config}${tex4ht_sty_par}\" \"${tex4ht_par}\" \"${t4ht_par}\" \"\${latex_par}\"" % params
-	print(os.execute(htlatex_run))
+	params.config_file.Make:run()
+	for k,v in pairs(params.config_file.Make) do
+		print(k.. " : "..type(v))
+	end
+  --print(os.execute(htlatex_run))
 end
 
 local mimetypes = {
