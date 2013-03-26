@@ -125,6 +125,7 @@ end
 
 env.Make = make4ht.Make
 env.Make.params = env.settings
+env.Make:add("test","no takže ${tex4ht_sty_par}")
 function load_config(settings, config_name)
   local settings = settings or main_settings
   env.settings = settings

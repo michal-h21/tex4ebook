@@ -30,8 +30,11 @@ end
 
 Make.run = function(self) 
 	for _,v in ipairs(self.build_seq) do
-		print("sekvence: "..v.name)
-		for c,_ in pairs(v.params) do print("build param"..c) end
+		--print("sekvence: "..v.name)
+	  local params = self.params or {}
+		for p,n in pairs(v.params) do params[p] = n end
+		--for c,_ in pairs(params) do print("build param: "..c) end
+		print(v.command % params)
 	end
 end
 
