@@ -52,13 +52,21 @@ media-type="application/oebps-package+xml"/>
 	m:write("application/epub+zip")
 	m:close()
 	local htlatex_run = "${htlatex} ${input} \"${config}${tex4ht_sty_par}\" \"${tex4ht_par}\" \"${t4ht_par}\" \"\${latex_par}\"" % params
+	print("Make4ht run")
 	print("-------------------")
 	params.config_file.Make.params = params
+	if params.config_file.Make:length() < 1 then
+		params.config_file.Make:htlatex()
+		params.config_file.Make:htlatex()
+		params.config_file.Make:htlatex()
+	end
+	params.config_file.Make:tex4ht()
+	params.config_file.Make:t4ht()
 	params.config_file.Make:run()
 	print("-------------------")
-	for k,v in pairs(params.config_file.Make) do
+	--[[for k,v in pairs(params.config_file.Make) do
 		print(k.. " : "..type(v))
-	end
+	end--]]
   --print(os.execute(htlatex_run))
 end
 

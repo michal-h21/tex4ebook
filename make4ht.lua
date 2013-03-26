@@ -27,15 +27,22 @@ Make.add = function(self,name,fn,par)
 	end
 end
 
-
+Make.length = function(self)
+	return #self.build_seq
+end
 Make.run = function(self) 
+	local return_codes = {}
 	for _,v in ipairs(self.build_seq) do
 		--print("sekvence: "..v.name)
 	  local params = self.params or {}
 		for p,n in pairs(v.params) do params[p] = n end
 		--for c,_ in pairs(params) do print("build param: "..c) end
-		print(v.command % params)
+		local command = v.command % params
+		print("Make4ht: " .. command)
+		local status = os.execute(command)
+		table.insert(return_codes,{name=v.name,status=status})
 	end
+  return return_codes
 end
 
 --[[Make:add("hello", "hello ${world}", {world = "world"})
