@@ -3,7 +3,7 @@ require("lapp")
 require("ebookutils")
 
 -- Setting
-local latex_cmd="htlatex"
+local latex_cmd="latex"
 local copy_cmd="copy"
 local move_cmd="move"
 local env_param="%%" 
@@ -40,7 +40,7 @@ end
 
 if args.lua then
   print("Mame lua")
-  latex_cmd="htlualatex"
+  latex_cmd="dvilualatex"
 end
 
 --if args.utf8 then
