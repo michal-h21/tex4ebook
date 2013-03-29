@@ -78,7 +78,10 @@ end
 
 local cp_func = os.type == "unix" and "cp" or "copy"
 function copy(src,dest)
-	os.execute(string.format("%s %s %s", cp_func, src, dest))
+	local command = string.format("%s %s %s", cp_func, src, dest)
+	if cp_func == "copy" then command = command:gsub("/",'\\') end
+	print("Copy: "..command)
+	os.execute(command)
 end
 
 mkdirectories = function(dirs)
