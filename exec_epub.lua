@@ -142,7 +142,7 @@ local function make_opf()
 				table.insert(parts,1,"OEBPS")
 				--print("SSSSS "..fn.." ext .." .. ext)
 				--if string.find("jpg gif png", ext) and not all_used_files[k] then
-				local item = lg_item(k) 
+				local item,id = lg_item(k) 
 				if item then
 					local path = table.concat(parts)
 					if not used_paths[path] then
@@ -152,7 +152,7 @@ local function make_opf()
 					ebookutils.copy(k, outputdir .. "/"..k)
 					if not all_used_files[fn] then
 						table.insert(opf_complete,item)
-						table.insert(outside_spine,item)
+						table.insert(outside_spine,id)
 					end
 				end
 			end
