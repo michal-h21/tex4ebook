@@ -243,7 +243,7 @@
 % Book title
 \ncx:title
 \opf:registerfilename{\jobname.\:html} % 
-\tableofcontents%
+\tableofcontents%[part,chapter,likechapter,section,likesection,subsection,likesubsection]%
 %Hack to get close tag working
 \HCode{</ncx>}
 \EndNoFonts
@@ -334,6 +334,7 @@
 }{\b:NavMap}{}{}{}
 %%%%%%%%%%%
 \Configure{NavMap}{\boolfalse{tocnoempty}\HCode{<nav id="toc" epub:type="toc">\Hnewline<ol>}%
+\opf:registerfilename{\FileName}
 \opf:add:property{nav}
 }{\usetoclevels{part,chapter,section,subsection,subsubsection}%
 	\ifbool{tocnoempty}{}{\HCode{<li><a href="\jobname.\:html">Document</a></li>}}
