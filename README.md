@@ -94,6 +94,29 @@ When compilation of the document breaks with error during `LaTeX` run, it may be
 
 if same error as in `tex4ebook` run arises, the problem is in some `tex4ht` configuration. Try to identify the source of problem and if you cannot find the solution, make minimal example showing the error and ask for help either on [tex4ht mailinglist](http://tug.org/mailman/listinfo/tex4ht) or on [TeX-sx](http://tex.stackexchange.com/). 
 
+### Fontspec
+
+`tex4ht` currently doesn't support `fontspec` and open type fonts. At this moment, workaround for this is to modify your source file and conditionaly include fontspec and any other conflicting packages only when document is not processed with `tex4ht`. 
+
+Sample:
+
+    \documentclass{article}
+    \makeatletter
+    \@ifpackageloaded{tex4ht}{%
+    % Packages for tex4ht unicode support
+    \usepackage[utf8]{inputenc}
+    \usepackage[T1]{fontenc}
+    \usepackage[english,czech]{babel}
+    }{%
+    % Packages for xelatex
+    \usepackage{fontspec}
+    \usepackage{polyglossia}
+    \setmainfont{Latin Modern Roman}
+    }
+    \makeatother
+
+Drawback is that not all characters of unicode range are supported with `inputenc`. For some solutions of this limitation, see thread on [tex4ht mailinglist](http://tug.org/pipermail/tex4ht/2013q1/000719.html)
+
 ### Validation
 
 In case of successful compilation, use command line tool epubcheck to find if your document contains any error.

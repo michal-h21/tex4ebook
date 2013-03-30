@@ -1,6 +1,9 @@
 module("ebookutils",package.seeall)
+
+local make4ht = require("make4ht")
 --template engine
 function interp(s, tab)
+	local tab = tab or {}
   return (s:gsub('($%b{})', function(w) return tab[w:sub(3, -2)] or w end))
 end
 --print( interp("${name} is ${value}", {name = "foo", value = "bar"}) )
@@ -119,15 +122,23 @@ env.Font = function(s)
   if not font_name then return nil, "Cannot find font name" end
   env.settings.fonts[font_name] = s
 end
+
+env.Make = make4ht.Make
+env.Make.params = env.settings
+env.Make:add("test","no takže ${tex4ht_sty_par} ${htlatex} ${input} ${config}")
+env.Make:add("htlatex", "${htlatex} ${latex_par} '\\\makeatletter\\def\\HCode{\\futurelet\\HCode\\HChar}\\def\\HChar{\\ifx\"\\HCode\\def\\HCode\"##1\"{\\Link##1}\\expandafter\\HCode\\else\\expandafter\\Link\\fi}\\def\\Link#1.a.b.c.{\\g@addto@macro\\@documentclasshook{\\RequirePackage[#1,html]{tex4ht}\\RequirePackage{tex4ebook}}\\let\\HCode\\documentstyle\\def\\documentstyle{\\let\\documentstyle\\HCode\\expandafter\\def\\csname tex4ht\\endcsname{#1,html}\\def\\HCode####1{\\documentstyle[tex4ht,}\\@ifnextchar[{\\HCode}{\\documentstyle[tex4ht]}}}\\makeatother\\HCode '${config}${tex4ht_sty_par}'.a.b.c.\\input ' ${input}")
+env.Make:add("tex4ht","tex4ht ${input} ${tex4ht_par}")
+env.Make:add("t4ht","t4ht ${input} ${t4ht_par}")
+
 function load_config(settings, config_name)
   local settings = settings or main_settings
   env.settings = settings
   local config_name = config_name or "config.lua"
   local f = io.open(config_name,"r")
-  if not f then return nil, "Cannot open config file" end
+  if not f then return env, "Cannot open config file" end
   local code = f:read("*all")
   assert(run(code,env))
-  return settings
+  return env
 end
 
 
