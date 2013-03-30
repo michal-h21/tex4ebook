@@ -123,13 +123,15 @@ local function make_opf()
 			end--]]
 			local all_html = find_all_files(table.concat(used_files,"\n"))
 			local outside_spine = {}
-			for i, ext in pairs(all_html) do
+			-- This was duplicated code
+			--[[for i, ext in pairs(all_html) do
 				if not used_html[i] then
+					print("Prvni insert: ".. i .."."..ext)
 					local item, id = lg_item(i.."."..ext) 
 					table.insert(opf_complete,item)
 					table.insert(outside_spine,id)
 				end
-			end
+			end--]]
 			local all_used_files = find_all_files(opf_complete[1],"([%a%d%-%_]+%.[%a%d]+)")
 			local used_paths = {}
 			for _,k in ipairs(lg_file["files"]) do
@@ -150,6 +152,7 @@ local function make_opf()
 					ebookutils.copy(k, outputdir .. "/"..k)
 					if not all_used_files[fn] then
 						table.insert(opf_complete,item)
+						table.insert(outside_spine,item)
 					end
 				end
 			end
