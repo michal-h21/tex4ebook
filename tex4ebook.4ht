@@ -132,7 +132,8 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
                 \ConfigureHinput{Preamble}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-    \Configure{ext}{xhtml}
+    \edef\Preamble{\Preamble,xhtml}
+\Configure{ext}{xhtml}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
   
@@ -158,6 +159,7 @@
   \resettoclevels{#1}
 }
 % 1 - section type 2 - closed sections 
+
 \def\navsection#1#2{
   \ConfigureToc{#1}%
   {\closelevels{#2}%
@@ -168,6 +170,8 @@
     \finishtoclevel{#1}%
   }
 }
+
+
 % 
 \edef\opf:htmlfiles{}
 \newcount\opf:htmlid
