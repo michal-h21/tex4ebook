@@ -67,6 +67,11 @@
 
 %Set property only once
 \def\opf:set:property#1{}
+
+% This code will refister \maketitle page to the opf file list
+\let\oldmktl\a:mktl
+\def\a:mktl{\oldmktl\opf:registerfilename{\FileName}}
+
 \NewConfigure{NavMap}{2}
 \NewConfigure{NavSection}{4}
 %Interface for setting xmlns
@@ -382,6 +387,4 @@
  href="\expandafter\csname aa:CssFile\endcsname" />\Hnewline}}
 \Configure{EpubVersion}{3.0}
 \Configure{OpfItemProperties}{properties="}{"}
-\let\oldmktl\a:mktl
-\def\a:mktl{\oldmktl\opf:registerfilename{\FileName}}
 \fi
