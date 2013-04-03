@@ -94,6 +94,17 @@ and in series of blogposts on CV Radhakrishnan's blog
 Available options for `\Preamble` command are listed in the article 
 [TeX4ht: options](http://www.cvr.cc/?p=504).
 
+`tex4ebook` provides some configurations for your usage:
+
+    \Configure{UniqueIdentifier}{identifier}
+
+Every epub file should have unique identifier, like ISBN, DOI, URI etc. 
+Default identifier is URI, with value `http://example.com/\jobname`.
+
+    \Configure{OpfScheme}{ opf:scheme="URI"}
+
+Type of unique identifier. It must be in form `opf:scheme="scheme type"`.
+
 Troubleshooting
 ---------------
 
