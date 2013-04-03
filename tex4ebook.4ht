@@ -177,7 +177,7 @@
 }
 
 
-% 
+% This commands add filenames to opf item list and spine 
 \edef\opf:htmlfiles{}
 \newcount\opf:htmlid
 \def\opf:registerfilename#1{%
@@ -188,6 +188,9 @@
     \xdef\opf:htmlfiles{\opf:htmlfiles, #1}
   }
 }
+
+\newcommand\OpfRegisterFile{\opf:registerfilename{\FileName}}
+
 %
 \def\ncx:head{%
 \HCode{<head>\Hnewline}
