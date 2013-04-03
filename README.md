@@ -20,13 +20,15 @@ Sample script can be found in file `tex4ebook`. Place this script somewhere in y
 Usage
 -----
 
-Add to your source file preamble:
-
-    \usepackage{tex4ebook}
-
 Run on the command line:
 
     tex4ebook [options] filename
+
+You don't have to modify your source file unless you want to use commands defined by `tex4ebook` in the document, or in the case your document uses some unsupported package like `fontspec` (see details bellow how to solve this issue).
+
+If you want to use `tex4ebook` commands, add this line to your document preamble:
+
+    \usepackage{tex4ebook}
 
 Options
 -------
@@ -83,7 +85,14 @@ Configuration
     ...
     \EndPreamble
 
-Basic info about command configurations can be found in [tex4ht documentation](http://www.tug.org/applications/tex4ht/mn11.html), and in series of blogposts on CV Radhakrishnan's blog [Configure part 1](http://www.cvr.cc/?p=323), [Configurepart 2](http://www.cvr.cc/?p=362), [Low level commands](http://www.cvr.cc/?p=482). Available options for `\Preamble` command are listed in the article [TeX4ht: options](http://www.cvr.cc/?p=504).
+Basic info about command configurations can be found in 
+[tex4ht documentation](http://www.tug.org/applications/tex4ht/mn11.html), 
+and in series of blogposts on CV Radhakrishnan's blog 
+[Configure part 1](http://www.cvr.cc/?p=323), 
+[Configurepart 2](http://www.cvr.cc/?p=362), 
+[Low level commands](http://www.cvr.cc/?p=482). 
+Available options for `\Preamble` command are listed in the article 
+[TeX4ht: options](http://www.cvr.cc/?p=504).
 
 Troubleshooting
 ---------------
