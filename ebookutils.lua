@@ -67,14 +67,14 @@ function parse_lg(filename)
   return {files = outputfiles, images = outputimages},status
 end
 
---function copy(src,dest, filter)
---  local src_f,dst_f=io.open(src,"r"),io.open(dest,"w")
---  local contents = src_f:read("*all")
---  local filter = filter or function(s) return s end
---  dst_f:write(filter(contents))
---  src_f:close()
---  dst_f:close()
---end
+function copy_filter(src,dest, filter)
+  local src_f,dst_f=io.open(src,"r"),io.open(dest,"w")
+  local contents = src_f:read("*all")
+  local filter = filter or function(s) return s end
+  dst_f:write(filter(contents))
+  src_f:close()
+  dst_f:close()
+end
 
 local cp_func = os.type == "unix" and "cp" or "copy"
 function copy(src,dest)
