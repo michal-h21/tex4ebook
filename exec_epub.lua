@@ -184,10 +184,10 @@ local function make_opf()
 	function writeContainer()
 		make_opf()
 		print("Tidy ncx "..
-		os.execute("tidy -xml -i -q -m " .. 
+		os.execute("tidy -xml -i -q -utf8 -m " .. 
 		outputdir .. "/" .. outputfilename .. ".ncx"))
 		print("Tidy opf "..
-		os.execute("tidy -xml -i -q -m " .. 
+		os.execute("tidy -xml -i -q -utf8 -m " .. 
 		outputdir .. "/" .. "content.opf"))
 		print("Pack mimetype " .. os.execute("zip -q0X "..outputfile .." mimetype"))
 		print("Pack metadir "   .. os.execute("zip -qXr9D " .. outputfile.." "..metadir))
