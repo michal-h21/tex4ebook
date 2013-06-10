@@ -70,7 +70,7 @@ end
 
 if not ebookutils.file_exists("tex4ht.env") then
    local env_file = kpse.find_file("epub2.env")
-   ebookutils.copy(env_file,"tex4ht.env",function(s) return s % {
+   ebookutils.copy_filter(env_file,"tex4ht.env",function(s) return s % {
 	   move = move_cmd,
 	   copy = copy_cmd,
 	   resolution = args.resolution
@@ -82,7 +82,8 @@ end
 
 local input = ebookutils.remove_extension(input_file)
 local tex4ht_sty_par = tex4ht_sty_par..","+args.format
-local tex4ht_sty_par = tex4ht_sty_par +args[2]
+local sty_args =  args[2] and ", " .. args[2]  or ""
+local tex4ht_sty_par = tex4ht_sty_par + sty_args --args[2]
 local tex4ht_par = tex4ht_par +args[3]
 local t4ht_par = t4ht_par + args[4]
 local latex_par = latex_par + args[5]

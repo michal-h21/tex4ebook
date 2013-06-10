@@ -67,14 +67,14 @@ function parse_lg(filename)
   return {files = outputfiles, images = outputimages},status
 end
 
---function copy(src,dest, filter)
---  local src_f,dst_f=io.open(src,"r"),io.open(dest,"w")
---  local contents = src_f:read("*all")
---  local filter = filter or function(s) return s end
---  dst_f:write(filter(contents))
---  src_f:close()
---  dst_f:close()
---end
+function copy_filter(src,dest, filter)
+  local src_f,dst_f=io.open(src,"r"),io.open(dest,"w")
+  local contents = src_f:read("*all")
+  local filter = filter or function(s) return s end
+  dst_f:write(filter(contents))
+  src_f:close()
+  dst_f:close()
+end
 
 local cp_func = os.type == "unix" and "cp" or "copy"
 function copy(src,dest)
@@ -129,7 +129,7 @@ end
 env.Make = make4ht.Make
 env.Make.params = env.settings
 env.Make:add("test","no takže ${tex4ht_sty_par} ${htlatex} ${input} ${config}")
-env.Make:add("htlatex", "${htlatex} ${latex_par} '\\\makeatletter\\def\\HCode{\\futurelet\\HCode\\HChar}\\def\\HChar{\\ifx\"\\HCode\\def\\HCode\"##1\"{\\Link##1}\\expandafter\\HCode\\else\\expandafter\\Link\\fi}\\def\\Link#1.a.b.c.{\\g@addto@macro\\@documentclasshook{\\RequirePackage[#1,html]{tex4ht}\\RequirePackage{tex4ebook}}\\let\\HCode\\documentstyle\\def\\documentstyle{\\let\\documentstyle\\HCode\\expandafter\\def\\csname tex4ht\\endcsname{#1,html}\\def\\HCode####1{\\documentstyle[tex4ht,}\\@ifnextchar[{\\HCode}{\\documentstyle[tex4ht]}}}\\makeatother\\HCode '${config}${tex4ht_sty_par}'.a.b.c.\\input ' ${input}")
+env.Make:add("htlatex", "${htlatex} ${latex_par} --jobname=${input} '\\\makeatletter\\def\\HCode{\\futurelet\\HCode\\HChar}\\def\\HChar{\\ifx\"\\HCode\\def\\HCode\"##1\"{\\Link##1}\\expandafter\\HCode\\else\\expandafter\\Link\\fi}\\def\\Link#1.a.b.c.{\\g@addto@macro\\@documentclasshook{\\RequirePackage[#1,html]{tex4ht}\\RequirePackage{tex4ebook}}\\let\\HCode\\documentstyle\\def\\documentstyle{\\let\\documentstyle\\HCode\\expandafter\\def\\csname tex4ht\\endcsname{#1,html}\\def\\HCode####1{\\documentstyle[tex4ht,}\\@ifnextchar[{\\HCode}{\\documentstyle[tex4ht]}}}\\makeatother\\HCode '${config}${tex4ht_sty_par}'.a.b.c.\\input ' ${input}")
 env.Make:add("tex4ht","tex4ht ${input} ${tex4ht_par}")
 env.Make:add("t4ht","t4ht ${input} ${t4ht_par}")
 
