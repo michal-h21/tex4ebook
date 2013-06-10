@@ -48,7 +48,7 @@ tex4ht_sty_par=tex4ht_sty_par .. ", charset=utf-8"
 tex4ht_par=tex4ht_par .. " -cunihtf -utf8"
 --end
 
-if args.shell_escape then 
+if args["shell-escape"] then 
   latex_par = latex_par .. " -shell-escape"
 end
 
