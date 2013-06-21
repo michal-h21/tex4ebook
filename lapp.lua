@@ -146,7 +146,7 @@ function process_options_string(str)
 
     usage = str
 
-    for line in str:gfind('([^\n]*)\n') do
+    for line in str:gmatch('([^\n]*)\n') do
         local optspec,optparm,i1,i2,defval,vtype,constraint
         line = ltrim(line)
         -- flags: either -<short> or -<short>,<long>
