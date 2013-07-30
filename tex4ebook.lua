@@ -110,7 +110,7 @@ local config_file = ebookutils.load_config(nil, input.. ".mk4")
 
 params["config_file"] = config_file
 --config_file.Make:run()
-print("${htlatex} ${input} \"${config}${tex4ht_sty_par}\" \"${tex4ht_par}\" \"${t4ht_par}\" \"\${latex_par}\"" % params)
+print("${htlatex} ${input} \"${config}${tex4ht_sty_par}\" \"${tex4ht_par}\" \"${t4ht_par}\" \"${latex_par}\"" % params)
 executor.run(input,params)
 executor.writeContainer()
 executor.clean()
