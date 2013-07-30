@@ -1,2 +1,2 @@
 #!/usr/bin/env sh
-texlua ~/texmf/tex/latex/tex4ebook/tex4ebook/tex4ebook.lua $@
+texlua ~/texmf/tex/latex/tex4ebook/tex4ebook.lua $@
