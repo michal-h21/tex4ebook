@@ -51,7 +51,7 @@ media-type="application/oebps-package+xml"/>
 	m=io.open(mimetype,"w")
 	m:write("application/epub+zip")
 	m:close()
-	local htlatex_run = "${htlatex} ${input} \"${config}${tex4ht_sty_par}\" \"${tex4ht_par}\" \"${t4ht_par}\" \"\${latex_par}\"" % params
+	local htlatex_run = "${htlatex} ${input} \"${config}${tex4ht_sty_par}\" \"${tex4ht_par}\" \"${t4ht_par}\" \"${latex_par}\"" % params
 	print("Make4ht run")
 	print("-------------------")
 	params.config_file.Make.params = params
