@@ -73,6 +73,10 @@ Resolution of generated images, for example math. It should meet resolution of t
 
 Enable shell escape in htlatex run. This may be needed if you run external commands from your source files.
 
+*t,--tidy*
+
+Run tidy on output html files.
+
 
 Configuration
 -------------

@@ -68,11 +68,12 @@ function parse_lg(filename)
 end
 
 function copy_filter(src,dest, filter)
-  local src_f,dst_f=io.open(src,"r"),io.open(dest,"w")
+  local src_f=io.open(src,"rb")
+  local dst_f=io.open(dest,"w")
   local contents = src_f:read("*all")
   local filter = filter or function(s) return s end
-  dst_f:write(filter(contents))
   src_f:close()
+  dst_f:write(filter(contents))
   dst_f:close()
 end
 

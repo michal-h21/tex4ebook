@@ -9,7 +9,9 @@ local mimetype_name="mimetype"
 outputdir=""
 outputfile=""
 outputfilename=""
+tidy = false
 local metadir=""
+
 
 
 function prepare(params)
@@ -26,6 +28,7 @@ function prepare(params)
 	mimetype= mimetype_name --os.tmpname()
 	print(outputdir)
 	print(mimetype)
+	tidy = params.tidy
 	params["t4ht_par"] = params["t4ht_par"] -- + "-d"..string.format(params["t4ht_dir_format"],outputdir)
 	return(params)
 end
@@ -149,6 +152,10 @@ local function make_opf()
 					if not used_paths[path] then
 						ebookutils.mkdirectories(parts)
 						used_paths[path]=true
+					end
+					if allow_in_spine[ext] and tidy then 
+						print("Tidy: "..k)
+						os.execute("tidy -xml -c  -w 200 -q -utf8 -m " .. k) 
 					end
 					ebookutils.copy(k, outputdir .. "/"..k)
 					if not all_used_files[fn] and allow_in_spine[ext] then

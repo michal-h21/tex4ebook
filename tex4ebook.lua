@@ -15,6 +15,7 @@ local t4ht_par=""
 local latex_par=""
 local output_formats={epub=true,mobi=true,epub3=true}
 local executor=nil
+local tidy = false
 local arg_message = [[
 tex4ebook - ebook generation support for LaTeX
 Usage:
@@ -25,6 +26,7 @@ tex4ebook [switches] inputfile
   -l,--lua  Runs htlualatex instead of htlatex
   -r,--resolution (default 167)
   -s,--shell-escape  Enable shell escape in htlatex run
+  -t,--tidy Run html tidy on html output. May result in wrong spacing!
 ]]
 
 -- This option is no longer available, all files must be unicode
@@ -65,7 +67,11 @@ else
   t4ht_dir_format="%s"
 end
 
-
+if args.tidy then 
+	tidy = true
+else
+	tidy = false
+end
 -- Env file copying 
 
 if not ebookutils.file_exists("tex4ht.env") then
@@ -96,6 +102,7 @@ local params = {
   ,tex4ht_par=tex4ht_par
   ,t4ht_par=t4ht_par
   ,t4ht_dir_format=t4ht_dir_format
+  ,tidy = tidy
 }  
 
 if output_formats[args.format] then
