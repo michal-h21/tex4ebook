@@ -158,9 +158,11 @@ local function make_opf()
 						os.execute("tidy -xml -c  -w 200 -q -utf8 -m " .. k) 
 					end
 					ebookutils.copy(k, outputdir .. "/"..k)
-					if not all_used_files[fn] and allow_in_spine[ext] then
+					if not all_used_files[fn] then
 						table.insert(opf_complete,item)
+						if allow_in_spine[ext] then 
 						table.insert(outside_spine,id)
+						end
 					end
 				end
 			end
