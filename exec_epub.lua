@@ -138,6 +138,7 @@ local function make_opf()
 				local ext = k:match("%.([%a%d]*)$")
 				local parts = k:split "/"
 				local fn = parts[#parts]
+				local allow_in_spine =  {html="",xhtml = "", xml = ""}
 				table.remove(parts,#parts)
 				table.insert(parts,1,"OEBPS")
 				--print("SSSSS "..fn.." ext .." .. ext)
@@ -150,7 +151,7 @@ local function make_opf()
 						used_paths[path]=true
 					end
 					ebookutils.copy(k, outputdir .. "/"..k)
-					if not all_used_files[fn] then
+					if not all_used_files[fn] and allow_in_spine[ext] then
 						table.insert(opf_complete,item)
 						table.insert(outside_spine,id)
 					end
