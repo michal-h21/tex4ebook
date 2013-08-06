@@ -105,6 +105,10 @@
 
 %Get sanitized value of \title
 %\def\Title{\Ref{TITLE+}}
+% If title contains macros, SafeTitle should be configured 
+% in the custom cfg file
+\NewConfigure{SafeTitle}[1]{\gdef\Title{#1}}
+
 \:CheckOption{epub}
 \if:Option
 %\Configure{crosslinks+}{}{}{}{}
