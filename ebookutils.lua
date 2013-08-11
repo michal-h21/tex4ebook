@@ -53,6 +53,7 @@ function parse_lg(filename)
     print("Cannot read log file: "..filename)
   else
     local usedfiles={}
+    local fonts = {}
     for line in io.lines(filename) do
       line:gsub("==> ([%a%d%p%.%-%_]*)",function(k) table.insert(outputimages,k)end)
       line:gsub("File: (.*)",  function(k) 
@@ -61,10 +62,17 @@ function parse_lg(filename)
 	   usedfiles[k] = true
          end
       end)
+      line:gsub("htfcss: ([^%s]+)(.*)",function(k,r)
+	      local fields = {}
+	      r:gsub("[%s]*([^%:]+):[%s]*([^;]+);",function(c,v) 
+		      fields[c] = v
+	      end)
+	      fonts[k] = fields
+      end)
     end
     status=true
   end
-  return {files = outputfiles, images = outputimages},status
+  return {files = outputfiles, images = outputimages, fonts = fonts},status
 end
 
 function copy_filter(src,dest, filter)
