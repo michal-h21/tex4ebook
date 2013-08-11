@@ -16,6 +16,7 @@ local latex_par=""
 local output_formats={epub=true,mobi=true,epub3=true}
 local executor=nil
 local tidy = false
+local include_fonts = false
 local arg_message = [[
 tex4ebook - ebook generation support for LaTeX
 Usage:
@@ -54,6 +55,9 @@ if args["shell-escape"] then
   latex_par = latex_par .. " -shell-escape"
 end
 
+if args["include-fonts"] then 
+	include_fonts = true
+end
 
 if os.type=="unix" then
   env_param="$"
@@ -103,6 +107,7 @@ local params = {
   ,t4ht_par=t4ht_par
   ,t4ht_dir_format=t4ht_dir_format
   ,tidy = tidy
+  ,include_fonts = include_fonts
 }  
 
 if output_formats[args.format] then
