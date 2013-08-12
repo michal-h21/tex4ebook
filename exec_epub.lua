@@ -3,6 +3,7 @@ local lfs = require("lfs")
 local os = require("os")
 local io = require("io")
 local ebookutils = require("ebookutils")
+local load_font = require("list-fonts")
 local outputdir_name="OEBPS"
 local metadir_name = "META-INF"
 local mimetype_name="mimetype"
@@ -10,6 +11,7 @@ outputdir=""
 outputfile=""
 outputfilename=""
 tidy = false
+local include_fonts = false
 local metadir=""
 
 
@@ -29,6 +31,7 @@ function prepare(params)
 	print(outputdir)
 	print(mimetype)
 	tidy = params.tidy
+	include_fonts = params.include_fonts
 	params["t4ht_par"] = params["t4ht_par"] -- + "-d"..string.format(params["t4ht_dir_format"],outputdir)
 	return(params)
 end
@@ -80,7 +83,9 @@ local mimetypes = {
 	gif = "image/gif",
 	svg = "image/svg+xml",
 	html= "application/xhtml+xml",
-	ncx = "application/x-dtbncx+xml"
+	ncx = "application/x-dtbncx+xml",
+	otf = "application/opentype",
+	ttf = "application/truetype"
 }
 
 local function make_opf()

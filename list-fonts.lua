@@ -34,7 +34,7 @@ local fontbase = load_fontbase(fontbase_path)
 assert(fontbase, "Cannot load font names")
 
 
---[[
+-- [[
 -- This is code for querying the database
 --
 local search = arg[1] or ""
@@ -113,7 +113,7 @@ FontNames.list = function(self)
 	end
 end
 
---[[
+-- [[
 local fontnames = {}
 for fontname,_ in pairs(fonts) do
 	local lowername = unicode.utf8.lower(fontname)
@@ -133,9 +133,12 @@ for _, name in pairs(fontnames) do
 end
 --]]
 
-local testfont = FontLoader.load_family("Gentium Basic")
-testfont:list()
+local testfont = FontLoader.load_family("math")
+--testfont:list()
 
 local n= FontNames.new()
-n:add_family {family = "monospaced", name = "LMMono10"} {"dddd","sss","wwww","qqq","weee","ttttt"}
-n:list()
+n:add_family {type = "serif", name = "LMMono10"} {"cmr"}
+n:add_family {type = "serif", name = "TeXGyreTermes"} {"ts1-qtmr", "ec-qtmr","ec-qtmri"}
+--n:list()
+
+return {FontLoader = FontLoader, FontNames =  n}
