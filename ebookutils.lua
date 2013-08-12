@@ -54,6 +54,7 @@ function parse_lg(filename)
   else
     local usedfiles={}
     local fonts = {}
+    local used_fonts = {}
     for line in io.lines(filename) do
       line:gsub("==> ([%a%d%p%.%-%_]*)",function(k) table.insert(outputimages,k)end)
       line:gsub("File: (.*)",  function(k) 
@@ -69,10 +70,14 @@ function parse_lg(filename)
 	      end)
 	      fonts[k] = fields
       end)
+   
+      line:gsub('Font("([^"]+)","([%d]+)","([%d]+)","([%d]+)"',function(n,s1,s2,s3) 
+	      table.insert(used_fonts,{n,s1,s2,s3})
+      end)
     end
     status=true
   end
-  return {files = outputfiles, images = outputimages, fonts = fonts},status
+  return {files = outputfiles, images = outputimages, htfonts = fonts,fonts = used_fonts},status
 end
 
 function copy_filter(src,dest, filter)
@@ -120,8 +125,14 @@ end
 -- Config loading
 local function run(untrusted_code, env)
   if untrusted_code:byte(1) == 27 then return nil, "binary bytecode prohibited" end
-  local untrusted_function, message = loadstring(untrusted_code)
+  local untrusted_function = nil
+  if not loadstring then
+	  untrusted_function, message = load(untrusted_code, nil, "t",env)
+  else
+	  untrusted_function, message = loadstring(untrusted_code)
+  end
   if not untrusted_function then return nil, message end
+  if not setfenv then setfenv = function(a,b) return true end end
   setfenv(untrusted_function, env)
   return pcall(untrusted_function)
 end
