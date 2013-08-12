@@ -191,6 +191,9 @@ local function make_opf()
 			os.remove(opf_second_part)
 			--ebookutils.copy(outputfilename ..".css",outputdir.."/")
 			ebookutils.copy(opf_first_part,outputdir.."/"..opf_first_part)
+			--for c,v in pairs(lg_file["fonts"]) do
+			--	print(c, table.concat(v,", "))
+			--end
 			--print(table.concat(opf_complete,"\n"))
 		else
 			print("Missing opf file")
