@@ -31,7 +31,7 @@ local fontbase_path = {
 }
 
 local fontbase = load_fontbase(fontbase_path)
-assert(fontbase, "Cannot load font names")
+-- assert(fontbase, "Cannot load font names")
 
 
 -- [[
