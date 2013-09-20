@@ -25,6 +25,7 @@ tex4ebook [switches] inputfile
   -f,--format (default epub) Output format. Supported values: epub, epub3, mobi
   -i,--include-fonts  Include fonts in ebook 
   -l,--lua  Runs htlualatex instead of htlatex
+	-m,--mathml Mathml support
   -r,--resolution (default 167)
   -s,--shell-escape  Enable shell escape in htlatex run
   -t,--tidy Run html tidy on html output. May result in wrong spacing!
@@ -57,6 +58,11 @@ end
 
 if args["include-fonts"] then 
 	include_fonts = true
+end
+
+local mathml = ","
+if args["mathml"] then
+	mathml = ",mathml,"
 end
 
 if os.type=="unix" then
@@ -108,6 +114,7 @@ local params = {
   ,t4ht_dir_format=t4ht_dir_format
   ,tidy = tidy
   ,include_fonts = include_fonts
+	,mathml=mathml
 }  
 
 if output_formats[args.format] then
