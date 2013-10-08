@@ -3,8 +3,17 @@ TeX4ebook
 
 `TeX4ebook` is bundle of lua scripts and `LaTeX` packages for conversion of LaTeX files to ebook formats, for example `epub`. `tex4ht` is used as conversion engine. 
 
+News
+----
+
+- 10/08/2013
+  [`make4ht`](https://github.com/michal-h21/make4ht) is now standalone application which `tex4ebook` depends on. You must [install it](https://github.com/michal-h21/make4ht#instalation) in order to use current `tex4ebook` version.
+
 Installation
 ------------
+
+> This package depends on [`make4ht`](https://github.com/michal-h21/make4ht#instalation) now, 
+> please follow instructions from the link to install `make4ht`
 
 Clone this repository to `tex/latex/` directory in your local `texmf tree`. It's location can be found with command:
 
