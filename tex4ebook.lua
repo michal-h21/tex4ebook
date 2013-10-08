@@ -85,14 +85,14 @@ else
 end
 -- Env file copying 
 
-if not ebookutils.file_exists("tex4ht.env") then
+--[[if not ebookutils.file_exists("tex4ht.env") then
    local env_file = kpse.find_file("epub2.env")
    ebookutils.copy_filter(env_file,"tex4ht.env",function(s) return s % {
 	   move = move_cmd,
 	   copy = copy_cmd,
 	   resolution = args.resolution
    } end)
-end
+end--]]
 
 --print ("nazdar ${world}" % {world="svete"})
 --print(args.config)
