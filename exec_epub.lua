@@ -65,7 +65,7 @@ media-type="application/oebps-package+xml"/>
 	if params.config_file.Make:length() < 1 then
 		params.config_file.Make:htlatex()
 		params.config_file.Make:htlatex()
-		params.config_file.Make:htlatex()
+		params.config_file.Make:htlatex() 
 	end
 	params.config_file.Make:tex4ht()
 	params.config_file.Make:t4ht()
