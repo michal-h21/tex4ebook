@@ -1,6 +1,7 @@
 kpse.set_program_name("luatex")
 require("lapp")
-require("ebookutils")
+-- require("ebookutils")
+local ebookutils = require "mkutils"
 
 -- Setting
 local latex_cmd="latex"
@@ -97,7 +98,8 @@ end
 --print(args.config)
 
 local input = ebookutils.remove_extension(input_file)
-local tex4ht_sty_par = tex4ht_sty_par..","+args.format
+local config=ebookutils.remove_extension(args.config)
+local tex4ht_sty_par = config ..","..tex4ht_sty_par..","+args.format
 local sty_args =  args[2] and ", " .. args[2]  or ""
 local tex4ht_sty_par = tex4ht_sty_par + sty_args --args[2]
 local tex4ht_par = tex4ht_par +args[3]
@@ -107,7 +109,6 @@ local params = {
   htlatex=latex_cmd
   ,input=input 
   ,latex_par=latex_par
-  ,config=ebookutils.remove_extension(args.config)
   ,tex4ht_sty_par=tex4ht_sty_par
   ,tex4ht_par=tex4ht_par
   ,t4ht_par=t4ht_par

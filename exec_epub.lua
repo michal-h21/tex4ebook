@@ -2,7 +2,8 @@ module("exec_epub",package.seeall)
 local lfs = require("lfs")
 local os = require("os")
 local io = require("io")
-local ebookutils = require("ebookutils")
+--local ebookutils = require("ebookutils")
+local ebookutils = require "mkutils"
 local load_font = require("list-fonts")
 local outputdir_name="OEBPS"
 local metadir_name = "META-INF"

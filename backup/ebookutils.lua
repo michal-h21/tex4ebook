@@ -1,6 +1,7 @@
 module("ebookutils",package.seeall)
 
-local make4ht = require("make4ht")
+--local make4ht = require("make4ht")
+local make4ht = require("make4ht-eb")
 --template engine
 function interp(s, tab)
 	local tab = tab or {}
