@@ -1,6 +1,7 @@
 kpse.set_program_name("luatex")
 require("lapp")
-require("ebookutils")
+-- require("ebookutils")
+local ebookutils = require "mkutils"
 
 -- Setting
 local latex_cmd="latex"
@@ -25,6 +26,7 @@ tex4ebook [switches] inputfile
   -f,--format (default epub) Output format. Supported values: epub, epub3, mobi
   -i,--include-fonts  Include fonts in ebook 
   -l,--lua  Runs htlualatex instead of htlatex
+	-m,--mathml Mathml support
   -r,--resolution (default 167)
   -s,--shell-escape  Enable shell escape in htlatex run
   -t,--tidy Run html tidy on html output. May result in wrong spacing!
@@ -59,6 +61,11 @@ if args["include-fonts"] then
 	include_fonts = true
 end
 
+local mathml = ","
+if args["mathml"] then
+	mathml = ",mathml,"
+end
+
 if os.type=="unix" then
   env_param="$"
   copy_cmd="cp"
@@ -91,7 +98,8 @@ end
 --print(args.config)
 
 local input = ebookutils.remove_extension(input_file)
-local tex4ht_sty_par = tex4ht_sty_par..","+args.format
+local config=ebookutils.remove_extension(args.config)
+local tex4ht_sty_par = config ..","..tex4ht_sty_par..","+args.format
 local sty_args =  args[2] and ", " .. args[2]  or ""
 local tex4ht_sty_par = tex4ht_sty_par + sty_args --args[2]
 local tex4ht_par = tex4ht_par +args[3]
@@ -101,13 +109,13 @@ local params = {
   htlatex=latex_cmd
   ,input=input 
   ,latex_par=latex_par
-  ,config=ebookutils.remove_extension(args.config)
   ,tex4ht_sty_par=tex4ht_sty_par
   ,tex4ht_par=tex4ht_par
   ,t4ht_par=t4ht_par
   ,t4ht_dir_format=t4ht_dir_format
   ,tidy = tidy
   ,include_fonts = include_fonts
+	,mathml=mathml
 }  
 
 if output_formats[args.format] then

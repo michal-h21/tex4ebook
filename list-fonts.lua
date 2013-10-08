@@ -30,8 +30,9 @@ local fontbase_path = {
 	compose_path(var,oldnames)
 }
 
-local fontbase = load_fontbase(fontbase_path)
-assert(fontbase, "Cannot load font names")
+local fontbase = load_fontbase(fontbase_path) or {}
+fontbase.mappings = fontbase.mappings or {}
+-- assert(fontbase, "Cannot load font names")
 
 
 -- [[
