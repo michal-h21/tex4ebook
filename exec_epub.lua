@@ -11,6 +11,7 @@ local mimetype_name="mimetype"
 outputdir=""
 outputfile=""
 outputfilename=""
+basedir = ""
 tidy = false
 local include_fonts = false
 local metadir=""
@@ -35,7 +36,7 @@ function prepare(params)
 		end
 		lfs.chdir(current)
 	end
-	local basedir = params.input.."-".. params.format
+	basedir = params.input.."-".. params.format
 	outputdir= basedir.."/"..outputdir_name --"outdir-"..randname --os.tmpdir()
 	makedir(outputdir)
 	-- lfs.mkdir(outputdir)
@@ -47,7 +48,7 @@ function prepare(params)
 	-- lfs.mkdir(metadir)
 	--local status, msg = ebookutils.mkdirectories(ebookutils.prepare_path(metadir.."/"))
 	--if not status then print("make mmetadir error:" ..msg) end
-	mimetype= mimetype_name --os.tmpname()
+	mimetype= basedir .. "/" ..mimetype_name --os.tmpname()
 	print(outputdir)
 	print(mimetype)
 	tidy = params.tidy
@@ -228,9 +229,11 @@ local function make_opf()
 		print("Tidy opf "..
 		os.execute("tidy -xml -i -q -utf8 -m " .. 
 		outputdir .. "/" .. "content.opf"))
-		print("Pack mimetype " .. os.execute("zip -q0X "..outputfile .." mimetype"))
-		print("Pack metadir "   .. os.execute("zip -qXr9D " .. outputfile.." "..metadir))
-		print("Pack outputdir " .. os.execute("zip -qXr9D " .. outputfile.." "..outputdir))
+		print("Pack mimetype " .. os.execute("cd "..basedir.." && zip -q0X "..outputfile .." mimetype"))
+		print("Pack metadir "   .. os.execute("cd "..basedir.." && zip -qXr9D " .. outputfile.." "..metadir_name))
+		print("Pack outputdir " .. os.execute("cd "..basedir.." && zip -qXr9D " .. outputfile.." "..outputdir_name))
+		print("Copy generated epub ")
+		ebookutils.cp(basedir .."/"..outputfile, outputfile)
 	end
 	local function deldir(path)
 		for entry in lfs.dir(path) do
