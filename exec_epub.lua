@@ -24,10 +24,29 @@ function prepare(params)
 	--print("Local env file: "..env_file)
 	--  ebookutils.copy(env_file,"tex4ht.env")
 	-- end
-	outputdir= outputdir_name --"outdir-"..randname --os.tmpdir()
-	lfs.mkdir(outputdir)
-	metadir = metadir_name --"metadir-"..randname
-	lfs.mkdir(metadir)
+	local makedir= function(path)
+		local current = lfs.currentdir()
+		local dir = ebookutils.prepare_path(path .. "/")
+		if type(dir) == "table" then
+			local parts,msg =  ebookutils.find_directories(dir)
+			if parts then 
+			 ebookutils.mkdirectories(parts)
+		  end
+		end
+		lfs.chdir(current)
+	end
+	local basedir = params.input.."-".. params.format
+	outputdir= basedir.."/"..outputdir_name --"outdir-"..randname --os.tmpdir()
+	makedir(outputdir)
+	-- lfs.mkdir(outputdir)
+	--ebookutils.mkdirectories(ebookutils.prepare_path(outputdir.."/"))
+	metadir = basedir .."/" .. metadir_name --"metadir-"..randname
+	makedir(metadir)
+	--local dd = ebookutils.prepare_path(metadir.."/")
+	--for _,d in pairs(dd) do print("metadir path: "..d) end
+	-- lfs.mkdir(metadir)
+	--local status, msg = ebookutils.mkdirectories(ebookutils.prepare_path(metadir.."/"))
+	--if not status then print("make mmetadir error:" ..msg) end
 	mimetype= mimetype_name --os.tmpname()
 	print(outputdir)
 	print(mimetype)
@@ -149,7 +168,8 @@ local function make_opf()
 				local fn = parts[#parts]
 				local allow_in_spine =  {html="",xhtml = "", xml = ""}
 				table.remove(parts,#parts)
-				table.insert(parts,1,"OEBPS")
+				--table.insert(parts,1,"OEBPS")
+				table.insert(parts,1,outputdir)
 				--print("SSSSS "..fn.." ext .." .. ext)
 				--if string.find("jpg gif png", ext) and not all_used_files[k] then
 				local item,id = lg_item(k) 
