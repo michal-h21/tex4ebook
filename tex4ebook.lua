@@ -109,6 +109,7 @@ local latex_par = latex_par + args[5]
 local params = {
   htlatex=latex_cmd
   ,input=input 
+	,format=args.format
   ,latex_par=latex_par
   ,tex4ht_sty_par=tex4ht_sty_par
   ,tex4ht_par=tex4ht_par
