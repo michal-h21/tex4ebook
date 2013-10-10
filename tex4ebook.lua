@@ -63,7 +63,8 @@ end
 
 local mathml = ","
 if args["mathml"] then
-	mathml = ",mathml,"
+	-- mathml = ",mathml,"
+	tex4ht_sty_par = tex4ht_sty_par .. ",mathml"
 end
 
 if os.type=="unix" then
@@ -99,7 +100,7 @@ end--]]
 
 local input = ebookutils.remove_extension(input_file)
 local config=ebookutils.remove_extension(args.config)
-local tex4ht_sty_par = config ..","..tex4ht_sty_par..","+args.format
+local tex4ht_sty_par = config ..tex4ht_sty_par..","+args.format
 local sty_args =  args[2] and ", " .. args[2]  or ""
 local tex4ht_sty_par = tex4ht_sty_par + sty_args --args[2]
 local tex4ht_par = tex4ht_par +args[3]
