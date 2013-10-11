@@ -67,6 +67,9 @@ media-type="application/oebps-package+xml"/>
 		params.config_file.Make:htlatex()
 		params.config_file.Make:htlatex() 
 	end
+	if #params.config_file.Make.image_patterns > 0 then
+		params["t4ht_par"] = params["t4ht_par"] .." -p"
+	end
 	params.config_file.Make:tex4ht()
 	params.config_file.Make:t4ht()
 	params.config_file.Make:run()
