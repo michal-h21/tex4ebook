@@ -121,6 +121,7 @@ local params = {
   ,t4ht_dir_format=t4ht_dir_format
   ,tidy = tidy
   ,include_fonts = include_fonts
+	,resolution=args.resolution
   ,mathml=mathml
   ,packages="\\RequirePackage{tex4ebook}"
 }  
