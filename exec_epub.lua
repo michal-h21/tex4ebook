@@ -173,6 +173,7 @@ local function make_opf()
 				end
 			end
 			for _,f in ipairs(lg_file["images"]) do
+				local f = f.output
 				local p = lg_item(f)
 				ebookutils.copy(f, outputdir .. "/"..f)
 				table.insert(opf_complete,p)
