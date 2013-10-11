@@ -101,7 +101,11 @@ end--]]
 local input = ebookutils.remove_extension(input_file)
 local config=ebookutils.remove_extension(args.config)
 local tex4ht_sty_par = config ..tex4ht_sty_par..","+args.format
-local sty_args =  args[2] and ", " .. args[2]  or ""
+--local sty_args =  args[2] and ", " .. args[2]  or ""
+local sty_args = ""
+if args[2] then 
+	sty_args = "," .. args[2]
+end
 local tex4ht_sty_par = tex4ht_sty_par + sty_args --args[2]
 local tex4ht_par = tex4ht_par +args[3]
 local t4ht_par = t4ht_par + args[4]
