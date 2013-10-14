@@ -11,6 +11,7 @@ local mimetype_name="mimetype"
 outputdir=""
 outputfile=""
 outputfilename=""
+basedir = ""
 tidy = false
 local include_fonts = false
 local metadir=""
@@ -24,11 +25,30 @@ function prepare(params)
 	--print("Local env file: "..env_file)
 	--  ebookutils.copy(env_file,"tex4ht.env")
 	-- end
-	outputdir= outputdir_name --"outdir-"..randname --os.tmpdir()
-	lfs.mkdir(outputdir)
-	metadir = metadir_name --"metadir-"..randname
-	lfs.mkdir(metadir)
-	mimetype= mimetype_name --os.tmpname()
+	local makedir= function(path)
+		local current = lfs.currentdir()
+		local dir = ebookutils.prepare_path(path .. "/")
+		if type(dir) == "table" then
+			local parts,msg =  ebookutils.find_directories(dir)
+			if parts then 
+			 ebookutils.mkdirectories(parts)
+		  end
+		end
+		lfs.chdir(current)
+	end
+	basedir = params.input.."-".. params.format
+	outputdir= basedir.."/"..outputdir_name --"outdir-"..randname --os.tmpdir()
+	makedir(outputdir)
+	-- lfs.mkdir(outputdir)
+	--ebookutils.mkdirectories(ebookutils.prepare_path(outputdir.."/"))
+	metadir = basedir .."/" .. metadir_name --"metadir-"..randname
+	makedir(metadir)
+	--local dd = ebookutils.prepare_path(metadir.."/")
+	--for _,d in pairs(dd) do print("metadir path: "..d) end
+	-- lfs.mkdir(metadir)
+	--local status, msg = ebookutils.mkdirectories(ebookutils.prepare_path(metadir.."/"))
+	--if not status then print("make mmetadir error:" ..msg) end
+	mimetype= basedir .. "/" ..mimetype_name --os.tmpname()
 	print(outputdir)
 	print(mimetype)
 	tidy = params.tidy
@@ -152,7 +172,8 @@ local function make_opf()
 				local fn = parts[#parts]
 				local allow_in_spine =  {html="",xhtml = "", xml = ""}
 				table.remove(parts,#parts)
-				table.insert(parts,1,"OEBPS")
+				--table.insert(parts,1,"OEBPS")
+				table.insert(parts,1,outputdir)
 				--print("SSSSS "..fn.." ext .." .. ext)
 				--if string.find("jpg gif png", ext) and not all_used_files[k] then
 				local item,id = lg_item(k) 
@@ -212,9 +233,11 @@ local function make_opf()
 		print("Tidy opf "..
 		os.execute("tidy -xml -i -q -utf8 -m " .. 
 		outputdir .. "/" .. "content.opf"))
-		print("Pack mimetype " .. os.execute("zip -q0X "..outputfile .." mimetype"))
-		print("Pack metadir "   .. os.execute("zip -qXr9D " .. outputfile.." "..metadir))
-		print("Pack outputdir " .. os.execute("zip -qXr9D " .. outputfile.." "..outputdir))
+		print("Pack mimetype " .. os.execute("cd "..basedir.." && zip -q0X "..outputfile .." mimetype"))
+		print("Pack metadir "   .. os.execute("cd "..basedir.." && zip -qXr9D " .. outputfile.." "..metadir_name))
+		print("Pack outputdir " .. os.execute("cd "..basedir.." && zip -qXr9D " .. outputfile.." "..outputdir_name))
+		print("Copy generated epub ")
+		ebookutils.cp(basedir .."/"..outputfile, outputfile)
 	end
 	local function deldir(path)
 		for entry in lfs.dir(path) do
