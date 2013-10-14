@@ -86,6 +86,9 @@
 }
 
 \NewConfigure{CoverImage}{2}
+\Configure{CoverImage}{%
+\ifvmode\IgnorePar\fi\EndP\HCode{<div class="cover-image">\Hnewline}
+}{\HCode{</div>\Hnewline}\par}
 \def\CoverMetadata#1{%
 \Configure{OpfMetadata}
 {\HCode{<meta name="cover" content="cover-image" />\Hnewline}}
