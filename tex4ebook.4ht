@@ -86,8 +86,16 @@
 }
 
 \NewConfigure{CoverImage}{2}
+\def\CoverMetadata#1{%
+\Configure{OpfMetadata}
+{\HCode{<meta name="cover" content="cover-image" />\Hnewline}}
+\Configure{OpfManifest}
+{\HCode{<item id="cover-image" 
+href="#1" media-type="\a:CoverMimeType" />}}
+}
 \renewcommand\coverimage[2][]{%
 \edef\CoverImageName{#2}%
+\CoverMetadata{#2}
 \a:CoverImage%
 \includegraphics[#1]{#2}%
 \b:CoverImage%
@@ -361,18 +369,21 @@
 	\booltrue{tocnoempty}
 	\HCode{<li>}\setbox0=\hbox\bgroup}{\HCode{<ol>\Hnewline}}{\egroup}{\Tg</ol>\Tg</li>}
 %%%% End toc nav configuration
-\Configure{CoverImage}{%
+\def\CoverMetadata#1{%
+\Configure{OpfManifest}{\HCode{<item id="cover-image" properties="cover-image" href="#1" media-type="\a:CoverMimeType" />}}%
+}
+%\Configure{CoverImage}{%
 %  \HPage{}%
-  \Configure{OpfManifest}{\HCode{<item id="cover-image" properties="cover-image" href="}\CoverImageName\HCode{" media-type="\a:CoverMimeType" />}}%
+%  \Configure{OpfManifest}{\HCode{<item id="cover-image" properties="cover-image" href="}\CoverImageName\HCode{" media-type="\a:CoverMimeType" />}}%
   %\box0=\hbox\bgroup
 %  \ifvmode \IgnorePar\fi \EndP%
 %  \HCode{<section epub:type="cover">\Hnewline}}
-}
-  {%\ifvmode \IgnorePar\fi \EndP%
+%}
+%  {%\ifvmode \IgnorePar\fi \EndP%
    %\HCode{</section>\Hnewline}%
    %\EndHPage{}
    %\egroup
-}
+%}
 %\:CheckOption{mathml}
 %\if:Option
 \apptocmd{\a:DviMath}{\opf:add:property{mathml}}{}{}
