@@ -114,7 +114,7 @@ FontNames.list = function(self)
 	end
 end
 
--- [[
+--[[
 local fontnames = {}
 for fontname,_ in pairs(fonts) do
 	local lowername = unicode.utf8.lower(fontname)
