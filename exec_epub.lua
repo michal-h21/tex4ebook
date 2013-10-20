@@ -233,7 +233,8 @@ local function make_opf()
 		print("Tidy opf "..
 		os.execute("tidy -xml -i -q -utf8 -m " .. 
 		outputdir .. "/" .. "content.opf"))
-		print("Pack mimetype " .. os.execute("cd "..basedir.." && zip -q0X "..outputfile .." mimetype"))
+                print(mimetype)
+		print("Pack mimetype " .. os.execute("cd "..basedir.." && zip -q0X "..outputfile .." ".. mimetype_name))
 		print("Pack metadir "   .. os.execute("cd "..basedir.." && zip -qXr9D " .. outputfile.." "..metadir_name))
 		print("Pack outputdir " .. os.execute("cd "..basedir.." && zip -qXr9D " .. outputfile.." "..outputdir_name))
 		print("Copy generated epub ")
@@ -252,5 +253,5 @@ local function make_opf()
 	function clean()
 		--deldir(outputdir)
 		--deldir(metadir)
-		os.remove(mimetype)
+		--os.remove(mimetype)
 	end
