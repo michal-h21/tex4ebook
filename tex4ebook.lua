@@ -22,14 +22,14 @@ local arg_message = [[
 tex4ebook - ebook generation support for LaTeX
 Usage:
 tex4ebook [switches] inputfile 
-  -c,--config (default xhtml) Custom config file
-  -f,--format (default epub) Output format. Supported values: epub, epub3, mobi
-  -i,--include-fonts  Include fonts in ebook 
-  -l,--lua  Runs htlualatex instead of htlatex
-  -m,--mathml Mathml support
-  -r,--resolution (default 167)
-  -s,--shell-escape  Enable shell escape in htlatex run
-  -t,--tidy Run html tidy on html output. May result in wrong spacing!
+-c,--config (default xhtml) Custom config file
+-f,--format (default epub) Output format. Supported values: epub, epub3, mobi
+-i,--include-fonts  Include fonts in ebook 
+-l,--lua  Runs htlualatex instead of htlatex
+-m,--mathml Mathml support
+-r,--resolution (default 167)
+-s,--shell-escape  Enable shell escape in htlatex run
+-t,--tidy Run html tidy on html output. May result in wrong spacing!
 ]]
 
 -- This option is no longer available, all files must be unicode
@@ -58,13 +58,13 @@ if args["shell-escape"] then
 end
 
 if args["include-fonts"] then 
-	include_fonts = true
+  include_fonts = true
 end
 
 local mathml = ","
 if args["mathml"] then
-	-- mathml = ",mathml,"
-	tex4ht_sty_par = tex4ht_sty_par .. ",mathml"
+  -- mathml = ",mathml,"
+  tex4ht_sty_par = tex4ht_sty_par .. ",mathml"
 end
 
 if os.type=="unix" then
@@ -80,19 +80,19 @@ else
 end
 
 if args.tidy then 
-	tidy = true
+  tidy = true
 else
-	tidy = false
+  tidy = false
 end
 -- Env file copying 
 
 --[[if not ebookutils.file_exists("tex4ht.env") then
-   local env_file = kpse.find_file("epub2.env")
-   ebookutils.copy_filter(env_file,"tex4ht.env",function(s) return s % {
-	   move = move_cmd,
-	   copy = copy_cmd,
-	   resolution = args.resolution
-   } end)
+local env_file = kpse.find_file("epub2.env")
+ebookutils.copy_filter(env_file,"tex4ht.env",function(s) return s % {
+move = move_cmd,
+copy = copy_cmd,
+resolution = args.resolution
+} end)
 end--]]
 
 --print ("nazdar ${world}" % {world="svete"})
@@ -104,7 +104,7 @@ local tex4ht_sty_par = config ..tex4ht_sty_par..","+args.format
 --local sty_args =  args[2] and ", " .. args[2]  or ""
 local sty_args = ""
 if args[2] then 
-	sty_args = "," .. args[2]
+  sty_args = "," .. args[2]
 end
 local tex4ht_sty_par = tex4ht_sty_par + sty_args --args[2]
 local tex4ht_par = tex4ht_par +args[3]
@@ -113,7 +113,7 @@ local latex_par = latex_par + args[5]
 local params = {
   htlatex=latex_cmd
   ,input=input 
-	,format=args.format
+  ,format=args.format
   ,latex_par=latex_par
   ,tex4ht_sty_par=tex4ht_sty_par
   ,tex4ht_par=tex4ht_par
@@ -121,7 +121,7 @@ local params = {
   ,t4ht_dir_format=t4ht_dir_format
   ,tidy = tidy
   ,include_fonts = include_fonts
-	,resolution=args.resolution
+  ,resolution=args.resolution
   ,mathml=mathml
   ,packages="\\RequirePackage{tex4ebook}"
 }  
