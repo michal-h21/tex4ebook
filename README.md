@@ -39,6 +39,10 @@ If you want to use `tex4ebook` commands, add this line to your document preamble
 
     \usepackage{tex4ebook}
 
+### Available commands
+
+- `\coverimage{coverimage.name}` - include cover image to the document. 
+
 Options
 -------
 
@@ -111,12 +115,26 @@ Available options for `\Preamble` command are listed in the article
 
     \Configure{UniqueIdentifier}{identifier}
 
+
 Every epub file should have unique identifier, like ISBN, DOI, URI etc. 
 Default identifier is URI, with value `http://example.com/\jobname`.
 
     \Configure{OpfScheme}{ opf:scheme="URI"}
 
 Type of unique identifier. It must be in form `opf:scheme="scheme type"`.
+
+    \Configure{CoverImage}{before cover image}{after cover image}
+
+By default, cover image is inserted in `<div class="cover-image">` element, 
+you may use this configuration option to insert different markup, 
+or even to place the cover image to standalone page.
+
+
+    \Configure{CoverMimeType}{mime type of cover image}
+
+Default value is `image/png`, change this value if you use other image 
+type than `png`.
+
 
 Troubleshooting
 ---------------
