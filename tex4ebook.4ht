@@ -417,13 +417,13 @@ href="#1" media-type="\a:CoverMimeType" />}}
 % default configuration doesn't work in ibooks, don't know why
 \NewConfigure{footnotebox}{2}
 \Configure{footnotebox}{\HCode{<section epub:type="footnotes" class="footnotes">\Hnewline}}
-{\HCode{</section>\Hnewline}}
+{\HCode{\Hnewline</section>\Hnewline}}
 \newbox\footnotebox
 % We must create new link command, so footnote mark can link to footnote text
 \LinkCommand\fnlink{aside,href,id,class="footnote" epub:type="footnote"}
 \Configure{footnotemark}{\NoFonts\Link[ epub:type="noteref"]{fn\FNnum x\minipageNum}{}}{\EndLink\EndNoFonts}
 \Configure{footnotetext}{\global\setbox\footnotebox=\vtop\bgroup\NoFonts%
-	\ifvoid\footnotebox\Tg<hr />\else\unvbox\footnotebox\fi%
+	\ifvoid\footnotebox\else\unvbox\footnotebox\fi%
 	\IgnorePar%
 	\bgroup%
 	\fnlink{}{fn\FNnum x\minipageNum}\NoFonts\Tg<p>%
