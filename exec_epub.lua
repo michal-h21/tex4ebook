@@ -135,6 +135,10 @@ local function make_opf()
 		end 
 		return files
 	end
+	local tidyconf = nil
+	if tidy then 
+		tidyconf = kpse.find_file("tidyconf.conf")
+	end
 	--local opf_first_part = outputdir .. "/content.opf" 
 	local opf_first_part =   "content.opf" 
 	local opf_second_part =  "content-part2.opf"
@@ -184,8 +188,13 @@ local function make_opf()
 						used_paths[path]=true
 					end
 					if allow_in_spine[ext] and tidy then 
-						print("Tidy: "..k)
-						os.execute("tidy -xml -c  -w 200 -q -utf8 -m " .. k) 
+						if tidyconf then
+							print("Tidy: "..k)
+							local run ="tidy -c  -w 200 -q -utf8 -m -config " .. tidyconf .." " .. k
+							os.execute(run) 
+						else
+							print "Tidy: Cannot load tidyconf.conf"
+						end
 					end
 					ebookutils.copy(k, outputdir .. "/"..k)
 					if not all_used_files[fn] then
