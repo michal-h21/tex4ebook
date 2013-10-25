@@ -180,5 +180,6 @@ Type
 
     WARNING: filename.epub: item (OEBPS/foo.boo) exists in the zip file, but is not declared in the OPF file
 
-Delete all files in `OEBPS` folder and `filename.epub`. Then run `tex4ebook` again.
+Delete the `filename-(epub|epub3|mobi)` folder and `filename.epub`. Then run `tex4ebook` again.
+
 
