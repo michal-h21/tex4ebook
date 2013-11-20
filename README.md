@@ -5,6 +5,11 @@ TeX4ebook
 
 News
 ----
+- Please support [iniciative for improving mathml support](http://www.ulule.com/mathematics-ebooks/) in Gecko and Webkit engines. This will hopefully improve also Epub3 
+  readers.
+
+  [![](https://drfhlmcehrc34.cloudfront.net/cache/55/cb/55cbae1648b3e5c8b41c1db73975fa42.png)](http://www.ulule.com/mathematics-ebooks/)
+  
 
 - 10/08/2013
   [`make4ht`](https://github.com/michal-h21/make4ht) is now standalone application which `tex4ebook` depends on. You must [install it](https://github.com/michal-h21/make4ht#instalation) in order to use current `tex4ebook` version.
