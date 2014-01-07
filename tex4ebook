@@ -1,2 +1,2 @@
-#!/usr/bin/env sh
-texlua ~/texmf/tex/latex/tex4ebook/tex4ebook.lua $@
+#! /bin/sh
+exec texlua `kpsewhich tex4ebook.lua` $@
