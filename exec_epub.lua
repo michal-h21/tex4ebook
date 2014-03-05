@@ -109,7 +109,8 @@ local mimetypes = {
 	html= "application/xhtml+xml",
 	ncx = "application/x-dtbncx+xml",
 	otf = "application/opentype",
-	ttf = "application/truetype"
+	ttf = "application/truetype",
+	woff = "application/font-woff"
 }
 
 local function make_opf()
