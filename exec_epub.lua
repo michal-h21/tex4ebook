@@ -228,13 +228,18 @@ local function make_opf()
 	end
 	function writeContainer()
 		make_opf()
-		print("Tidy ncx "..
-		os.execute("tidy -xml -i -q -utf8 -m " .. 
-		outputdir .. "/" .. outputfilename .. ".ncx"))
-		print("Tidy opf "..
-		os.execute("tidy -xml -i -q -utf8 -m " .. 
-		outputdir .. "/" .. "content.opf"))
-                print(mimetype)
+		if os.execute("tidy -v") > 0 then
+			print("Warning:\n  tidy command seems missing, you need to install it" ..
+			" in order\n  to make valid epub file") 
+		else
+		  print("Tidy ncx "..
+		  os.execute("tidy -xml -i -q -utf8 -m " .. 
+			outputdir .. "/" .. outputfilename .. ".ncx"))
+			print("Tidy opf "..
+			os.execute("tidy -xml -i -q -utf8 -m " .. 
+			outputdir .. "/" .. "content.opf"))
+		end
+		print(mimetype)
 		print("Pack mimetype " .. os.execute("cd "..basedir.." && zip -q0X "..outputfile .." ".. mimetype_name))
 		print("Pack metadir "   .. os.execute("cd "..basedir.." && zip -qXr9D " .. outputfile.." "..metadir_name))
 		print("Pack outputdir " .. os.execute("cd "..basedir.." && zip -qXr9D " .. outputfile.." "..outputdir_name))
