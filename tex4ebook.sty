@@ -15,13 +15,69 @@
 \def\GetLanguage{%
 \ifx\bbl@main@language\@undefined en-US%  
 \else%
-\ifcsdef{rfclang\bbl@main@language}{\csuse{rfclang\bbl@main@language}}{}
+\ifcsdef{rfclang\bbl@main@language}{\csuse{rfclang\bbl@main@language}}{}%
 \fi%
 }
 
 \DeclareLanguage{english}{en-US}
 \DeclareLanguage{czech}{cs-CZ}
 \DeclareLanguage{french}{fr}
+\DeclareLanguage{polish}{pl-PL}
+\DeclareLanguage{german}{de}
+\DeclareLanguage{bulgarian}{bg}
+\DeclareLanguage{catalan}{ca}
+\DeclareLanguage{croatian}{hr}
+\DeclareLanguage{danish}{da}
+\DeclareLanguage{dutch}{nl}
+\DeclareLanguage{USenglish}{en-US}
+\DeclareLanguage{american}{en-US}
+\DeclareLanguage{UKenglish}{en-GB}
+\DeclareLanguage{british}{en-GB}
+\DeclareLanguage{canadian}{en-US}
+\DeclareLanguage{australian}{en-US}
+\DeclareLanguage{newzealand}{en-US}
+\DeclareLanguage{esperanto}{eo}
+\DeclareLanguage{estonian}{et}
+\DeclareLanguage{finnish}{f\/i}
+\DeclareLanguage{francais}{fr}
+\DeclareLanguage{canadien}{fr}
+\DeclareLanguage{acadian}{fr}
+\DeclareLanguage{galician}{gl}
+\DeclareLanguage{austrian}{de}
+\DeclareLanguage{german}{de}
+\DeclareLanguage{germanb}{de}
+\DeclareLanguage{ngerman}{de}
+\DeclareLanguage{naustrian}{de}
+\DeclareLanguage{greek}{el}
+\DeclareLanguage{polutonikogreek}{el}
+\DeclareLanguage{hebrew}{he}
+\DeclareLanguage{magyar}{hu}
+\DeclareLanguage{hungarian}{hu}
+\DeclareLanguage{icelandic}{is}
+\DeclareLanguage{interlingua}{ie}
+\DeclareLanguage{irish}{ga}
+\DeclareLanguage{italian}{it}
+\DeclareLanguage{latin}{la}
+%\DeclareLanguage{lowersorbian}{no code?}
+%\DeclareLanguage{samin}{no code?}
+\DeclareLanguage{norsk}{no}
+\DeclareLanguage{nynorsk}{no}
+\DeclareLanguage{portuges}{pt}
+\DeclareLanguage{portuguese}{pt}
+\DeclareLanguage{brazilian}{pt}
+\DeclareLanguage{brazil}{pt}
+\DeclareLanguage{romanian}{ro}
+\DeclareLanguage{russian}{ru}
+%\DeclareLanguage{scottish}{no code?}
+\DeclareLanguage{spanish}{es}
+\DeclareLanguage{slovak}{sk}
+\DeclareLanguage{slovene}{sl}
+\DeclareLanguage{swedish}{sv}
+\DeclareLanguage{serbian}{sr}
+\DeclareLanguage{turkish}{tr}
+\DeclareLanguage{ukrainian}{uk}
+%\DeclareLanguage{uppersorbian}{no code?}
+\DeclareLanguage{welsh}{cy}
 
 \AtEndDocument{%
 \ncxtable
