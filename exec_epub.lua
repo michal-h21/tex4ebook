@@ -113,7 +113,7 @@ local mimetypes = {
 	woff = "application/font-woff"
 }
 
-local function make_opf()
+function make_opf()
 	-- Join files content.opf and content-part2.opf
 	-- make item record for every converted image
 	local lg_item = function(item)
@@ -235,8 +235,8 @@ local function make_opf()
 			print("Missing opf file")
 		end
 	end
-	function writeContainer()
-		make_opf()
+
+	function pack_container()
 		if os.execute("tidy -v") > 0 then
 			print("Warning:\n  tidy command seems missing, you need to install it" ..
 			" in order\n  to make valid epub file") 
@@ -254,6 +254,12 @@ local function make_opf()
 		print("Pack outputdir " .. os.execute("cd "..basedir.." && zip -qXr9D " .. outputfile.." "..outputdir_name))
 		print("Copy generated epub ")
 		ebookutils.cp(basedir .."/"..outputfile, outputfile)
+end
+
+
+	function writeContainer()
+		make_opf()
+		pack_container()
 	end
 	local function deldir(path)
 		for entry in lfs.dir(path) do
