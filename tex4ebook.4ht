@@ -143,9 +143,15 @@ href="#1" media-type="\a:CoverMimeType" />}}
 \newcount\navpoint
 \def\stepnavpoint{\advance\navpoint by1\relax\the\navpoint}
 
-% As default, make new files on every part, chapter and section
-\ifdef\chapter{\CutAt{chapter,section}}
-{\CutAt{section}}
+% define points for breaking section units to html pages
+% we need to break long documents to smaller chunks, because e-readers are 
+% generally pretty weak devices
+% use no-cut option if you don't want to break sections, or if you
+% use your own cutting scheme in your .cfg file
+\:CheckOption{no-cut}\if:Option\else
+\ifdef\chapter{\CutAt{chapter}\CutAt{likechapter}}
+{\CutAt{section}\CutAt{likesection}}
+\fi
 % Default extension should be xhtml
 % This is somewhat mysterious configuration
 
@@ -408,4 +414,45 @@ href="#1" media-type="\a:CoverMimeType" />}}
  href="\expandafter\csname aa:CssFile\endcsname" />\Hnewline}}
 \Configure{EpubVersion}{3.0}
 \Configure{OpfItemProperties}{properties="}{"}
+
+% Structural elements
+
+% Foootnote configuration for epub3
+% Footnotes are printed directly after the paragraph they appeared in
+% footnotebox - configure box in which footnotes are printed
+% default configuration doesn't work in ibooks, don't know why
+\NewConfigure{footnotebox}{2}
+\Configure{footnotebox}{\HCode{<section epub:type="footnotes" class="footnotes">\Hnewline}}
+{\HCode{\Hnewline</section>\Hnewline}}
+\newbox\footnotebox
+% We must create new link command, so footnote mark can link to footnote text
+\LinkCommand\fnlink{aside,href,id,class="footnote" epub:type="footnote"}
+\Configure{footnotemark}{\NoFonts\Link[ epub:type="noteref"]{fn\FNnum x\minipageNum}{}}{\EndLink\EndNoFonts}
+\Configure{footnotetext}{\global\setbox\footnotebox=\vtop\bgroup\NoFonts%
+	\ifvoid\footnotebox\else\unvbox\footnotebox\fi%
+	\IgnorePar%
+	\bgroup%
+	\fnlink{}{fn\FNnum x\minipageNum}\NoFonts\Tg<p>%
+}{\EndNoFonts}
+{%
+	\HCode{</p>\Hnewline}
+	\Endfnlink\egroup\egroup}%
+
+\def\printfn{%
+	\ifvoid\footnotebox\else%
+	\a:footnotebox%
+	\box\footnotebox%
+	\b:footnotebox%
+	\fi%
+}
+
+% configure HtmlPar to print footnotebox.
+\Configure{HtmlPar}
+{\EndP\Tg<p class="noindent">}
+{\EndP\Tg<p>}
+{\HCode{</p>\Hnewline}\printfn}
+{\HCode{</p>\Hnewline}\printfn}
+
+\Css{.footnote{font-size:small;}}
+\Css{.footnotes hr{width:30\%;margin:0 auto 0 0;}}
 \fi

@@ -113,7 +113,7 @@ local mimetypes = {
 	woff = "application/font-woff"
 }
 
-local function make_opf()
+function make_opf()
 	-- Join files content.opf and content-part2.opf
 	-- make item record for every converted image
 	local lg_item = function(item)
@@ -135,6 +135,10 @@ local function make_opf()
 			files[i] = ext 
 		end 
 		return files
+	end
+	local tidyconf = nil
+	if tidy then 
+		tidyconf = kpse.find_file("tidyconf.conf")
 	end
 	--local opf_first_part = outputdir .. "/content.opf" 
 	local opf_first_part =   "content.opf" 
@@ -185,8 +189,13 @@ local function make_opf()
 						used_paths[path]=true
 					end
 					if allow_in_spine[ext] and tidy then 
-						print("Tidy: "..k)
-						os.execute("tidy -xml -c  -w 200 -q -utf8 -m " .. k) 
+						if tidyconf then
+							print("Tidy: "..k)
+							local run ="tidy -c  -w 200 -q -utf8 -m -config " .. tidyconf .." " .. k
+							os.execute(run) 
+						else
+							print "Tidy: Cannot load tidyconf.conf"
+						end
 					end
 					ebookutils.copy(k, outputdir .. "/"..k)
 					if not all_used_files[fn] then
@@ -226,8 +235,8 @@ local function make_opf()
 			print("Missing opf file")
 		end
 	end
-	function writeContainer()
-		make_opf()
+
+	function pack_container()
 		if os.execute("tidy -v") > 0 then
 			print("Warning:\n  tidy command seems missing, you need to install it" ..
 			" in order\n  to make valid epub file") 
@@ -245,6 +254,12 @@ local function make_opf()
 		print("Pack outputdir " .. os.execute("cd "..basedir.." && zip -qXr9D " .. outputfile.." "..outputdir_name))
 		print("Copy generated epub ")
 		ebookutils.cp(basedir .."/"..outputfile, outputfile)
+end
+
+
+	function writeContainer()
+		make_opf()
+		pack_container()
 	end
 	local function deldir(path)
 		for entry in lfs.dir(path) do
