@@ -148,8 +148,7 @@ href="#1" media-type="\a:CoverMimeType" />}}
 % generally pretty weak devices
 % use no-cut option if you don't want to break sections, or if you
 % use your own cutting scheme in your .cfg file
-\:CheckOption{no-cut}
-\:ifOption \else
+\:CheckOption{no-cut}\if:Option\else
 \ifdef\chapter{\CutAt{chapter}\CutAt{likechapter}}
 {\CutAt{section}\CutAt{likesection}}
 \fi
