@@ -5,10 +5,22 @@ TeX4ebook
 
 News
 ----
+- 16/09/2014 new features added
+
+  - new configuration file for `--tidy` option, mathml and html5 elements are 
+    supported. This means that many validation errors in `mathml` output
+    can be fixed with `--tidy` option
+  - added configuration for all languages supported by `babel`
+  - `woff` and `ttf` fonts are supported
+  - added inline footlines in `epub3` format
+  - added `no-cut` command line option for breaking sections and chapters into
+    standalone pages
+
+
+
 - Please support [iniciative for improving mathml support](http://www.ulule.com/mathematics-ebooks/) in Gecko and Webkit engines. This will hopefully improve also Epub3 
   readers.
 
-  [![](https://drfhlmcehrc34.cloudfront.net/cache/55/cb/55cbae1648b3e5c8b41c1db73975fa42.png)](http://www.ulule.com/mathematics-ebooks/)
   
 
 - 10/08/2013
@@ -18,11 +30,24 @@ Installation
 ------------
 
 > This package depends on [`make4ht`](https://github.com/michal-h21/make4ht#instalation) now, 
-> please follow instructions from the link to install `make4ht`
+> please install it first.
 
 Clone this repository to `tex/latex/` directory in your local `texmf tree`. It's location can be found with command:
 
      kpsewhich -var-value TEXMFHOME
+
+On `unix` systems, these commands could be used to install both `tex4ebook` and
+`make4ht`:
+
+    cd `kpsewhich -var-value TEXMFHOME`
+    mkdir -p /scripts/lua
+    cd scripts/lua
+    git clone git://github.com/michal-h21/make4ht.git
+    cd `kpsewhich -var-value TEXMFHOME`
+    mkdir -p tex/latex
+    cd tex/latex
+    git clone git@github.com:michal-h21/tex4ebook.git
+     
 
 This package depends on `tidy` and `zip` commands, both are available for linux and windows platforms.
 
