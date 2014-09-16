@@ -143,9 +143,16 @@ href="#1" media-type="\a:CoverMimeType" />}}
 \newcount\navpoint
 \def\stepnavpoint{\advance\navpoint by1\relax\the\navpoint}
 
-% As default, make new files on every part, chapter and section
-\ifdef\chapter{\CutAt{chapter,section}}
-{\CutAt{section}}
+% define points for breaking section units to html pages
+% we need to break long documents to smaller chunks, because e-readers are 
+% generally pretty weak devices
+% use no-cut option if you don't want to break sections, or if you
+% use your own cutting scheme in your .cfg file
+\:CheckOption{no-cut}
+\:ifOption \else
+\ifdef\chapter{\CutAt{chapter}\CutAt{likechapter}}
+{\CutAt{section}\CutAt{likesection}}
+\fi
 % Default extension should be xhtml
 % This is somewhat mysterious configuration
 
