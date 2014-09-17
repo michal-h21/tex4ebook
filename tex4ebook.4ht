@@ -395,8 +395,7 @@ href="#1" media-type="\a:CoverMimeType" />}}
 %}
 %\:CheckOption{mathml}
 %\if:Option
-\apptocmd{\a:DviMath}{\opf:add:property{mathml}}{}{}
-
+\apptocmd{\a:DviMath}{\opf:registerfilename{\FileName}\opf:add:property{mathml}}{}{}
 %\fi
 \Configure{DOCTYPE}{\HCode{<!DOCTYPE html>\Hnewline}}
 \Configure{xmlns}{}{http://www.w3.org/1999/xhtml}
