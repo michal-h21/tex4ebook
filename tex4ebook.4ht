@@ -37,6 +37,20 @@
 }
 \Configure{OpfMetadata}{}
 
+% This commands add filenames to opf item list and spine 
+\edef\opf:htmlfiles{}
+\newcount\opf:htmlid
+\def\opf:registerfilename#1{%
+  \ifcsdef{opf:entry#1}{}{%
+    \global\advance\opf:htmlid by1\relax
+    %\ifcsdef{opf:entry#1}{}{\csxdef{opf:entry#1}{Neni opf}}
+    \csxdef{opf:entry#1}{file\the\opf:htmlid}
+    \xdef\opf:htmlfiles{\opf:htmlfiles, #1}
+  }
+}
+
+\newcommand\OpfRegisterFile{\opf:registerfilename{\FileName}}
+
 \NewConfigure{OpfManifest}[1]{%
   \ifx\relax#1\relax%
     \edef\a:OpfManifest{}
@@ -123,6 +137,13 @@ href="#1" media-type="\a:CoverMimeType" />}}
 \:CheckOption{epub}
 \if:Option
 %\Configure{crosslinks+}{}{}{}{}
+
+% add explicit table of contents to OPF
+\let\old:toc\a:tableofcontents
+\def\a:tableofcontents{olf:toc\OpfRegisterFile}
+% add main html as first file in the OPF
+\opf:registerfilename{\jobname.\:html} % 
+
 % Support for SVG isn't ready
 %\Configure{Picture}{.svg}
 \Configure{Picture}{.png}
@@ -198,19 +219,7 @@ href="#1" media-type="\a:CoverMimeType" />}}
 }
 
 
-% This commands add filenames to opf item list and spine 
-\edef\opf:htmlfiles{}
-\newcount\opf:htmlid
-\def\opf:registerfilename#1{%
-  \ifcsdef{opf:entry#1}{}{%
-    \global\advance\opf:htmlid by1\relax
-    %\ifcsdef{opf:entry#1}{}{\csxdef{opf:entry#1}{Neni opf}}
-    \csxdef{opf:entry#1}{file\the\opf:htmlid}
-    \xdef\opf:htmlfiles{\opf:htmlfiles, #1}
-  }
-}
 
-\newcommand\OpfRegisterFile{\opf:registerfilename{\FileName}}
 
 %
 \def\ncx:head{%
@@ -275,7 +284,6 @@ href="#1" media-type="\a:CoverMimeType" />}}
 \ncx:head
 % Book title
 \ncx:title
-\opf:registerfilename{\jobname.\:html} % 
 \tableofcontents%[part,chapter,likechapter,section,likesection,subsection,likesubsection]%
 %Hack to get close tag working
 \HCode{</ncx>}
