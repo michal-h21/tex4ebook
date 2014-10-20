@@ -145,6 +145,19 @@ href="#1" media-type="\a:CoverMimeType" />}}
 % add main html as first file in the OPF
 \opf:registerfilename{\jobname.\:html} % 
 
+\def\patch:sec:register#1{%
+\csgappto{c:#1}{\OpfRegisterFile}%
+}
+\patch:sec:register{part}
+\patch:sec:register{chapter}
+\patch:sec:register{section}
+\patch:sec:register{subsection}
+\patch:sec:register{subsubsection}
+\patch:sec:register{likechapter}
+\patch:sec:register{likesection}
+\patch:sec:register{likesubsection}
+\patch:sec:register{likesubsubsection}
+
 % Support for SVG isn't ready
 %\Configure{Picture}{.svg}
 \Configure{Picture}{.png}
@@ -254,7 +267,7 @@ href="#1" media-type="\a:CoverMimeType" />}}
 % so:
 \let\contentsname=\empty
 \Configure{tableofcontents}{\boolfalse{tocnoempty}\Tg<navMap>}{%
-	\usetoclevels{part,chapter,section,subsection,subsubsection}%
+	\usetoclevels{part,chapter,likechapter,section,likesection,subsection,likesubsection,subsubsection,likesubsubsection}%
 	\ifbool{tocnoempty}{}%
 	{\HCode{<navPoint id="mainentry" playOrder=1>
 	  <navLabel><text>Document</text></navLabel>
@@ -267,11 +280,15 @@ href="#1" media-type="\a:CoverMimeType" />}}
 \Configure{TocLink}{\def\navmapsrc{\ncx:hfile{##2}\:sharp ##2}\opf:registerfilename{\ncx:hfile{##2}}##4}
 % Configuraion of entries
 \resettoclevels{part,chapter,section,subsection,subsubsection}
-\navsection{part}{part,chapter,section,subsection,subsubsection}
-\navsection{chapter}{chapter,section,subsection,subsubsection}
-\navsection{section}{section,subsection,subsubsection}
-\navsection{subsection}{subsection,subsubsection}
-\navsection{subsubsection}{subsubsection}
+\navsection{part}{part,chapter,likechapter,section,likesection,subsection,likesubsection,subsubsection,likesubsubsection}
+\navsection{chapter}{chapter,likechapter,section,likesection,subsection,likesubsection,subsubsection,likesubsubsection}
+\navsection{likechapter}{chapter,likechapter,section,likesection,subsection,likesubsection,subsubsection,likesubsubsection}
+\navsection{section}{section,likesection,subsection,likesubsection,subsubsection,likesubsubsection}
+\navsection{likesection}{section,likesection,subsection,likesubsection,subsubsection,likesubsubsection}
+\navsection{subsection}{subsection,likesubsection,subsubsection,likesubsubsection}
+\navsection{likesubsection}{subsection,likesubsection,subsubsection,likesubsubsection}
+\navsection{subsubsection}{subsubsection,likesubsubsection}
+\navsection{likesubsubsection}{subsubsection,likesubsubsection}
  \HtmlParOff
  \Configure{toTocLink}{}{}
  \Configure{NavSection}{\booltrue{tocnoempty}\HCode{\Hnewline<navPoint id="navPoint-}%
