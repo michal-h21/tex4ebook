@@ -5,6 +5,11 @@ TeX4ebook
 
 News
 ----
+
+- 20/10/2014 fixed issues with starred sections
+
+  - files created by starred sectioning commands (`\chapter*`, `\section*`) should be included in normal reading order now
+
 - 16/09/2014 new features added
 
   - new configuration file for `--tidy` option, mathml and html5 elements are 
