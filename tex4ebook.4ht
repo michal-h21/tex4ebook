@@ -224,7 +224,7 @@ href="#1" media-type="\a:CoverMimeType" />}}
 \def\navsection#1#2{
   \ConfigureToc{#1}%
   {\closelevels{#2}%
-  \a:NavSection}
+  \a:NavSection\Ncx:Mark}
   {\c:NavSection}
   {}
   {\b:NavSection%
@@ -232,7 +232,15 @@ href="#1" media-type="\a:CoverMimeType" />}}
   }
 }
 
-
+% As reported by Nat Kuhn on http://tex.stackexchange.com/q/209312/2891
+% zeroes were printed as section numbers when secnumdepth counter was set to negative value
+% so just strip then out
+% \TitleMark does similar thing, but this solution is simpler, I hope it works correctly
+\def\Ncx:Mark#1{%
+  \edef\:temp{#1}
+  \def\z@ro{0}
+  \ifx\:temp\z@ro\else#1\fi
+}
 
 
 %
