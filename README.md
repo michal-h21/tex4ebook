@@ -45,21 +45,26 @@ On `unix` systems, these commands could be used to install both `tex4ebook` and
 `make4ht`:
 
     cd `kpsewhich -var-value TEXMFHOME`
-    mkdir -p /scripts/lua
+    mkdir -p scripts/lua
     cd scripts/lua
-    git clone git://github.com/michal-h21/make4ht.git
+    git clone https://github.com/michal-h21/make4ht
     cd `kpsewhich -var-value TEXMFHOME`
     mkdir -p tex/latex
     cd tex/latex
-    git clone git@github.com:michal-h21/tex4ebook.git
+    git clone https://github.com/michal-h21/tex4ebook
      
 
 This package depends on `tidy` and `zip` commands, both are available for linux and windows platforms.
 
 Create script named `tex4ebook` or `tex4ebook.bat` on windows. 
 It should run `texlua path/to/tex4ebook.lua` and pass all parameters there.
-Sample script can be found in file `tex4ebook`. Place this script somewhere in yout path so it can be called from the terminal.
+Sample script for UNIX-like systems, `tex4ebook` is provided. 
+Place the script somewhere in the path so it can be called from the terminal.
+On UNIX systems, you may try to call command:
 
+    ln -s /full/path/to/tex4ebook /usr/local/bin/tex4ebook
+
+(you may list directories in the path with command `echo $PATH`)
 
 Usage
 -----
