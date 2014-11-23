@@ -86,6 +86,21 @@
 \let\oldmktl\a:mktl
 \def\a:mktl{\oldmktl\opf:registerfilename{\FileName}}
 
+% guide element is used in epub2, it is similar to epub3 properties
+% in epub3, it is deprecated, but it can be present
+\edef\opf:guide{\HCode{<guide>\Hnewline}}
+
+% register file to the guide. first argument is optioal filename, current 
+% output name  is used when empty. second is title and third type
+
+\NewConfigure{OpfGuide}{4}
+\newcommand\OpfGuide[3][]{%
+  \ifx\relax#1\relax \let\opf:guide:file\FileName\else\def\opf:guide:file{#1}\fi
+  \edef\opf:guide{\opf:guide\a:OpfGuide#3\b:OpfGuide#2\c:OpfGuide\opf:guide:file\d:OpfGuide}
+}
+
+\Configure{OpfGuide}{\HCode{<reference type="}}{\HCode{" title="}}{\HCode{" href="}}{\HCode{" />\Hnewline}}
+
 \NewConfigure{NavMap}{2}
 \NewConfigure{NavSection}{4}
 %Interface for setting xmlns
@@ -365,7 +380,10 @@ href="#1" media-type="\a:CoverMimeType" />}}
 % Next line is pattern to be replaced by lua code
 \HCode{\Hnewline$\string{spine\string}\Hnewline}
 \HCode{</spine>\Hnewline}
-%Hack to get close tag working
+% insert guide
+\opf:guide
+\HCode{</guide>}
+% Hack to get close tag working
 \HCode{</package>}
 \special{t4ht<content-part2.opf}
 \HtmlParOn
