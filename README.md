@@ -6,6 +6,15 @@ TeX4ebook
 News
 ----
 
+- 23/11/2014 added new command \OpfGuide, for adding items to `<guide>` section
+in the `opf` file. This is useful for `epub` and `mobi` formats. Usage:
+
+    \OpfGuide[filename]{title}{reference type} 
+
+`filename` is optional, current file name is used when empty. See 
+[epub secrets](http://epubsecrets.com/where-do-you-start-an-epub-and-what-is-the-guide-section-of-the-opf-file.php)
+article
+
 - 20/10/2014 fixed issues with starred sections
 
   - files created by starred sectioning commands (`\chapter*`, `\section*`) should be included in normal reading order now
