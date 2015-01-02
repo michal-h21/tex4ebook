@@ -23,6 +23,7 @@ tex4ebook - ebook generation support for LaTeX
 Usage:
 tex4ebook [switches] inputfile 
 -c,--config (default xhtml) Custom config file
+-e,--build-file (default nil)  If build file is different than `filename`.mk4
 -f,--format (default epub) Output format. Supported values: epub, epub3, mobi
 -i,--include-fonts  Include fonts in ebook 
 -l,--lua  Runs htlualatex instead of htlatex
@@ -134,7 +135,11 @@ else
   return
 end
 
-local config_file = ebookutils.load_config(nil, input.. ".mk4")
+local build_file = input.. ".mk4"
+
+if args["build-file"] then build_file = args["build-file"] end
+
+local config_file = ebookutils.load_config(nil, build_file)
 
 params["config_file"] = config_file
 --config_file.Make:run()

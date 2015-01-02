@@ -114,6 +114,10 @@ run
     tex4ebook -c sample filename.tex
 
 This config file will create `xhtml` file for every section. For bigger documents, this is recommended.
+
+*-e,--build-file* (default nil)  
+
+Specify [make4ht build file](https://github.com/michal-h21/make4ht#build-file). Defaulf build file filename is `filename.mk4`, use this option when it has different filename.
   
 *-f,--format* (default epub) 
 
