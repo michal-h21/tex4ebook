@@ -71,6 +71,8 @@ Sample script for UNIX-like systems, `tex4ebook` is provided.
 Place the script somewhere in the path so it can be called from the terminal.
 On UNIX systems, you may try to call command:
 
+
+    chmod +x /full/path/to/tex4ebook
     ln -s /full/path/to/tex4ebook /usr/local/bin/tex4ebook
 
 (you may list directories in the path with command `echo $PATH`)
