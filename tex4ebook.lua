@@ -143,7 +143,7 @@ local config_file = ebookutils.load_config(nil, build_file)
 
 params["config_file"] = config_file
 --config_file.Make:run()
-print("${htlatex} ${input} \"${config}${tex4ht_sty_par}\" \"${tex4ht_par}\" \"${t4ht_par}\" \"${latex_par}\"" % params)
+print("${htlatex} ${input} \"${tex4ht_sty_par}\" \"${tex4ht_par}\" \"${t4ht_par}\" \"${latex_par}\"" % params)
 executor.run(input,params)
 executor.writeContainer()
 executor.clean()
