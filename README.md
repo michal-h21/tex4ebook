@@ -6,6 +6,9 @@ TeX4ebook
 News
 ----
 
+- 14/01/2014 thanks Volker Gottwald for guide on [installing and using 
+  tex4ebook](http://michal-h21.github.io/guide/tex4ebook.xhtml)  on Windows
+
 - 23/11/2014 added new command \OpfGuide, for adding items to `<guide>` section
   in the `opf` file. This is useful for `epub` and `mobi` formats. Usage:
 
@@ -76,6 +79,9 @@ On UNIX systems, you may try to call command:
     ln -s /full/path/to/tex4ebook /usr/local/bin/tex4ebook
 
 (you may list directories in the path with command `echo $PATH`)
+
+For Windows settings, see a 
+[guide](http://michal-h21.github.io/guide/tex4ebook.xhtml) by Volker Gottwald
 
 Usage
 -----
