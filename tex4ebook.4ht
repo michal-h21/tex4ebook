@@ -119,6 +119,7 @@
 \ifvmode\IgnorePar\fi\EndP\HCode{<div class="cover-image">\Hnewline}
 }{\HCode{</div>\Hnewline}\par}
 \def\CoverMetadata#1{%
+\special{t4ht+@File: #1}%
 \Configure{OpfMetadata}
 {\HCode{<meta name="cover" content="cover-image" />\Hnewline}}
 \Configure{OpfManifest}
@@ -431,6 +432,7 @@ href="#1" media-type="\a:CoverMimeType" />}}
 	\HCode{<li>}\setbox0=\hbox\bgroup}{\HCode{<ol>\Hnewline}}{\egroup}{\Tg</ol>\Tg</li>}
 %%%% End toc nav configuration
 \def\CoverMetadata#1{%
+\special{t4ht+@File: #1}%
 \Configure{OpfManifest}{\HCode{<item id="cover-image" properties="cover-image" href="#1" media-type="\a:CoverMimeType" />}}%
 }
 %\Configure{CoverImage}{%

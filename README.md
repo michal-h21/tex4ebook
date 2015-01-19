@@ -196,6 +196,12 @@ or even to place the cover image to standalone page.
 Default value is `image/png`, change this value if you use other image 
 type than `png`.
 
+If you don't want to include the cover image in the document, use command 
+
+    \CoverMetadata{filename}
+
+in the config file.
+
 
 Troubleshooting
 ---------------
