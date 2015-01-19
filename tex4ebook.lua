@@ -137,7 +137,9 @@ end
 
 local build_file = input.. ".mk4"
 
-if args["build-file"] then build_file = args["build-file"] end
+if args["build-file"] and args["build-file"] ~= "nil"  then 
+	build_file = args["build-file"] 
+end
 
 local config_file = ebookutils.load_config(nil, build_file)
 
