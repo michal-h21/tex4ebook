@@ -6,7 +6,7 @@ TeX4ebook
 News
 ----
 
-- 14/01/2014 thanks Volker Gottwald for guide on [installing and using 
+- 14/01/2015 thanks Volker Gottwald for guide on [installing and using 
   tex4ebook](https://d800fotos.wordpress.com/2015/01/19/create-e-books-from-latex-tex-files-ebook-aus-latex-tex-dateien-erstellen/)  on Windows
 
 - 23/11/2014 added new command \OpfGuide, for adding items to `<guide>` section
