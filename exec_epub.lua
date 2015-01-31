@@ -241,7 +241,7 @@ function make_opf()
   local function find_zip()
     if io.popen("zip -v","r"):close() then
       return "zip"
-    else
+    elseif io.popen("miktex-zip -v","r"):close() then
       return "miktex-zip"
     end
     print "It appears you don't have zip command installed. I can't pack the ebook"
