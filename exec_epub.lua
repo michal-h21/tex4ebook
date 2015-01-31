@@ -237,6 +237,16 @@ function make_opf()
 			print("Missing opf file")
 		end
 	end
+  
+  local function find_zip()
+    if io.popen("zip -v","r"):close() then
+      return "zip"
+    else
+      return "miktex-zip"
+    end
+    print "It appears you don't have zip command installed. I can't pack the ebook"
+    return "zip"
+  end
 
 	function pack_container()
 		if os.execute("tidy -v") > 0 then
@@ -251,9 +261,10 @@ function make_opf()
 			outputdir .. "/" .. "content.opf"))
 		end
 		print(mimetype)
-		print("Pack mimetype " .. os.execute("cd "..basedir.." && zip -q0X "..outputfile .." ".. mimetype_name))
-		print("Pack metadir "   .. os.execute("cd "..basedir.." && zip -qXr9D " .. outputfile.." "..metadir_name))
-		print("Pack outputdir " .. os.execute("cd "..basedir.." && zip -qXr9D " .. outputfile.." "..outputdir_name))
+    local zip = find_zip()
+		print("Pack mimetype " .. os.execute("cd "..basedir.." && "..zip.." -q0X "..outputfile .." ".. mimetype_name))
+		print("Pack metadir "   .. os.execute("cd "..basedir.." && "..zip.." -qXr9D " .. outputfile.." "..metadir_name))
+		print("Pack outputdir " .. os.execute("cd "..basedir.." && "..zip.." -qXr9D " .. outputfile.." "..outputdir_name))
 		print("Copy generated epub ")
 		ebookutils.cp(basedir .."/"..outputfile, outputfile)
 end
