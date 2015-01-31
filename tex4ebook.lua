@@ -25,7 +25,6 @@ tex4ebook [switches] inputfile
 -c,--config (default xhtml) Custom config file
 -e,--build-file (default nil)  If build file is different than `filename`.mk4
 -f,--format (default epub) Output format. Supported values: epub, epub3, mobi
--i,--include-fonts  Include fonts in ebook 
 -l,--lua  Runs htlualatex instead of htlatex
 -m,--mathml Mathml support
 -r,--resolution (default 167)

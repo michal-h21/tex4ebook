@@ -132,10 +132,6 @@ Specify [make4ht build file](https://github.com/michal-h21/make4ht#build-file). 
 
 Output format. epub, epub3 and mobi are supported.
 
-*-i,--include-fonts*  
-
-Include fonts in epub file. This may result in better rendering in ebook reader.
-
 *-l,--lua*  
 
 Runs htlualatex instead of htlatex. You may need to create `htlualatex` script.
