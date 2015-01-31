@@ -160,14 +160,19 @@ Configuration
     ...
     \EndPreamble
 
-Basic info about command configurations can be found in 
-[tex4ht documentation](http://www.tug.org/applications/tex4ht/mn11.html), 
+Basic info about command configurations can be found in a work-in-progres 
+[tex4ht tutorial](https://github.com/michal-h21/helpers4ht/wiki/tex4ht-tutorial)
+, [tex4ht documentation](http://www.tug.org/applications/tex4ht/mn11.html), 
 and in series of blogposts on CV Radhakrishnan's blog 
 [Configure part 1](http://www.cvr.cc/?p=323), 
 [Configurepart 2](http://www.cvr.cc/?p=362), 
 [Low level commands](http://www.cvr.cc/?p=482). 
 Available options for `\Preamble` command are listed in the article 
 [TeX4ht: options](http://www.cvr.cc/?p=504).
+
+Great source of tips for `tex4ht` configuring is [tex4ht tag on TeX.sx](http://tex.stackexchange.com/questions/tagged/tex4ht), there is also a [tag for tex4ebook](http://tex.stackexchange.com/questions/tagged/tex4ebook).
+
+Interesting questions include [including images and fonts in ebooks](http://tex.stackexchange.com/questions/tagged/tex4ht) or [setting image size in em units instead of pt](http://tex.stackexchange.com/questions/tagged/tex4ht).
 
 `tex4ebook` provides some configurations for your usage:
 
