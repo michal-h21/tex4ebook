@@ -200,8 +200,18 @@ href="#1" media-type="\a:CoverMimeType" />}}
 % use no-cut option if you don't want to break sections, or if you
 % use your own cutting scheme in your .cfg file
 \:CheckOption{no-cut}\if:Option\else
-\ifdef\chapter{\CutAt{chapter}\CutAt{likechapter}}
-{\CutAt{section}\CutAt{likesection}}
+\ifdef\chapter{%
+  %\CutAt{chapter}\CutAt{likechapter}
+  % copied from tex4ht-html4.tex
+  \CutAt{chapter,likechapter,appendix,part} 
+  \CutAt{likechapter,appendix,part} 
+  \CutAt{appendix,chapter,likechapter,part} 
+}{%
+  %\CutAt{section}\CutAt{likesection}}
+ \CutAt{section,likesection,part}
+ \CutAt{likesection,part}
+
+}
 \fi
 % Default extension should be xhtml
 % This is somewhat mysterious configuration
