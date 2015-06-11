@@ -240,7 +240,6 @@ function make_opf()
 			print("Missing opf file")
 		end
 	end
-  +
   local function find_zip()
     if io.popen("zip -v","r"):close() then
       return "zip"
