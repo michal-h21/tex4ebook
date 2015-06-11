@@ -224,7 +224,10 @@ function make_opf()
 			h_first:close()
 			h_second:close()
 			h_first = io.open(opf_first_part,"w")
-			h_first:write(table.concat(opf_complete,"\n"))
+      local opf_completed = table.concat(opf_complete,"\n")
+      -- poor man's tidy: remove trailing whitespace befora xml tags
+      opf_completed = opf_completed:gsub("[ ]*<","<")
+			h_first:write(opf_completed)
 			h_first:close()
 			os.remove(opf_second_part)
 			--ebookutils.copy(outputfilename ..".css",outputdir.."/")
@@ -237,7 +240,7 @@ function make_opf()
 			print("Missing opf file")
 		end
 	end
-  
+  +
   local function find_zip()
     if io.popen("zip -v","r"):close() then
       return "zip"
