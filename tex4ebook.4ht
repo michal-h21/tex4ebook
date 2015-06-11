@@ -150,6 +150,8 @@ href="#1" media-type="\a:CoverMimeType" />}}
 % in the custom cfg file
 \NewConfigure{SafeTitle}[1]{\gdef\Title{#1}}
 
+% add main html as first file in the OPF
+\opf:registerfilename{\jobname.\:html} % 
 \:CheckOption{epub}
 \if:Option
 %\Configure{crosslinks+}{}{}{}{}
@@ -158,8 +160,6 @@ href="#1" media-type="\a:CoverMimeType" />}}
 \let\old:toc\a:tableofcontents
 \def\a:tableofcontents{\old:toc\OpfRegisterFile}
 
-% add main html as first file in the OPF
-\opf:registerfilename{\jobname.\:html} % 
 
 \def\patch:sec:register#1{%
 \csgappto{c:#1}{\OpfRegisterFile}%
