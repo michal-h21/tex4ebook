@@ -109,6 +109,7 @@ local mimetypes = {
 	gif = "image/gif",
 	svg = "image/svg+xml",
 	html= "application/xhtml+xml",
+	xhtml= "application/xhtml+xml",
 	ncx = "application/x-dtbncx+xml",
 	otf = "application/opentype",
 	ttf = "application/truetype",
