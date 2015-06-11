@@ -67,6 +67,7 @@ local function cleanOPF()
 		  " properties=\"nav\" media-type=\"application/xhtml+xml\" href=\""..
 			toc_name .."\" />\n")
     content = content:gsub("<spine([^>]*)>", "<spine%1>\n<itemref idref=\"htmltoc\" linear=\"no\"/>\n")
+    content = content:gsub("<guide>%s*</guide>","")
 		f = io.open(outputdir .. "/" ..opf,"w")
 		f:write(content)
 		f:close()
