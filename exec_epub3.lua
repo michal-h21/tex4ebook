@@ -8,6 +8,7 @@ function prepare(params)
   local outputdir_name="OEBPS"
 	outputdir= basedir.."/"..outputdir_name
   input = params.input 
+  params.packages = params.packages .. "\\Configure{ext}{xhtml}"
 	return eb.prepare(params)
 end
 
