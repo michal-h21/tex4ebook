@@ -113,7 +113,8 @@ local mimetypes = {
 	ncx = "application/x-dtbncx+xml",
 	otf = "application/opentype",
 	ttf = "application/truetype",
-	woff = "application/font-woff"
+	woff = "application/font-woff",
+  js = "text/javascript"
 }
 
 function make_opf()
