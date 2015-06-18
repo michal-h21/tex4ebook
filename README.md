@@ -8,7 +8,7 @@ News
 
 - 18/06/2016 replaced `--mathml` option with `--mode`. For `mathml` support, use`mathml` option for `tex4ht.sty`.
 
-- lot of stuff was fixed in `epub3` support. 
+  - lot of stuff was fixed in `epub3` support. 
 
 - 14/01/2015 thanks Volker Gottwald for guide on [installing and using 
   tex4ebook](https://d800fotos.wordpress.com/2015/01/19/create-e-books-from-latex-tex-files-ebook-aus-latex-tex-dateien-erstellen/)  on Windows
