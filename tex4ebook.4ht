@@ -79,6 +79,9 @@
  }
 }
 
+% enable simple configuration from the .cfg file
+\newcommand\AddOpfProperty[1]{\opf:add:property{#1}}
+
 %Set property only once
 \def\opf:set:property#1{}
 
