@@ -420,7 +420,7 @@ href="#1" media-type="\a:CoverMimeType" />}}
     \Configure{toTocLink}{}{}   
 }{\b:NavMap}{}{}{}
 %%%%%%%%%%%
-\Configure{NavMap}{\boolfalse{tocnoempty}\HCode{<nav id="toc" epub:type="toc">\Hnewline<ol>}%
+\Configure{NavMap}{\ifvmode\IgnorePar\fi\EndP\boolfalse{tocnoempty}\HCode{<nav id="toc" epub:type="toc">\Hnewline<ol>}%
 \opf:registerfilename{\FileName}
 \opf:add:property{nav}
 }{\usetoclevels{part,chapter,section,subsection,subsubsection}%
