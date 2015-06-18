@@ -84,10 +84,15 @@ media-type="application/oebps-package+xml"/>
 	print("Make4ht run")
 	print("-------------------")
 	params.config_file.Make.params = params
+  local mode = params.mode
 	if params.config_file.Make:length() < 1 then
-		params.config_file.Make:htlatex()
-		params.config_file.Make:htlatex()
-		params.config_file.Make:htlatex() 
+    if mode == "draft" then
+      params.config_file.Make:htlatex()
+    else
+      params.config_file.Make:htlatex()
+      params.config_file.Make:htlatex()
+      params.config_file.Make:htlatex() 
+    end
 	end
 	if #params.config_file.Make.image_patterns > 0 then
 		params["t4ht_par"] = params["t4ht_par"] .." -p"

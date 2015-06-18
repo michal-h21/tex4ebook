@@ -26,7 +26,7 @@ tex4ebook [switches] inputfile ["tex4ht.sty op." "tex4ht op." "t4ht op" "latex o
 -e,--build-file (default nil)  If build file is different than `filename`.mk4
 -f,--format (default epub) Output format. Supported values: epub, epub3, mobi
 -l,--lua  Runs htlualatex instead of htlatex
--m,--mathml Mathml support
+-m,--mode (default default) Switch which can be used in the makefile
 -r,--resolution (default 167)
 -s,--shell-escape  Enable shell escape in htlatex run
 -t,--tidy Run html tidy on html output. May result in wrong spacing!
@@ -61,11 +61,12 @@ if args["include-fonts"] then
   include_fonts = true
 end
 
-local mathml = ","
-if args["mathml"] then
-  -- mathml = ",mathml,"
-  tex4ht_sty_par = tex4ht_sty_par .. ",mathml"
-end
+-- local mathml = ","
+-- if args["mathml"] then
+--   -- mathml = ",mathml,"
+--   tex4ht_sty_par = tex4ht_sty_par .. ",mathml"
+-- end
+local   mode = args.mode or "default"
 
 if os.type=="unix" then
   env_param="$"
@@ -118,6 +119,7 @@ local params = {
   ,tex4ht_sty_par=tex4ht_sty_par
   ,tex4ht_par=tex4ht_par
   ,t4ht_par=t4ht_par
+  ,mode = mode
   ,t4ht_dir_format=t4ht_dir_format
   ,tidy = tidy
   ,include_fonts = include_fonts
