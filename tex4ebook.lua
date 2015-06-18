@@ -50,7 +50,7 @@ end
 
 --if args.utf8 then
 tex4ht_sty_par=tex4ht_sty_par .. ", charset=utf-8"
-tex4ht_par=tex4ht_par .. " -cunihtf -utf8"
+tex4ht_par=tex4ht_par .. " -cmozhtf -utf8"
 --end
 
 if args["shell-escape"] then 
