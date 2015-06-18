@@ -502,7 +502,7 @@ href="#1" media-type="\a:CoverMimeType" />}}
 % configure HtmlPar to print footnotebox.
 \Configure{HtmlPar}
 {\EndP\Tg<p class="noindent">}
-{\EndP\Tg<p>}
+{\EndP\Tg<p class="indent">}
 {\HCode{</p>\Hnewline}\printfn}
 {\HCode{</p>\Hnewline}\printfn}
 
