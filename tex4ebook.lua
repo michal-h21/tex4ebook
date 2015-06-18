@@ -1,5 +1,5 @@
 kpse.set_program_name("luatex")
-require("lapp")
+require("lapp-mk4")
 -- require("ebookutils")
 local ebookutils = require "mkutils"
 
@@ -21,7 +21,7 @@ local include_fonts = false
 local arg_message = [[
 tex4ebook - ebook generation support for LaTeX
 Usage:
-tex4ebook [switches] inputfile 
+tex4ebook [switches] inputfile ["tex4ht.sty op." "tex4ht op." "t4ht op" "latex op"]
 -c,--config (default xhtml) Custom config file
 -e,--build-file (default nil)  If build file is different than `filename`.mk4
 -f,--format (default epub) Output format. Supported values: epub, epub3, mobi
