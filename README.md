@@ -136,6 +136,14 @@ Output format. epub, epub3 and mobi are supported.
 
 Runs htlualatex instead of htlatex. You may need to create `htlualatex` script.
 
+*-m,--mode (default default)* 
+
+This set `mode` variable, accessible in the build file. Default supported
+values are `default` and `draft`. In `draft` mode, document is compiled only
+once, instead of three times.
+
+
+
 *-r,--resolution* 
 
 Resolution of generated images, for example math. It should meet resolution of target devices, which is usually about 167 ppi.
