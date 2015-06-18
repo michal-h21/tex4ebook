@@ -1,0 +1,110 @@
+%\typeout{!!!!!!!!!!!!!!!!!!!!!!!!!!!epub3!!!!!!!!!!!!}
+\Configure{NcxDoctype}{}
+\Configure{VERSION}{}
+
+\Configure{OpfScheme}{}
+\Configure{OpfMetadata}{\HCode{<meta property="dcterms:modified">}\:iso:date\HCode{</meta>}}
+
+%%%%%%%%%%%%%%%%%%%%%%%
+%% Configure toc nav %%
+%%%%%%%%%%%%%%%%%%%%%%%
+\Configure{tableofcontents}{
+  \a:NavMap
+  \resettoclevels{part,chapter,section,subsection,subsubsection}
+  \navsection{part}{part,chapter,section,subsection,subsubsection}
+  \navsection{chapter}{chapter,section,subsection,subsubsection}
+  \navsection{section}{section,subsection,subsubsection}
+  \navsection{subsection}{subsection,subsubsection}
+  \navsection{subsubsection}{subsubsection}
+   %\HtmlParOff
+    \Configure{toTocLink}{}{}   
+}{\b:NavMap}{}{}{}
+%%%%%%%%%%%
+\Configure{NavMap}{\ifvmode\IgnorePar\fi\EndP\boolfalse{tocnoempty}\HCode{<nav id="toc" epub:type="toc">\Hnewline<ol>}%
+\opf:registerfilename{\FileName}
+\opf:add:property{nav}
+}{\usetoclevels{part,chapter,section,subsection,subsubsection}%
+	\ifbool{tocnoempty}{}{\HCode{<li><a href="\jobname.\:html">Document</a></li>}}
+	\HCode{</ol></nav>}}
+%%%%%%%%%%%
+\Configure{NavSection}{%
+	\booltrue{tocnoempty}
+	\HCode{<li>}\setbox0=\hbox\bgroup}{\HCode{<ol>\Hnewline}}{\egroup}{\Tg</ol>\Tg</li>}
+%%%% End toc nav configuration
+\def\CoverMetadata#1{%
+\special{t4ht+@File: #1}%
+\Configure{OpfManifest}{\HCode{<item id="cover-image" properties="cover-image" href="#1" media-type="\a:CoverMimeType" />}}%
+}
+%\Configure{CoverImage}{%
+%  \HPage{}%
+%  \Configure{OpfManifest}{\HCode{<item id="cover-image" properties="cover-image" href="}\CoverImageName\HCode{" media-type="\a:CoverMimeType" />}}%
+  %\box0=\hbox\bgroup
+%  \ifvmode \IgnorePar\fi \EndP%
+%  \HCode{<section epub:type="cover">\Hnewline}}
+%}
+%  {%\ifvmode \IgnorePar\fi \EndP%
+   %\HCode{</section>\Hnewline}%
+   %\EndHPage{}
+   %\egroup
+%}
+%\:CheckOption{mathml}
+%\if:Option
+\apptocmd{\a:DviMath}{\opf:registerfilename{\FileName}\opf:add:property{mathml}}{}{}
+%\fi
+\Configure{DOCTYPE}{\HCode{<!DOCTYPE html>\Hnewline}}
+\Configure{xmlns}{}{http://www.w3.org/1999/xhtml}
+\Configure{xmlns}{epub}{http://www.idpf.org/2007/ops}
+%\Configure{xmlns}{m}{http://www.w3.org/1998/Math/MathML}
+%\Configure{HTML}{\HCode{<html\t4ht:xmlns lang=\"}\GetLanguage\HCode{">\Hnewline}}{\HCode{\Hnewline</html>}}
+\Configure{HTML}{\HCode{<html\t4ht:xmlns lang="}\NoFonts\GetLanguage\EndNoFonts
+\HCode{">\Hnewline}}{\HCode{\Hnewline</html>}}
+\Configure{@HEAD}{}
+\Configure{@HEAD}{\HCode{<meta charset="UTF-8" />\Hnewline}}
+\Configure{@HEAD}{\HCode{<meta name="generator" content="TeX4ht
+		(http://www.cse.ohio-state.edu/\string~gurari/TeX4ht/)" />\Hnewline}}
+\Configure{@HEAD}{\HCode{<link
+ rel="stylesheet" type="text/css"
+ href="\expandafter\csname aa:CssFile\endcsname" />\Hnewline}}
+\Configure{EpubVersion}{3.0}
+\Configure{OpfItemProperties}{properties="}{"}
+
+% Structural elements
+
+% Foootnote configuration for epub3
+% Footnotes are printed directly after the paragraph they appeared in
+% footnotebox - configure box in which footnotes are printed
+% default configuration doesn't work in ibooks, don't know why
+\NewConfigure{footnotebox}{2}
+\Configure{footnotebox}{\HCode{<section epub:type="footnotes" class="footnotes">\Hnewline}}
+{\HCode{\Hnewline</section>\Hnewline}}
+\newbox\footnotebox
+% We must create new link command, so footnote mark can link to footnote text
+\LinkCommand\fnlink{aside,href,id,class="footnote" epub:type="footnote"}
+\Configure{footnotemark}{\NoFonts\Link[ epub:type="noteref"]{fn\FNnum x\minipageNum}{}}{\EndLink\EndNoFonts}
+\Configure{footnotetext}{\global\setbox\footnotebox=\vtop\bgroup\NoFonts%
+	\ifvoid\footnotebox\else\unvbox\footnotebox\fi%
+	\IgnorePar%
+	\bgroup%
+	\fnlink{}{fn\FNnum x\minipageNum}\NoFonts\Tg<p>%
+}{\EndNoFonts}
+{%
+	\HCode{</p>\Hnewline}
+	\Endfnlink\egroup\egroup}%
+
+\def\printfn{%
+	\ifvoid\footnotebox\else%
+	\a:footnotebox%
+	\box\footnotebox%
+	\b:footnotebox%
+	\fi%
+}
+
+% configure HtmlPar to print footnotebox.
+\Configure{HtmlPar}
+{\EndP\Tg<p class="noindent">}
+{\EndP\Tg<p class="indent">}
+{\HCode{</p>\Hnewline}\printfn}
+{\HCode{</p>\Hnewline}\printfn}
+
+\Css{.footnote{font-size:small;}}
+\Css{.footnotes hr{width:30\%;margin:0 auto 0 0;}}
