@@ -1,0 +1,19 @@
+\documentclass{article}
+
+
+\usepackage[english]{babel}
+\usepackage{hyperref}
+\ifdefined\HCode
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+\else
+\usepackage{fontspec}
+\fi
+
+\title{The \texttt{tex4ebook} package}
+\author{Michal Hoftich}
+\begin{document}
+\maketitle
+\tableofcontents
+\input{readme}
+\end{document}
