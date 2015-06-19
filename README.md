@@ -287,10 +287,14 @@ Type
 
 #### Common validation issues:
 
-    WARNING: filename.epub: item (OEBPS/foo.boo) exists in the zip file, but is
+-  WARNING: filename.epub: item (OEBPS/foo.boo) exists in the zip file, but is
 not declared in the OPF file
 
-Delete the `filename-(epub|epub3|mobi)` folder and `filename.epub`. Then run
-`tex4ebook` again.
+  Delete the `filename-(epub|epub3|mobi)` folder and `filename.epub`. Then
+  run `tex4ebook` again.
 
+- WARNING(ACC-009): hsmmt10t.epub/OEBPS/hsmmt10tch17.xhtml(235,15): MathML should either have an alt text attribute or annotation-xml child element.
 
+  This is accessibility message. Unless you use some macro with annotations for
+  each math instance, you will get lot of these messages. Try to use 
+  `epubcheck -e` to print only serious errors.
