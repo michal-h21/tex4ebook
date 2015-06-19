@@ -78,8 +78,8 @@ On `unix` systems, these commands could be used to install both `tex4ebook` and
     git clone https://github.com/michal-h21/tex4ebook
      
 
-This package depends on `tidy` and `zip` commands, both are available for linux
-and windows platforms.
+This package depends on `tidy` and `zip` commands, both are available for Unix
+and Windows platforms.
 
 Create script named `tex4ebook` or `tex4ebook.bat` on windows. 
 It should run `texlua path/to/tex4ebook.lua` and pass all parameters there.
