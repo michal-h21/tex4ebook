@@ -1,7 +1,9 @@
 TeX4ebook
 =========
 
-`TeX4ebook` is bundle of lua scripts and `LaTeX` packages for conversion of LaTeX files to ebook formats, for example `epub`. `tex4ht` is used as conversion engine. 
+`TeX4ebook` is bundle of lua scripts and `LaTeX` packages for conversion of
+LaTeX files to ebook formats, for example `epub`. `tex4ht` is used as
+conversion engine. 
 
 News
 ----
@@ -24,7 +26,8 @@ News
 
 - 20/10/2014 fixed issues with starred sections
 
-  - files created by starred sectioning commands (`\chapter*`, `\section*`) should be included in normal reading order now
+  - files created by starred sectioning commands (`\chapter*`, `\section*`)
+    should be included in normal reading order now
 
 - 16/09/2014 new features added
 
@@ -39,13 +42,17 @@ News
 
 
 
-- Please support [iniciative for improving mathml support](http://www.ulule.com/mathematics-ebooks/) in Gecko and Webkit engines. This will hopefully improve also Epub3 
-  readers.
+- Please support [iniciative for improving mathml
+  support](http://www.ulule.com/mathematics-ebooks/) in Gecko and Webkit
+  engines. This will hopefully improve also Epub3 readers.
 
   
 
 - 10/08/2013
-  [`make4ht`](https://github.com/michal-h21/make4ht) is now standalone application which `tex4ebook` depends on. You must [install it](https://github.com/michal-h21/make4ht#instalation) in order to use current `tex4ebook` version.
+  [`make4ht`](https://github.com/michal-h21/make4ht) is now standalone
+  application which `tex4ebook` depends on. You must 
+  [install   it](https://github.com/michal-h21/make4ht#instalation) in order to
+  use current `tex4ebook` version.
 
 Installation
 ------------
@@ -53,7 +60,8 @@ Installation
 > This package depends on [`make4ht`](https://github.com/michal-h21/make4ht#instalation) now, 
 > please install it first.
 
-Clone this repository to `tex/latex/` directory in your local `texmf tree`. It's location can be found with command:
+Clone this repository to `tex/latex/` directory in your local `texmf tree`.
+It's location can be found with command:
 
      kpsewhich -var-value TEXMFHOME
 
@@ -70,7 +78,8 @@ On `unix` systems, these commands could be used to install both `tex4ebook` and
     git clone https://github.com/michal-h21/tex4ebook
      
 
-This package depends on `tidy` and `zip` commands, both are available for linux and windows platforms.
+This package depends on `tidy` and `zip` commands, both are available for linux
+and windows platforms.
 
 Create script named `tex4ebook` or `tex4ebook.bat` on windows. 
 It should run `texlua path/to/tex4ebook.lua` and pass all parameters there.
@@ -95,9 +104,13 @@ Run on the command line:
 
     tex4ebook [options] filename
 
-You don't have to modify your source file unless you want to use commands defined by `tex4ebook` in the document, or in the case your document uses some unsupported package like `fontspec` (see details bellow how to solve this issue).
+You don't have to modify your source file unless you want to use commands
+defined by `tex4ebook` in the document, or in the case your document uses some
+unsupported package like `fontspec` (see details bellow how to solve this
+issue).
 
-If you want to use `tex4ebook` commands, add this line to your document preamble:
+If you want to use `tex4ebook` commands, add this line to your document
+preamble:
 
     \usepackage{tex4ebook}
 
@@ -126,11 +139,14 @@ run
 
     tex4ebook -c sample filename.tex
 
-This config file will create `xhtml` file for every section. For bigger documents, this is recommended.
+This config file will create `xhtml` file for every section. For bigger
+documents, this is recommended.
 
 *-e,--build-file* (default nil)  
 
-Specify [make4ht build file](https://github.com/michal-h21/make4ht#build-file). Defaulf build file filename is `filename.mk4`, use this option when it has different filename.
+Specify [make4ht build file](https://github.com/michal-h21/make4ht#build-file).
+Defaulf build file filename is `filename.mk4`, use this option when it has
+different filename.
   
 *-f,--format* (default epub) 
 
@@ -150,11 +166,13 @@ once, instead of three times.
 
 *-r,--resolution* 
 
-Resolution of generated images, for example math. It should meet resolution of target devices, which is usually about 167 ppi.
+Resolution of generated images, for example math. It should meet resolution of
+target devices, which is usually about 167 ppi.
 
 *-s,--shell-escape*  
 
-Enable shell escape in htlatex run. This may be needed if you run external commands from your source files.
+Enable shell escape in htlatex run. This may be needed if you run external
+commands from your source files.
 
 *t,--tidy*
 
@@ -164,7 +182,9 @@ Run tidy on output html files.
 Configuration
 -------------
 
-`tex4ebook` uses [tex4ht](http://www.tug.org/tex4ht/) for conversion from LaTeX to html. `tex4ht` is highly configurable using config files. Basic config file structure is
+`tex4ebook` uses [tex4ht](http://www.tug.org/tex4ht/) for conversion from LaTeX
+to html. `tex4ht` is highly configurable using config files. Basic config file
+structure is
 
     \Preamble{xhtml, comma separated list of options}
     ...
@@ -220,15 +240,24 @@ in the config file.
 Troubleshooting
 ---------------
 
-When compilation of the document breaks with error during `LaTeX` run, it may be caused by some problem in `tex4ht` configuration. Comment out line `\usepackage{tex4ebook}` in your source file and run command:
+When compilation of the document breaks with error during `LaTeX` run, it may
+be caused by some problem in `tex4ht` configuration. Comment out line
+`\usepackage{tex4ebook}` in your source file and run command:
 
     htlatex filename 
 
-if same error as in `tex4ebook` run arises, the problem is in some `tex4ht` configuration. Try to identify the source of problem and if you cannot find the solution, make minimal example showing the error and ask for help either on [tex4ht mailinglist](http://tug.org/mailman/listinfo/tex4ht) or on [TeX-sx](http://tex.stackexchange.com/). 
+if same error as in `tex4ebook` run arises, the problem is in some `tex4ht`
+configuration. Try to identify the source of problem and if you cannot find the
+solution, make minimal example showing the error and ask for help either on
+[tex4ht mailinglist](http://tug.org/mailman/listinfo/tex4ht) or on
+[TeX-sx](http://tex.stackexchange.com/). 
 
 ### Fontspec
 
-`tex4ht` currently doesn't support `fontspec` and open type fonts. At this moment, workaround for this is to modify your source file and conditionaly include fontspec and any other conflicting packages only when document is not processed with `tex4ht`. 
+`tex4ht` currently doesn't support `fontspec` and open type fonts. At this
+moment, workaround for this is to modify your source file and conditionaly
+include fontspec and any other conflicting packages only when document is not
+processed with `tex4ht`. 
 
 Sample:
 
@@ -247,11 +276,14 @@ Sample:
     }
     \makeatother
 
-Drawback is that not all characters of unicode range are supported with `inputenc`. For some solutions of this limitation, see thread on [tex4ht mailinglist](http://tug.org/pipermail/tex4ht/2013q1/000719.html)
+Drawback is that not all characters of unicode range are supported with
+`inputenc`. For some solutions of this limitation, see thread on [tex4ht
+mailinglist](http://tug.org/pipermail/tex4ht/2013q1/000719.html)
 
 ### Validation
 
-In case of successful compilation, use command line tool epubcheck to find if your document contains any error.
+In case of successful compilation, use command line tool epubcheck to find if
+your document contains any error.
 
 Type 
  
@@ -259,8 +291,10 @@ Type
 
 #### Common validation issues:
 
-    WARNING: filename.epub: item (OEBPS/foo.boo) exists in the zip file, but is not declared in the OPF file
+    WARNING: filename.epub: item (OEBPS/foo.boo) exists in the zip file, but is
+not declared in the OPF file
 
-Delete the `filename-(epub|epub3|mobi)` folder and `filename.epub`. Then run `tex4ebook` again.
+Delete the `filename-(epub|epub3|mobi)` folder and `filename.epub`. Then run
+`tex4ebook` again.
 
 
