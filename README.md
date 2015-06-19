@@ -1,24 +1,24 @@
-TeX4ebook
-=========
+# TeX4ebook
 
 `TeX4ebook` is bundle of lua scripts and `LaTeX` packages for conversion of
 LaTeX files to ebook formats, for example `epub`. `tex4ht` is used as
 conversion engine. 
 
-News
-----
+## News
 
 - 18/06/2016 replaced `--mathml` option with `--mode`. For `mathml` support, use`mathml` option for `tex4ht.sty`.
 
   - lot of stuff was fixed in `epub3` support. 
+  - new command `\OpfAddProperty`  
 
 - 14/01/2015 thanks Volker Gottwald for guide on [installing and using 
   tex4ebook](https://d800fotos.wordpress.com/2015/01/19/create-e-books-from-latex-tex-files-ebook-aus-latex-tex-dateien-erstellen/)  on Windows
 
-- 23/11/2014 added new command \OpfGuide, for adding items to `<guide>` section
-  in the `opf` file. This is useful for `epub` and `mobi` formats. Usage:
+- 23/11/2014 added new command `\OpfGuide`, for adding items to `<guide>`
+  section in the `opf` file. This is useful for `epub` and `mobi` formats.
+  Usage:
 
-    `\OpfGuide[filename]{title}{reference type}`
+    \OpfGuide[filename]{title}{reference type}
 
   `filename` is optional, current file name is used when empty. See 
   [epub secrets](http://epubsecrets.com/where-do-you-start-an-epub-and-what-is-the-guide-section-of-the-opf-file.php)
