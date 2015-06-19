@@ -1,0 +1,17 @@
+*.aux
+*.log
+*.lg
+*.xref
+*.tmp
+*.toc
+*.css
+*.out
+*.4ct
+*.4tc
+*.swp
+*.dvi
+*.idv
+readme.tex
+tags
+tex4ebook-doc-epub3/
+
