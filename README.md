@@ -18,7 +18,7 @@ conversion engine.
   section in the `opf` file. This is useful for `epub` and `mobi` formats.
   Usage:
 
-    \OpfGuide[filename]{title}{reference type}
+        \OpfGuide[filename]{title}{reference type}
 
   `filename` is optional, current file name is used when empty. See 
   [epub secrets](http://epubsecrets.com/where-do-you-start-an-epub-and-what-is-the-guide-section-of-the-opf-file.php)
@@ -121,62 +121,58 @@ preamble:
 Options
 -------
 
-*-c,--config* 
+-c,--config 
 
-This options enables you to provide custom configurations for `tex4ht`
+:    specify custom config file for `tex4ht`
 
-### example
-
-File sample.cfg
-
-
-    \Preamble{xhtml}
-    \CutAt{section}
-    \begin{document}
-    \EndPreamble
-
-run 
-
-    tex4ebook -c sample filename.tex
-
-This config file will create `xhtml` file for every section. For bigger
-documents, this is recommended.
-
-*-e,--build-file* (default nil)  
-
-Specify [make4ht build file](https://github.com/michal-h21/make4ht#build-file).
-Defaulf build file filename is `filename.mk4`, use this option when it has
-different filename.
+   **example config file**: File `sample.cfg`
   
-*-f,--format* (default epub) 
+  
+      \Preamble{xhtml}
+      \CutAt{section}
+      \begin{document}
+      \EndPreamble
+  
+  run 
+  
+      tex4ebook -c sample filename.tex
+  
+  This config file will create `xhtml` file for every section. Note that this
+  behaviour is default.
 
-Output format. epub, epub3 and mobi are supported.
+-e,--build-file (default nil)  
 
-*-l,--lua*  
+:    Specify [make4ht build file](https://github.com/michal-h21/make4ht#build-file).
+     Defaulf build file filename is `filename.mk4`, use this option when it has
+     different filename.
+  
+-f,--format (default epub) 
 
-Runs htlualatex instead of htlatex. You may need to create `htlualatex` script.
+:    Output format. epub, epub3 and mobi are supported.
 
-*-m,--mode (default default)* 
+-l,--lua
 
-This set `mode` variable, accessible in the build file. Default supported
-values are `default` and `draft`. In `draft` mode, document is compiled only
-once, instead of three times.
+:    Runs htlualatex instead of htlatex.
 
+-m,--mode (default default)
 
+:    This set `mode` variable, accessible in the build file. Default supported
+     values are `default` and `draft`. In `draft` mode, document is compiled
+     only once, instead of three times.
 
-*-r,--resolution* 
+-r,--resolution 
 
-Resolution of generated images, for example math. It should meet resolution of
-target devices, which is usually about 167 ppi.
+:    Resolution of generated images, for example math. It should meet resolution
+     of target devices, which is usually about 167 ppi.
 
-*-s,--shell-escape*  
+-s,--shell-escape
 
-Enable shell escape in htlatex run. This may be needed if you run external
-commands from your source files.
+:     Enable shell escape in htlatex run. This may be needed if you run external
+      commands from your source files.
 
-*t,--tidy*
+t,--tidy
 
-Run tidy on output html files.
+:     Run tidy on output html files.
 
 
 Configuration
