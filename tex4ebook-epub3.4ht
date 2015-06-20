@@ -101,8 +101,8 @@
 
 % configure HtmlPar to print footnotebox.
 \Configure{HtmlPar}
-{\EndP\Tg<p class="noindent">}
-{\EndP\Tg<p class="indent">}
+{\EndP\HCode{<p class="noindent">}}
+{\EndP\HCode{<p class="indent">}}
 {\HCode{</p>\Hnewline}\printfn}
 {\HCode{</p>\Hnewline}\printfn}
 
