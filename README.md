@@ -210,9 +210,10 @@ Interesting questions include [including images and fonts in ebooks](http://tex.
 Every epub file should have unique identifier, like ISBN, DOI, URI etc. 
 Default identifier is URI, with value `http://example.com/\jobname`.
 
-    \Configure{OpfScheme}{ opf:scheme="URI"}
+    \Configure{OpfScheme}{URI"}
 
-Type of unique identifier. It must be in form `opf:scheme="scheme type"`.
+Type of unique identifier, default type is URI. It is
+used only in epub, it is deprecated for `epub3`
 
     \Configure{CoverImage}{before cover image}{after cover image}
 
