@@ -2,7 +2,10 @@
 \Configure{NcxDoctype}{}
 \Configure{VERSION}{}
 
+% we must remove attributes from opf namespace
+\def\print:opf:scheme#1{}
 \Configure{OpfScheme}{}
+
 \Configure{OpfMetadata}{\HCode{<meta property="dcterms:modified">}\:iso:date\HCode{</meta>}}
 
 %%%%%%%%%%%%%%%%%%%%%%%
