@@ -49,7 +49,7 @@
   }
 }
 
-\newcommand\OpfRegisterFile{\opf:registerfilename{\FileName}}
+\newcommand\OpfRegisterFile[1][\FileName]{\opf:registerfilename{#1}}
 
 \NewConfigure{OpfManifest}[1]{%
   \ifx\relax#1\relax%
@@ -93,7 +93,7 @@
 % in epub3, it is deprecated, but it can be present
 \edef\opf:guide{\HCode{<guide>\Hnewline}}
 
-% register file to the guide. first argument is optioal filename, current 
+% register file to the guide. first argument is optional filename, current 
 % output name  is used when empty. second is title and third type
 
 \NewConfigure{OpfGuide}{4}
@@ -104,6 +104,7 @@
 
 \Configure{OpfGuide}{\HCode{<reference type="}}{\HCode{" title="}}{\HCode{" href="}}{\HCode{" />\Hnewline}}
 
+% is NavMap used anywhere?
 \NewConfigure{NavMap}{2}
 \NewConfigure{NavSection}{4}
 %Interface for setting xmlns
