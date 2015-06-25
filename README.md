@@ -8,29 +8,22 @@ conversion engine.
 Installation
 ------------
 
-> This package depends on [`make4ht`](https://github.com/michal-h21/make4ht#instalation) now, 
-> please install it first.
+> This package depends on
+> [`make4ht`](https://github.com/michal-h21/make4ht#instalation) now, please
+> install it first.
+>
+> It also depends on `tidy` and `zip` commands, both are available for Unix
+> and Windows platforms, `zip` is distributed with TeX Live on Windows.
+> You need [Pandoc](http://pandoc.org/) in order to make documentation.
 
-Clone this repository to `tex/latex/` directory in your local `texmf tree`.
-It's location can be found with command:
+On Unix systems, clone this repository to your disc and run command
 
-     kpsewhich -var-value TEXMFHOME
+    make
+    make install
 
-On `unix` systems, these commands could be used to install both `tex4ebook` and
-`make4ht`:
-
-    cd `kpsewhich -var-value TEXMFHOME`
-    mkdir -p scripts/lua
-    cd scripts/lua
-    git clone https://github.com/michal-h21/make4ht
-    cd `kpsewhich -var-value TEXMFHOME`
-    mkdir -p tex/latex
-    cd tex/latex
-    git clone https://github.com/michal-h21/tex4ebook
-     
 
 This package depends on `tidy` and `zip` commands, both are available for Unix
-and Windows platforms.
+and Windows platforms, `zip` is distributed with TeX Live on Windows.
 
 Create script named `tex4ebook` or `tex4ebook.bat` on windows. 
 It should run `texlua path/to/tex4ebook.lua` and pass all parameters there.
