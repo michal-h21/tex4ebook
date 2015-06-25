@@ -177,6 +177,27 @@ If you don't want to include the cover image in the document, use command
 
 in the config file.
 
+    \Configure{OpfMetadata}
+
+Add item to `<metadata>` section in the `OPF` file.
+
+    \Configure{OpfManifest}{}
+
+Add item to `<manifest>` section in the `OPF` file.
+
+
+
+### Commands
+
+    \OpfAddProperty
+
+`\OpfGuide[filename]{title}{type}`
+
+:    Add file to the `<guide>` section in the `OPF` file. See [Where do you
+:    start an ePUB and what is the `<guide>` section of the .OPF file?](http://epubsecrets.com/where-do-you-start-an-epub-and-what-is-the-guide-section-of-the-opf-file.php)
+:    for some details. Note that `<guide>` is deprecated in `Epub3`.
+
+
 
 Troubleshooting
 ---------------
