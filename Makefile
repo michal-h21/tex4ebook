@@ -23,8 +23,8 @@ build: doc $(tex_content)
 	@zip build/tex4ebook.zip $(tex_content)  README.md tex4ebook-doc.pdf
 
 install: doc $(tex_content)
-	@mkdir -p $(INSTALL_DIR)
-	@mkdir -p $(MANUAL_DIR)
-	@cp $(tex_content) $(INSTALL_DIR)
-	@cp $(doc_file) $(MANUAL_DIR)
+	mkdir -p $(INSTALL_DIR)
+	mkdir -p $(MANUAL_DIR)
+	cp $(tex_content) $(INSTALL_DIR)
+	cp $(doc_file) $(MANUAL_DIR)
 
