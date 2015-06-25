@@ -22,9 +22,6 @@ On Unix systems, clone this repository to your disc and run command
     make install
 
 
-This package depends on `tidy` and `zip` commands, both are available for Unix
-and Windows platforms, `zip` is distributed with TeX Live on Windows.
-
 Create script named `tex4ebook` or `tex4ebook.bat` on windows. 
 It should run `texlua path/to/tex4ebook.lua` and pass all parameters there.
 Sample script for UNIX-like systems, `tex4ebook` is provided. 
@@ -57,6 +54,8 @@ If you want to use `tex4ebook` commands, add this line to your document
 preamble:
 
     \usepackage{tex4ebook}
+
+but it is optional. You shouldn't need to modify your \TeX\ files
 
 ### Available commands
 
@@ -146,6 +145,8 @@ Great source of tips for `tex4ht` configuring is [tex4ht tag on TeX.sx](http://t
 
 Interesting questions include [including images and fonts in ebooks](http://tex.stackexchange.com/questions/tagged/tex4ht) or [setting image size in em units instead of pt](http://tex.stackexchange.com/questions/tagged/tex4ht).
 
+### Provided configurations
+
 `tex4ebook` provides some configurations for your usage:
 
     \Configure{UniqueIdentifier}{identifier}
@@ -177,25 +178,33 @@ If you don't want to include the cover image in the document, use command
 
 in the config file.
 
-    \Configure{OpfMetadata}
+    \Configure{OpfMetadata}{item element}
 
 Add item to `<metadata>` section in the `OPF` file.
 
-    \Configure{OpfManifest}{}
+    \Configure{OpfManifest}{maifest element}
 
 Add item to `<manifest>` section in the `OPF` file.
 
+    \Configure{xmlns}{prefix}{uri}
+
+Add xml name space to `xhtml` files. Useful in `EPUB 3`
 
 
-### Commands
 
-    \OpfAddProperty
+### Commands available in config files
+
+`\OpfRegisterFile[filename]`
+
+:    register file in the `OPF` file. Current output file is added by default.
+
+`\OpfAddProperty{property type}`
+
+:    add `EPUB3` property for the current file. See [EPUB3 spec](http://www.idpf.org/epub/301/spec/epub-publications.html#sec-item-property-values)
 
 `\OpfGuide[filename]{title}{type}`
 
-:    Add file to the `<guide>` section in the `OPF` file. See [Where do you
-:    start an ePUB and what is the `<guide>` section of the .OPF file?](http://epubsecrets.com/where-do-you-start-an-epub-and-what-is-the-guide-section-of-the-opf-file.php)
-:    for some details. Note that `<guide>` is deprecated in `Epub3`.
+:    Add file to the `<guide>` section in the `OPF` file. See  [Where do you start an ePUB and what is the `<guide>` section of the .OPF file?](http://epubsecrets.com/where-do-you-start-an-epub-and-what-is-the-guide-section-of-the-opf-file.php) for some details. Note that `<guide>` is deprecated in `EPUB 3`.
 
 
 
