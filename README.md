@@ -5,37 +5,6 @@ LaTeX files to ebook formats, for example `epub`. `tex4ht` is used as
 conversion engine. 
 
 
-Installation
-------------
-
-> This package depends on
-> [`make4ht`](https://github.com/michal-h21/make4ht#instalation) now, please
-> install it first.
->
-> It also depends on `tidy` and `zip` commands, both are available for Unix
-> and Windows platforms, `zip` is distributed with TeX Live on Windows.
-> You need [Pandoc](http://pandoc.org/) in order to make documentation.
-
-On Unix systems, clone this repository to your disc and run command
-
-    make
-    make install
-
-
-Create script named `tex4ebook` or `tex4ebook.bat` on windows. 
-It should run `texlua path/to/tex4ebook.lua` and pass all parameters there.
-Sample script for UNIX-like systems, `tex4ebook` is provided. 
-Place the script somewhere in the path so it can be called from the terminal.
-On UNIX systems, you may try to call command:
-
-
-    chmod +x /full/path/to/tex4ebook
-    ln -s /full/path/to/tex4ebook /usr/local/bin/tex4ebook
-
-(you may list directories in the path with command `echo $PATH`)
-
-For Windows settings, see a 
-[guide](https://d800fotos.wordpress.com/2015/01/19/create-e-books-from-latex-tex-files-ebook-aus-latex-tex-dateien-erstellen/) by Volker Gottwald
 
 
 Usage
