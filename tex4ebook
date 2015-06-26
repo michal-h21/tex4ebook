@@ -1,3 +1,4 @@
+#!/usr/bin/env texlua
 kpse.set_program_name("luatex")
 require("lapp-mk4")
 -- require("ebookutils")
