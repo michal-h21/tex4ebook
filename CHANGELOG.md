@@ -1,5 +1,9 @@
 # Changes
 
+- 29/06/2015 Version 0.1
+
+     - fixes in documentation
+
 - 22/06/2015 
 
      - changes moved from README.md to CHANGELOG.md
