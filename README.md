@@ -1,21 +1,24 @@
-# TeX4ebook
+# Introduction
 
 `TeX4ebook` is bundle of lua scripts and `LaTeX` packages for conversion of
 LaTeX files to ebook formats, for example `epub`. `tex4ht` is used as
 conversion engine. 
 
+## License
+
+Permission is granted to copy, distribute and/or modify this software
+under the terms of the LaTeX Project Public License, version 1.3.
 
 
+# Usage
 
-Usage
------
 
 Run on the command line:
 
     tex4ebook [options] filename
 
-You don't have to modify your source file unless you want to use commands
-defined by `tex4ebook` in the document, or in the case your document uses some
+You don't have to modify your source files unless you want to use commands
+defined by `tex4ebook` in the document, or when your document uses some
 unsupported package like `fontspec` (see details bellow how to solve this
 issue).
 
@@ -26,12 +29,11 @@ preamble:
 
 but it is optional. You shouldn't need to modify your \TeX\ files
 
-### Available commands
+## Available commands
 
 - `\coverimage{coverimage.name}` - include cover image to the document. 
 
-Options
--------
+# Command line options
 
 -c,--config 
 
@@ -87,8 +89,7 @@ t,--tidy
 :     Run tidy on output html files.
 
 
-Configuration
--------------
+# Configuration
 
 `tex4ebook` uses [tex4ht](http://www.tug.org/tex4ht/) for conversion from LaTeX
 to html. `tex4ht` is highly configurable using config files. Basic config file
@@ -105,7 +106,7 @@ Basic info about command configurations can be found in a work-in-progres
 , [tex4ht documentation](http://www.tug.org/applications/tex4ht/mn11.html), 
 and in series of blogposts on CV Radhakrishnan's blog 
 [Configure part 1](http://www.cvr.cc/?p=323), 
-[Configurepart 2](http://www.cvr.cc/?p=362), 
+[Configure part 2](http://www.cvr.cc/?p=362), 
 [Low level commands](http://www.cvr.cc/?p=482). 
 Available options for `\Preamble` command are listed in the article 
 [TeX4ht: options](http://www.cvr.cc/?p=504).
@@ -114,7 +115,7 @@ Great source of tips for `tex4ht` configuring is [tex4ht tag on TeX.sx](http://t
 
 Interesting questions include [including images and fonts in ebooks](http://tex.stackexchange.com/questions/tagged/tex4ht) or [setting image size in em units instead of pt](http://tex.stackexchange.com/questions/tagged/tex4ht).
 
-### Provided configurations
+## Provided configurations
 
 `tex4ebook` provides some configurations for your usage:
 
@@ -161,7 +162,7 @@ Add xml name space to `xhtml` files. Useful in `EPUB 3`
 
 
 
-### Commands available in config files
+## Commands available in config files
 
 `\OpfRegisterFile[filename]`
 
@@ -177,8 +178,7 @@ Add xml name space to `xhtml` files. Useful in `EPUB 3`
 
 
 
-Troubleshooting
----------------
+# Troubleshooting
 
 When compilation of the document breaks with error during `LaTeX` run, it may
 be caused by some problem in `tex4ht` configuration. Comment out line
@@ -192,7 +192,7 @@ solution, make minimal example showing the error and ask for help either on
 [tex4ht mailinglist](http://tug.org/mailman/listinfo/tex4ht) or on
 [TeX-sx](http://tex.stackexchange.com/). 
 
-### Fontspec
+## Fontspec
 
 `tex4ht` currently doesn't support `fontspec` and open type fonts. At this
 moment, workaround for this is to modify your source file and conditionaly
@@ -217,19 +217,19 @@ Sample:
     \makeatother
 
 Drawback is that not all characters of unicode range are supported with
-`inputenc`. For some solutions of this limitation, see thread on [tex4ht
+`inputenc`. For some solutions of this limitation, see a thread on [tex4ht
 mailinglist](http://tug.org/pipermail/tex4ht/2013q1/000719.html)
 
-### Validation
+## Validation
 
-In case of successful compilation, use command line tool epubcheck to find if
-your document contains any error.
+In case of successful compilation, use command line tool `epubcheck` to check 
+whether your document doesn't contain any errors.
 
 Type 
  
     epubcheck filename.epub
 
-#### Common validation issues:
+### Common validation issues:
 
 -  WARNING: filename.epub: item (OEBPS/foo.boo) exists in the zip file, but is
 not declared in the OPF file
