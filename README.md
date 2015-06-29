@@ -104,7 +104,7 @@ structure is
 Basic info about command configurations can be found in a work-in-progres 
 [tex4ht tutorial](https://github.com/michal-h21/helpers4ht/wiki/tex4ht-tutorial)
 , [tex4ht documentation](http://www.tug.org/applications/tex4ht/mn11.html), 
-and in series of blogposts on CV Radhakrishnan's blog 
+and in series of blogposts on CV Radhakrishnan's blog:
 [Configure part 1](http://www.cvr.cc/?p=323), 
 [Configure part 2](http://www.cvr.cc/?p=362), 
 [Low level commands](http://www.cvr.cc/?p=482). 
