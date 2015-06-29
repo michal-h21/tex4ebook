@@ -4,6 +4,8 @@ TEXMFHOME = $(shell kpsewhich -var-value=TEXMFHOME)
 INSTALL_DIR = $(TEXMFHOME)/tex/latex/tex4ebook
 MANUAL_DIR = $(TEXMFHOME)/doc/latex/tex4ebook
 SYSTEM_DIR = /usr/local/bin
+BUILD_DIR = build
+BUILD_TEX4EBOOK = $(BUILD_DIR)/tex4ebook/
 
 all: doc
 
@@ -20,8 +22,10 @@ changelog.tex: CHANGELOG.md
 
 build: doc $(tex_content)
 	@rm -rf build
-	@mkdir build
-	@zip build/tex4ebook.zip $(tex_content)  README.md tex4ebook-doc.pdf
+	@mkdir -p $(BUILD_TEX4EBOOK)
+	cp $(tex_content)  tex4ebook-doc.pdf $(BUILD_TEX4EBOOK)
+	cp README.md $(BUILD_TEX4EBOOK)/README
+	cd $(BUILD_DIR) && zip tex4ebook.zip tex4ebook
 
 install: doc $(tex_content)
 	mkdir -p $(INSTALL_DIR)
