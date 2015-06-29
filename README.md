@@ -1,8 +1,23 @@
 # Introduction
 
 `TeX4ebook` is bundle of lua scripts and `LaTeX` packages for conversion of
-LaTeX files to ebook formats, for example `epub`. `tex4ht` is used as
-conversion engine. 
+LaTeX files to ebook formats, for example `epub`, `mobi` and `epub3`. `tex4ht`
+is used as conversion engine. 
+
+Note that while `mobi` is supported by Amazon Kindle, most widespread ebook 
+reader, it doesn't support `mathml` and this means that math must re represented
+as images. The same is true for `epub`. This is not a good thing, especially 
+for inline math, as you may experience wrong baselines. If your ebook contains
+math, the only correct solution is to produce `epub3`, as it supports `mathml`.
+The issue with `epub3` is, that majority of `e-ink` ebook readers doesn't 
+support this format, reader applications exists mainly for Android and Apple 
+devices. For books which contains mainly prose, all formats should be suitable,
+but `epub3` supports most features from web standards, such as `CSS`. 
+
+As with `tex4ht`, the emphasis is on conversion of document's logical structure
+and metadata, basic visual appearance is preserved as well, but you should use
+custom configurations if you want to make the document more visually appealing.
+You can include custom `CSS` or fonts in configuration files.
 
 ## License
 
@@ -113,7 +128,9 @@ Available options for `\Preamble` command are listed in the article
 
 Great source of tips for `tex4ht` configuring is [tex4ht tag on TeX.sx](http://tex.stackexchange.com/questions/tagged/tex4ht), there is also a [tag for tex4ebook](http://tex.stackexchange.com/questions/tagged/tex4ebook).
 
-Interesting questions include [including images and fonts in ebooks](http://tex.stackexchange.com/questions/tagged/tex4ht) or [setting image size in em units instead of pt](http://tex.stackexchange.com/questions/tagged/tex4ht).
+Examples of interesting questions are 
+[including images and fonts in ebooks](including images and fonts in ebooks) 
+or [setting image size in em units instead of pt](http://tex.stackexchange.com/a/195718/2891).
 
 ## Provided configurations
 
@@ -176,7 +193,10 @@ Add xml name space to `xhtml` files. Useful in `EPUB 3`
 
 :    Add file to the `<guide>` section in the `OPF` file. See  [Where do you start an ePUB and what is the `<guide>` section of the .OPF file?](http://epubsecrets.com/where-do-you-start-an-epub-and-what-is-the-guide-section-of-the-opf-file.php) for some details. Note that `<guide>` is deprecated in `EPUB 3`.
 
+## Build files
 
+`tex4ebook` uses [make4ht](https://github.com/michal-h21/make4ht) as a build
+system. See `make4ht` documentation for details on build files. 
 
 # Troubleshooting
 
