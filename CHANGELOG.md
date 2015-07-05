@@ -1,5 +1,10 @@
 # Changes
 
+- 05/07/2015 Version 0.1a
+
+     - `tex4ebook` script was missing in the distribution zip file
+     - all links moved to footnotes in the documentation
+
 - 29/06/2015 Version 0.1
 
      - fixes in documentation
