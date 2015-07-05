@@ -242,8 +242,10 @@ mailinglist](http://tug.org/pipermail/tex4ht/2013q1/000719.html)
 
 ## Validation
 
-In case of successful compilation, use command line tool `epubcheck` to check 
+In case of successful compilation, use command line tool `epubcheck`^[you need
+to install it separately, see \url{https://github.com/IDPF/epubcheck}] to check
 whether your document doesn't contain any errors.
+
 
 Type 
  
