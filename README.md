@@ -1,6 +1,6 @@
 # Introduction
 
-`TeX4ebook` is bundle of lua scripts and `LaTeX` packages for conversion of
+`TeX4ebook` is bundle of Lua scripts and `LaTeX` packages for conversion of
 LaTeX files to ebook formats, for example `epub`, `mobi` and `epub3`. `tex4ht`
 is used as conversion engine. 
 
@@ -71,8 +71,8 @@ but it is optional. You shouldn't need to modify your \TeX\ files
 
 -e,--build-file (default nil)  
 
-:    Specify [make4ht build file](https://github.com/michal-h21/make4ht#build-file).
-     Defaulf build file filename is `filename.mk4`, use this option when it has
+:    Specify make4ht build file^[\url{https://github.com/michal-h21/make4ht\#build-file}].
+     Defaulf build file filename is `filename.mk4`, use this option if you use
      different filename.
   
 -f,--format (default epub) 
@@ -101,12 +101,12 @@ but it is optional. You shouldn't need to modify your \TeX\ files
 
 t,--tidy
 
-:     Run tidy on output html files.
+:     process output html files with `HTML tidy` command^[It needs to be installed separately].
 
 
 # Configuration
 
-`tex4ebook` uses [tex4ht](http://www.tug.org/tex4ht/) for conversion from LaTeX
+`tex4ebook` uses `tex4ht`^[\url{http://www.tug.org/tex4ht/}] for conversion from LaTeX
 to html. `tex4ht` is highly configurable using config files. Basic config file
 structure is
 
@@ -117,20 +117,20 @@ structure is
     \EndPreamble
 
 Basic info about command configurations can be found in a work-in-progres 
-[tex4ht tutorial](https://github.com/michal-h21/helpers4ht/wiki/tex4ht-tutorial)
-, [tex4ht documentation](http://www.tug.org/applications/tex4ht/mn11.html), 
+ *tex4ht tutorial*^[\url{https://github.com/michal-h21/helpers4ht/wiki/tex4ht-tutorial}]
+, *tex4ht documentation*^[\url{http://www.tug.org/applications/tex4ht/mn11.html}], 
 and in series of blogposts on CV Radhakrishnan's blog:
-[Configure part 1](http://www.cvr.cc/?p=323), 
-[Configure part 2](http://www.cvr.cc/?p=362), 
-[Low level commands](http://www.cvr.cc/?p=482). 
+*Configure part 1*^[\url{http://www.cvr.cc/?p=323}], 
+*Configure part 2*^[\url{http://www.cvr.cc/?p=362}], 
+*Low level commands*^[\url{http://www.cvr.cc/?p=482}]. 
 Available options for `\Preamble` command are listed in the article 
-[TeX4ht: options](http://www.cvr.cc/?p=504).
+*TeX4ht: options*^[\url{http://www.cvr.cc/?p=504}].
 
-Great source of tips for `tex4ht` configuring is [tex4ht tag on TeX.sx](http://tex.stackexchange.com/questions/tagged/tex4ht), there is also a [tag for tex4ebook](http://tex.stackexchange.com/questions/tagged/tex4ebook).
+Great source of tips for `tex4ht` configuring is *tex4ht tag on TeX.sx*^[\url{http://tex.stackexchange.com/questions/tagged/tex4ht}], there is also a *tag for tex4ebook*^[\url{http://tex.stackexchange.com/questions/tagged/tex4ebook}].
 
 Examples of interesting questions are 
-[including images and fonts in ebooks](including images and fonts in ebooks) 
-or [setting image size in em units instead of pt](http://tex.stackexchange.com/a/195718/2891).
+*including images and fonts in ebooks*^[\url{http://tex.stackexchange.com/a/213165/2891}] 
+or *setting image size in em units instead of pt*^[\url{http://tex.stackexchange.com/a/195718/2891}].
 
 ## Provided configurations
 
@@ -187,15 +187,17 @@ Add xml name space to `xhtml` files. Useful in `EPUB 3`
 
 `\OpfAddProperty{property type}`
 
-:    add `EPUB3` property for the current file. See [EPUB3 spec](http://www.idpf.org/epub/301/spec/epub-publications.html#sec-item-property-values)
+:    add `EPUB3` property for the current file. See *EPUB3 spec*^[\url{http://www.idpf.org/epub/301/spec/epub-publications.html\#sec-item-property-values}]
 
 `\OpfGuide[filename]{title}{type}`
 
-:    Add file to the `<guide>` section in the `OPF` file. See  [Where do you start an ePUB and what is the `<guide>` section of the .OPF file?](http://epubsecrets.com/where-do-you-start-an-epub-and-what-is-the-guide-section-of-the-opf-file.php) for some details. Note that `<guide>` is deprecated in `EPUB 3`.
+:    Add file to the `<guide>` section in the `OPF` file. See *Where do you    start an ePUB and what is the `<guide>` section of the .OPF
+     file?*^[\url{http://epubsecrets.com/where-do-you-start-an-epub-and-what-is-the-guide-section-of-the-opf-file.php}]
+     for some details. Note that `<guide>` is deprecated in `EPUB 3`.
 
 ## Build files
 
-`tex4ebook` uses [make4ht](https://github.com/michal-h21/make4ht) as a build
+`tex4ebook` uses `make4ht`^[\url{https://github.com/michal-h21/make4ht}] as a build
 system. See `make4ht` documentation for details on build files. 
 
 # Troubleshooting
@@ -209,13 +211,13 @@ be caused by some problem in `tex4ht` configuration. Comment out line
 if same error as in `tex4ebook` run arises, the problem is in some `tex4ht`
 configuration. Try to identify the source of problem and if you cannot find the
 solution, make minimal example showing the error and ask for help either on
-[tex4ht mailinglist](http://tug.org/mailman/listinfo/tex4ht) or on
-[TeX-sx](http://tex.stackexchange.com/). 
+*tex4ht mailinglist*^[\url{http://tug.org/mailman/listinfo/tex4ht}] or on
+*TeX-sx*^[\url{http://tex.stackexchange.com/}]. 
 
 ## Fontspec
 
 `tex4ht` currently doesn't support `fontspec` and open type fonts. At this
-moment, workaround for this is to modify your source file and conditionaly
+moment, workaround for this is to modify your source file and conditionally
 include fontspec and any other conflicting packages only when document is not
 processed with `tex4ht`. 
 
@@ -236,9 +238,9 @@ Sample:
     }
     \makeatother
 
-Drawback is that not all characters of unicode range are supported with
-`inputenc`. For some solutions of this limitation, see a thread on [tex4ht
-mailinglist](http://tug.org/pipermail/tex4ht/2013q1/000719.html)
+Drawback is that not all characters of Unicode range are supported with
+`inputenc`. For some solutions of this limitation, see a thread on *tex4ht
+mailinglist*^[\url{http://tug.org/pipermail/tex4ht/2013q1/000719.html}]
 
 ## Validation
 
@@ -259,7 +261,8 @@ not declared in the OPF file
   Delete the `filename-(epub|epub3|mobi)` folder and `filename.epub`. Then
   run `tex4ebook` again.
 
-- WARNING(ACC-009): hsmmt10t.epub/OEBPS/hsmmt10tch17.xhtml(235,15): MathML should either have an alt text attribute or annotation-xml child element.
+- WARNING(ACC-009): hsmmt10t.epub/OEBPS/hsmmt10tch17.xhtml(235,15): 
+MathML should either have an alt text attribute or annotation-xml child element.
 
   This is accessibility message. Unless you use some macro with annotations for
   each math instance, you will get lot of these messages. Try to use 
