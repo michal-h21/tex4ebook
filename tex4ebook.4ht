@@ -294,7 +294,7 @@ href="#1" media-type="\a:CoverMimeType" />}}
 \Configure{tableofcontents}{\boolfalse{tocnoempty}\Tg<navMap>}{%
 	\usetoclevels{part,chapter,likechapter,section,likesection,subsection,likesubsection,subsubsection,likesubsubsection}%
 	\ifbool{tocnoempty}{}%
-	{\HCode{<navPoint id="mainentry" playOrder=1>
+	{\HCode{<navPoint id="mainentry" playOrder="1">
 	  <navLabel><text>Document</text></navLabel>
 	  <content src="\jobname.\:html" />
 	  </navPoint>}}%
