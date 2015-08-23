@@ -1,5 +1,9 @@
 # Changes
 
+- 23/08/2015
+
+    - simple cleaning of the ncx file if tidy command isn't available
+
 - 05/07/2015 Version 0.1a
 
      - `tex4ebook` script was missing in the distribution zip file
