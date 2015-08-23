@@ -258,13 +258,25 @@ function make_opf()
   end
 
 	function pack_container()
+    local ncxfilename = outputdir .. "/" .. outputfilename .. ".ncx"
 		if os.execute("tidy -v") > 0 then
-			print("Warning:\n  tidy command seems missing, you need to install it" ..
+			print("Warning:\n  tidy command seems missing, you should install it" ..
 			" in order\n  to make valid epub file") 
+      print("Using regexp based cleaning")
+      local lines = {}
+      for line in io.lines(ncxfilename) do
+        local content = line:gsub("[ ]*<","<")
+        if content:len() > 0 then
+          table.insert(lines, content)
+        end
+      end
+      table.insert(lines,"")
+      local ncxfile = io.open(ncxfilename,"w")
+      ncxfile:write(table.concat(lines,"\n"))
+      ncxfile:close()
 		else
 		  print("Tidy ncx "..
-		  os.execute("tidy -xml -i -q -utf8 -m " .. 
-			outputdir .. "/" .. outputfilename .. ".ncx"))
+		  os.execute("tidy -xml -i -q -utf8 -m " ..  ncxfilename))
 			print("Tidy opf "..
 			os.execute("tidy -xml -i -q -utf8 -m " .. 
 			outputdir .. "/" .. "content.opf"))
