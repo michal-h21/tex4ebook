@@ -1,5 +1,9 @@
 # Changes
 
+- 25/0802015
+
+    - fatal error happened with epub3 when the document didn't contain the TOC
+
 - 23/08/2015
 
     - simple cleaning of the ncx file if tidy command isn't available
