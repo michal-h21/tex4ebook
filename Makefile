@@ -1,4 +1,4 @@
-tex_content = $(tex4ebook) $(wildcard *.sty) $(wildcard *.4ht) $(wildcard *.tex) $(wildcard *.lua)
+tex_content = tex4ebook $(wildcard *.sty) $(wildcard *.4ht) $(wildcard *.tex) $(wildcard *.lua)
 doc_file = tex4ebook-doc.pdf
 TEXMFHOME = $(shell kpsewhich -var-value=TEXMFHOME)
 INSTALL_DIR = $(TEXMFHOME)/tex/latex/tex4ebook
@@ -15,7 +15,7 @@ tex4ebook-doc.pdf: tex4ebook-doc.tex readme.tex changelog.tex
 	latexmk -lualatex tex4ebook-doc.tex
 
 readme.tex: README.md
-	pandoc -f markdown+definition_lists -t LaTeX README.md > readme.tex
+	pandoc -f markdown+definition_lists+inline_notes -t LaTeX README.md > readme.tex
 
 changelog.tex: CHANGELOG.md
 	pandoc -f markdown+definition_lists -t LaTeX CHANGELOG.md > changelog.tex
@@ -23,9 +23,9 @@ changelog.tex: CHANGELOG.md
 build: doc $(tex_content)
 	@rm -rf build
 	@mkdir -p $(BUILD_TEX4EBOOK)
-	cp $(tex_content)  tex4ebook-doc.pdf $(BUILD_TEX4EBOOK)
-	cp README.md $(BUILD_TEX4EBOOK)/README
-	cd $(BUILD_DIR) && zip tex4ebook.zip tex4ebook
+	@cp $(tex_content)  tex4ebook-doc.pdf $(BUILD_TEX4EBOOK)
+	@cp README.md $(BUILD_TEX4EBOOK)README
+	cd $(BUILD_DIR) && zip -r tex4ebook.zip tex4ebook
 
 install: doc $(tex_content)
 	mkdir -p $(INSTALL_DIR)
