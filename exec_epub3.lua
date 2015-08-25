@@ -1,6 +1,7 @@
 module(...,package.seeall)
 local eb = require("exec_epub")
 
+local ext = "xhtml"
 local outputdir = nil
 local input     = nil
 function prepare(params)
@@ -8,7 +9,8 @@ function prepare(params)
   local outputdir_name="OEBPS"
 	outputdir= basedir.."/"..outputdir_name
   input = params.input 
-  params.packages = params.packages .. "\\Configure{ext}{xhtml}"
+  params.ext = ext
+  params.packages = params.packages .. string.format("\\Configure{ext}{%s}",ext)
 	return eb.prepare(params)
 end
 
@@ -54,12 +56,10 @@ local function cleanOPF()
     print "TOC nav found"
   else
     print "no TOC, using generic one"
-    local pattern = input.."(%..?html)"
-    local ext = content:match(pattern)
-    local inputfile = input .. ext
+    local inputfile = input .. "." .. ext
     print("Main file name", inputfile)
 		-- write toc file
-    local toc_name = "generic_toc" ..ext
+    local toc_name = "generic_toc" .."."..ext
 		local f = io.open(outputdir .. "/" .. toc_name, "w")
 		f:write(makeTOC(inputfile))
 		f:close()
