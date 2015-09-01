@@ -1,6 +1,6 @@
 # Changes
 
-- 25/0802015
+- 25/08/2015
 
     - fatal error happened with epub3 when the document didn't contain the TOC
 
