@@ -1,5 +1,9 @@
 # Changes
 
+- 24/09/2015 Version 0.1b
+
+  - info about new workaround for `fontspec` package
+
 - 25/08/2015
 
     - fatal error happened with epub3 when the document didn't contain the TOC
