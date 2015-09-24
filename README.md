@@ -242,6 +242,11 @@ The drawback is that not all characters of the Unicode range are supported with
 `inputenc`. For some solutions of this limitation, see a thread on *tex4ht
 mailing list*^[\url{http://tug.org/pipermail/tex4ht/2013q1/000719.html}]
 
+Other approach is to use `alternative4ht` package from [helpers4ht](https://github.com/michal-h21/helpers4ht)
+bundle. It works only with Lua backend, but it supports full unicode and you 
+don't have to use conditional package inclusion in your document. See 
+an [example](http://michal-h21.github.io/samples/helpers4ht/fontspec.html).
+
 ## Validation
 
 In case of successful compilation, use command line tool `epubcheck`^[you need
