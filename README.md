@@ -211,7 +211,7 @@ be caused by some problem in `tex4ht` configuration. Comment out line
 if same error as in `tex4ebook` run arises, the problem is in some `tex4ht`
 configuration. Try to identify the source of problem and if you cannot find the
 solution, make minimal example showing the error and ask for help either on
-*tex4ht mailinglist*^[\url{http://tug.org/mailman/listinfo/tex4ht}] or on
+*tex4ht mailing list*^[\url{http://tug.org/mailman/listinfo/tex4ht}] or on
 *TeX-sx*^[\url{http://tex.stackexchange.com/}]. 
 
 ## Fontspec
@@ -238,9 +238,9 @@ Sample:
     }
     \makeatother
 
-Drawback is that not all characters of Unicode range are supported with
+The drawback is that not all characters of the Unicode range are supported with
 `inputenc`. For some solutions of this limitation, see a thread on *tex4ht
-mailinglist*^[\url{http://tug.org/pipermail/tex4ht/2013q1/000719.html}]
+mailing list*^[\url{http://tug.org/pipermail/tex4ht/2013q1/000719.html}]
 
 ## Validation
 
