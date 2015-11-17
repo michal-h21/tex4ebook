@@ -148,9 +148,6 @@ for k,v in pairs(oldparams) do
   params[k] = v
 end
 
-for k,v in pairs(params) do
-  print("hhhhhh",k,v)
-end
 
 if output_formats[args.format] then
   executor=require("exec_"..args.format)
