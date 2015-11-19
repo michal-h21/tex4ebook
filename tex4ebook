@@ -6,6 +6,7 @@ kpse.set_program_name("luatex")
 require("lapp-mk4")
 -- require("ebookutils")
 local ebookutils = require "mkutils"
+local mkparams = require "mkparams"
 
 -- Setting
 local latex_cmd="latex"
@@ -25,7 +26,7 @@ local include_fonts = false
 local arg_message = [[
 tex4ebook - ebook generation support for LaTeX
 Usage:
-tex4ebook [switches] inputfile ["tex4ht.sty op." "tex4ht op." "t4ht op" "latex op"]
+tex4ebook [switches] filename ["tex4ht.sty op." "tex4ht op." "t4ht op" "latex op"]
 -c,--config (default xhtml) Custom config file
 -e,--build-file (default nil)  If build file is different than `filename`.mk4
 -f,--format (default epub) Output format. Supported values: epub, epub3, mobi
@@ -34,17 +35,19 @@ tex4ebook [switches] inputfile ["tex4ht.sty op." "tex4ht op." "t4ht op" "latex o
 -r,--resolution (default 167)
 -s,--shell-escape  Enable shell escape in htlatex run
 -t,--tidy Run html tidy on html output. May result in wrong spacing!
+<filename> (string) Input file name
 ]]
 
 -- This option is no longer available, all files must be unicode
 -- -u,--utf8 
 local args=lapp(arg_message)
 
-if args[1] == nil then
+if args["filename"] == nil then
   print(arg_message) 
   return
 else
-  input_file=args[1]
+  input_file=args["filename"]
+  print("aaaaa",input_file)
 end
 
 if args.lua then
@@ -115,15 +118,23 @@ local tex4ht_sty_par = tex4ht_sty_par + sty_args --args[2]
 local tex4ht_par = tex4ht_par +args[3]
 local t4ht_par = t4ht_par + args[4]
 local latex_par = latex_par + args[5]
-local params = {
-  htlatex=latex_cmd
-  ,input=input 
-  ,format=args.format
-  ,latex_par=latex_par
-  ,tex4ht_sty_par=tex4ht_sty_par
-  ,tex4ht_par=tex4ht_par
-  ,t4ht_par=t4ht_par
-  ,mode = mode
+
+-- use default parameter processing from make4ht
+-- add some needed args
+args.filename=input_file
+local params = mkparams.process_args(args)
+
+-- but also support tex4ebook!s own parameters
+local oldparams = {
+  -- htlatex=latex_cmd
+  -- ,input=input 
+  -- ,tex_file = tex_file
+  format=args.format
+  -- ,latex_par=latex_par
+  -- ,tex4ht_sty_par=tex4ht_sty_par
+  -- ,tex4ht_par=tex4ht_par
+  -- ,t4ht_par=t4ht_par
+  -- ,mode = mode
   ,t4ht_dir_format=t4ht_dir_format
   ,tidy = tidy
   ,include_fonts = include_fonts
@@ -131,6 +142,12 @@ local params = {
   ,mathml=mathml
   ,packages="\\RequirePackage{tex4ebook}"
 }  
+
+-- extend params
+for k,v in pairs(oldparams) do
+  params[k] = v
+end
+
 
 if output_formats[args.format] then
   executor=require("exec_"..args.format)
