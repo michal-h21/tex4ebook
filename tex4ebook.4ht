@@ -25,6 +25,11 @@
 \Configure{UniqueIdentifier}{http://example.com/\jobname}
 
 
+% allow configuration of the document language. babel's main language is used by default
+% use this only if it doesn't work
+\NewConfigure{DocumentLanguage}[1]{\def\GetLanguage{#1}}
+
+
 \NewConfigure{OpfScheme}{1}
 \Configure{OpfScheme}{URI}
 

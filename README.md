@@ -147,6 +147,13 @@ Default identifier is URI, with value `http://example.com/\jobname`.
 Type of unique identifier, default type is URI. It is
 used only in epub, it is deprecated for `epub3`
 
+    \Configure{DocumentLanguage}{language code}
+
+Each epub must declare the document language. It is inferred from `babel` main
+language by default, but you can configure it when it doesn't work correctly.
+The `language code` should be in [ISO
+639-1](https://en.wikipedia.org/wiki/List_of_ISO_639-1_codes) form.
+
     \Configure{CoverImage}{before cover image}{after cover image}
 
 By default, cover image is inserted in `<div class="cover-image">` element, 

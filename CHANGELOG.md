@@ -1,5 +1,10 @@
 # Changes
 
+- 25/11/2015
+
+  - added missing language codes
+  - added `\Configure{DocumentLanguage}` for the cases when document language inferencing doesn't work
+
 - 17/11/2015
 
   - use mkparams for cli arguments handling. 
