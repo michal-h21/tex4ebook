@@ -1,5 +1,9 @@
 # Changes
 
+- 06/12/2015
+
+  - added --help and --version command line options
+
 - 25/11/2015
 
   - added missing language codes
