@@ -44,8 +44,7 @@ tex4ebook [switches] filename ["tex4ht.sty op." "tex4ht op." "t4ht op" "latex op
 -- -u,--utf8 
 local args=lapp(arg_message)
 
-if args["filename"] == nil and args["version"] == nil then
-  print("version", args.version)
+if args["filename"] == nil and args["version"] == false then
   print(arg_message) 
   return
 else
