@@ -2,17 +2,17 @@
 
 - 06/12/2015 Version 0.1c
 
-  - added --help and --version command line options
+    - added `--help` and `--version` command line options
 
 - 25/11/2015
 
-  - added missing language codes
-  - added `\Configure{DocumentLanguage}` for the cases when document language inferencing doesn't work
+    - added missing language codes
+    - added `\Configure{DocumentLanguage}` for the cases when document language inferencing doesn't work
 
 - 17/11/2015
 
-  - use mkparams for cli arguments handling. 
-  - fixed inconsistencies between recent changes in make4ht and tex4ebook
+    - use mkparams for cli arguments handling. 
+    - fixed inconsistencies between recent changes in make4ht and tex4ebook
 
 - 24/09/2015 Version 0.1b
 
