@@ -1,6 +1,6 @@
 # Changes
 
-- 06/12/2015
+- 06/12/2015 Version 0.1c
 
   - added --help and --version command line options
 

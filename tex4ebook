@@ -52,7 +52,7 @@ else
 end
 
 if args.version then
-  print "tex4ebook version 0.1b"
+  print "tex4ebook version 0.1c"
   return 
 end
 
