@@ -99,11 +99,15 @@ but it is optional. You shouldn't need to modify your \TeX\ files
 :     Enable shell escape in htlatex run. This may be needed if you run external
       commands from your source files.
 
-t,--tidy
+-t,--tidy
 
 :     process output html files with `HTML tidy` command^[It needs to be installed separately].
 
+-v,--version
 
+:     print version number
+
+ 
 # Configuration
 
 `tex4ebook` uses `tex4ht`^[\url{http://www.tug.org/tex4ht/}] for conversion from LaTeX
