@@ -2,7 +2,9 @@
 
 - 31/03/2016 Version 0.1d 
 
-    - big fix: Unicode wasn't used by default 
+    - bug fix: Unicode wasn't used by default 
+    - bug fix: Formats weren't preserved
+
 
 - 06/12/2015 Version 0.1c
 
