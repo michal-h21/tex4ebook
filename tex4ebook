@@ -61,10 +61,6 @@ if args.lua then
   latex_cmd="dvilualatex"
 end
 
---if args.utf8 then
-tex4ht_sty_par=tex4ht_sty_par .. ", charset=utf-8"
-tex4ht_par=tex4ht_par .. " -cmozhtf -utf8"
---end
 
 if args["shell-escape"] then 
   latex_par = latex_par .. " -shell-escape"
@@ -154,6 +150,8 @@ for k,v in pairs(oldparams) do
   params[k] = v
 end
 
+params.tex4ht_sty_par=params.tex4ht_sty_par .. ",charset=utf-8"
+params.tex4ht_par= " -cmozhtf -utf8" .. params.tex4ht_par
 
 if output_formats[args.format] then
   executor=require("exec_"..args.format)

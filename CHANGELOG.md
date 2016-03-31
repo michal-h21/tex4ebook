@@ -1,5 +1,9 @@
 # Changes
 
+2016/03/31
+
+    - big fix: Unicode wasn't used by default 
+
 - 06/12/2015 Version 0.1c
 
     - added `--help` and `--version` command line options
