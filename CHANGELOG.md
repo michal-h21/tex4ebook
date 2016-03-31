@@ -1,6 +1,6 @@
 # Changes
 
-2016/03/31
+- 31/03/2016 Version 0.1d 
 
     - big fix: Unicode wasn't used by default 
 
