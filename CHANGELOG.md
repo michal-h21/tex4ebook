@@ -1,5 +1,9 @@
 # Changes
 
+- 05/04/2016 
+
+    - bug fix: pages which contained math were arranged before other pages
+
 - 31/03/2016 Version 0.1d 
 
     - bug fix: Unicode wasn't used by default 
