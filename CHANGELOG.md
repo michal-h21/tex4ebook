@@ -1,5 +1,9 @@
 # Changes
 
+- 07/04/2016
+
+    - Cut \part commands to standalone pages
+
 - 05/04/2016 
 
     - bug fix: pages which contained math were arranged before other pages

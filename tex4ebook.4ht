@@ -212,6 +212,7 @@ href="#1" media-type="\a:CoverMimeType" />}}
 \ifdef\chapter{%
   %\CutAt{chapter}\CutAt{likechapter}
   % copied from tex4ht-html4.tex
+  \CutAt{part,appendix}
   \CutAt{chapter,likechapter,appendix,part} 
   \CutAt{likechapter,appendix,part} 
   \CutAt{appendix,chapter,likechapter,part} 
