@@ -57,7 +57,6 @@ if args.version then
 end
 
 if args.lua then
-  print("Mame lua")
   latex_cmd="dvilualatex"
 end
 
