@@ -50,7 +50,7 @@ but it is optional. You shouldn't need to modify your \TeX\ files
 
 # Command line options
 
--c,--config 
+`-c,--config`
 
 :    specify custom config file for `tex4ht`
 
@@ -69,41 +69,41 @@ but it is optional. You shouldn't need to modify your \TeX\ files
   This config file will create `xhtml` file for every section. Note that this
   behaviour is default.
 
--e,--build-file (default nil)  
+`-e,--build-file (default nil)`  
 
 :    Specify make4ht build file^[\url{https://github.com/michal-h21/make4ht\#build-file}].
      Defaulf build file filename is `filename.mk4`, use this option if you use
      different filename.
   
--f,--format (default epub) 
+`-f,--format (default epub)`
 
 :    Output format. epub, epub3 and mobi are supported.
 
--l,--lua
+`-l,--lua`
 
 :    Runs htlualatex instead of htlatex.
 
--m,--mode (default default)
+`-m,--mode (default default)`
 
 :    This set `mode` variable, accessible in the build file. Default supported
      values are `default` and `draft`. In `draft` mode, document is compiled
      only once, instead of three times.
 
--r,--resolution 
+`-r,--resolution`
 
 :    Resolution of generated images, for example math. It should meet resolution
      of target devices, which is usually about 167 ppi.
 
--s,--shell-escape
+`-s,--shell-escape`
 
 :     Enable shell escape in htlatex run. This may be needed if you run external
       commands from your source files.
 
--t,--tidy
+`-t,--tidy`
 
 :     process output html files with `HTML tidy` command^[It needs to be installed separately].
 
--v,--version
+`-v,--version`
 
 :     print version number
 
