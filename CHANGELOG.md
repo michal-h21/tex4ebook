@@ -1,8 +1,17 @@
 # Changes
 
+- 31/07/2016
+
+    - use monospace font for command line options in order to prevent double
+      hyphens to become dashes by ligaturing
+
+- 22/07/2016
+
+    - removed debugging message when `--lua` option is used
+
 - 07/04/2016
 
-    - Cut \part commands to standalone pages
+    - Cut `\part` commands to standalone pages
 
 - 05/04/2016 
 
