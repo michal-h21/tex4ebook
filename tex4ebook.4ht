@@ -360,7 +360,7 @@ href="#1" media-type="\a:CoverMimeType" />}}
 {\HCode{<dc:language>}\GetLanguage\HCode{</dc:language>\Hnewline}}
 %Add interface for such things
 {\HCode{<dc:identifier id="dcidid" \print:opf:scheme\a:OpfScheme>\a:UniqueIdentifier}\HCode{</dc:identifier>\Hnewline}}
-\def\and{<\HCode{/dc:creator>\Hnewline<dc:creator>}}
+\def\and{\HCode{</dc:creator>\Hnewline<dc:creator>}}
 {\HCode{<dc:creator>}\Author\HCode{</dc:creator>\Hnewline}}
 %{\HCode{<dc:contributor>\HP:file</dc:contributor>\Hnewline}}
 {\HCode{<dc:date>}\:iso:date\HCode{</dc:date>}}
