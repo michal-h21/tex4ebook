@@ -133,6 +133,8 @@ function make_opf()
 		local dir_part = item:split("/")
 		table.remove(dir_part,#dir_part)
 		local id=table.concat(dir_part,"-")..fname.."_"..ext
+    -- remove invalid characters from id start
+    id = id:gsub("^[%.%-]*","")
 		return "<item id='"..id .. "' href='"..item.."' media-type='"..mimetype.."' />",id
 	end
 	local find_all_files= function(s,r)
