@@ -163,7 +163,10 @@ function make_opf()
 			local opf_complete = {}
 			table.insert(opf_complete,h_first:read("*all"))
 			local used_html = find_all_files(opf_complete[1])
-			local lg_file = ebookutils.parse_lg(outputfilename..".lg")
+			-- local lg_file = ebookutils.parse_lg(outputfilename..".lg")
+      -- The lg_file has been already loaded by make4ht, it doesn't make sense to load it again
+      -- Furthermore, it is now possible to add new files from Lua build files
+      local lg_file = Make.lgfile  or ebookutils.parse_lg(outputfilename..".lg")
 			local used_files = lg_file["files"]
 			--[[for f in lfs.dir("./OEBPS") do
 			--table.insert(used_files,f)
