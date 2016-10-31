@@ -1,4 +1,4 @@
-tex_content = tex4ebook $(wildcard *.sty) $(wildcard *.4ht) $(wildcard *.tex) 
+tex_content = tex4ebook $(wildcard *.sty) $(wildcard *.4ht) $(wildcard *.tex) tidyconf.conf
 lua_content = $(wildcard *.lua)
 doc_file = tex4ebook-doc.pdf
 TEXMFHOME = $(shell kpsewhich -var-value=TEXMFHOME)

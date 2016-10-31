@@ -1,5 +1,9 @@
 # Changes
 
+- 31/10/2016
+
+    - added tidyconf.conf to the Makefile
+
 - 22/10/2016
 
     - added support for new Make4ht command `Make:add_file`
