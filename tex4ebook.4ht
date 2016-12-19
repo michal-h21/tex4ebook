@@ -255,6 +255,24 @@ href="#1" media-type="\a:CoverMimeType" />}}
   }
 }
 
+% define closing groups for all levels defined in \Configure{resettoclevels}
+\def\tmp:processlevel#1{
+  \bgroup
+  \xdef\tmp:resettoclevels{}
+  \def\do##1{\xdef\tmp:resettoclevels{\tmp:resettoclevels ##1,like##1,}}
+  \def\tmp:parse##1#1##2\nil{
+    \docsvlist{#1##2}
+  }
+  \expandafter\tmp:parse\a:resettoclevels\nil
+  \egroup
+  \navsection{#1}{\tmp:resettoclevels}
+}
+\def\confnavsections{%
+  \def\do##1{%
+    \tmp:processlevel{##1}%
+  }
+  \expandafter\docsvlist\expandafter{\a:resettoclevels}
+}
 % As reported by Nat Kuhn on http://tex.stackexchange.com/q/209312/2891
 % zeroes were printed as section numbers when secnumdepth counter was set to negative value
 % so just strip then out
@@ -283,6 +301,10 @@ href="#1" media-type="\a:CoverMimeType" />}}
 % Get filename from tableofcontents anchor
 \def\ncx:hfile#1{\Ref{)F\Ref{)Q#1}F-}}
 
+% define toc levels which should be included in the NCX file
+\NewConfigure{resettoclevels}{1}
+\Configure{resettoclevels}{part,chapter,section,subsection,subsubsection,subsubsubsection,paragraph}
+
 \def\:tempa{%
 \EndP
 \HtmlParOff
@@ -310,22 +332,10 @@ href="#1" media-type="\a:CoverMimeType" />}}
 \def\navmapsrc{}  
 \Configure{TocLink}{\def\navmapsrc{\ncx:hfile{##2}\:sharp ##2}\opf:registerfilename{\ncx:hfile{##2}}##4}
 % Configuraion of entries
-\resettoclevels{part,chapter,section,subsection,subsubsection,subsubsubsection,paragraph}
-\navsection{part}{part,chapter,likechapter,section,likesection,subsection,likesubsection,subsubsubsection,likesubsubsubsection,paragraph,likeparagraph}
-\navsection{chapter}{chapter,likechapter,section,likesection,subsection,likesubsection,subsubsection,likesubsubsection,subsubsubsection,likesubsubsubsection,paragraph,likeparagraph}
-\navsection{likechapter}{chapter,likechapter,section,likesection,subsection,likesubsection,subsubsection,likesubsubsection,subsubsubsection,likesubsubsubsection,paragraph,likeparagraph}
-\navsection{section}{section,likesection,subsection,likesubsection,subsubsection,likesubsubsection,subsubsubsection,likesubsubsubsection,paragraph,likeparagraph}
-\navsection{likesection}{section,likesection,subsection,likesubsection,subsubsection,likesubsubsection,subsubsubsection,likesubsubsubsection,paragraph,likeparagraph}
-\navsection{subsection}{subsection,likesubsection,subsubsection,likesubsubsection,subsubsubsection,likesubsubsubsection,paragraph,likeparagraph}
-\navsection{likesubsection}{subsection,likesubsection,subsubsection,likesubsubsection,subsubsubsection,likesubsubsubsection,paragraph,likeparagraph}
-\navsection{subsubsection}{subsubsection,likesubsubsection,subsubsubsection,likesubsubsubsection,paragraph,likeparagraph}
-\navsection{likesubsubsection}{subsubsection,likesubsubsection,subsubsubsection,likesubsubsubsection,paragraph,likeparagraph}
-\navsection{subsubsubsection}{subsubsubsection,likesubsubsubsection,paragraph,likeparagraph}
-\navsection{likesubsubsubsection}{subsubsubsection,likesubsubsubsection,paragraph,likeparagraph}
-\navsection{paragraph}{subsubsubsection,likesubsubsubsection,paragraph,likeparagraph}
-\navsection{likeparagraph}{subsubsubsection,likesubsubsubsection,paragraph,likeparagraph}
- \HtmlParOff
- \Configure{toTocLink}{}{}
+\resettoclevels{\a:resettoclevels}%
+\confnavsections%
+ \HtmlParOff%
+ \Configure{toTocLink}{}{}%
  \Configure{NavSection}{\booltrue{tocnoempty}\HCode{\Hnewline<navPoint id="navPoint-}%
   \stepnavpoint\HCode{" playOrder="}%
   \the\navpoint\HCode{">\Hnewline<navLabel>\Hnewline<text>}%
