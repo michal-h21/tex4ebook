@@ -1,5 +1,9 @@
 # Changes
 
+- 19/12/2016
+
+    - new configuration: `\Configure{resettoclevels}{list of sectioning levels to be included in the NCX}`
+
 - 31/10/2016
 
     - added tidyconf.conf to the Makefile

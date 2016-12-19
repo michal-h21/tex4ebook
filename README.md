@@ -151,6 +151,11 @@ Default identifier is URI, with value `http://example.com/\jobname`.
 Type of unique identifier, default type is URI. It is
 used only in epub, it is deprecated for `epub3`
 
+    \Configure{resettoclevels}{list of section types in descending order}
+
+Configure section types which should be included in the `NCX` file. Default
+value is the whole document hiearchy, from `\part` to `\paragraph`.
+
     \Configure{DocumentLanguage}{language code}
 
 Each epub must declare the document language. It is inferred from `babel` main
