@@ -298,7 +298,7 @@ href="#1" media-type="\a:CoverMimeType" />}}
 % so:
 \let\contentsname=\empty
 \Configure{tableofcontents}{\boolfalse{tocnoempty}\Tg<navMap>}{%
-	\usetoclevels{part,chapter,likechapter,section,likesection,subsection,likesubsection,subsubsection,likesubsubsection}%
+	\usetoclevels{part,chapter,likechapter,section,likesection,subsection,likesubsection,subsubsection,likesubsubsection,subsubsubsection,paragraph}%
 	\ifbool{tocnoempty}{}%
 	{\HCode{<navPoint id="mainentry" playOrder="1">
 	  <navLabel><text>Document</text></navLabel>
@@ -310,16 +310,20 @@ href="#1" media-type="\a:CoverMimeType" />}}
 \def\navmapsrc{}  
 \Configure{TocLink}{\def\navmapsrc{\ncx:hfile{##2}\:sharp ##2}\opf:registerfilename{\ncx:hfile{##2}}##4}
 % Configuraion of entries
-\resettoclevels{part,chapter,section,subsection,subsubsection}
-\navsection{part}{part,chapter,likechapter,section,likesection,subsection,likesubsection,subsubsection,likesubsubsection}
-\navsection{chapter}{chapter,likechapter,section,likesection,subsection,likesubsection,subsubsection,likesubsubsection}
-\navsection{likechapter}{chapter,likechapter,section,likesection,subsection,likesubsection,subsubsection,likesubsubsection}
-\navsection{section}{section,likesection,subsection,likesubsection,subsubsection,likesubsubsection}
-\navsection{likesection}{section,likesection,subsection,likesubsection,subsubsection,likesubsubsection}
-\navsection{subsection}{subsection,likesubsection,subsubsection,likesubsubsection}
-\navsection{likesubsection}{subsection,likesubsection,subsubsection,likesubsubsection}
-\navsection{subsubsection}{subsubsection,likesubsubsection}
-\navsection{likesubsubsection}{subsubsection,likesubsubsection}
+\resettoclevels{part,chapter,section,subsection,subsubsection,subsubsubsection,paragraph}
+\navsection{part}{part,chapter,likechapter,section,likesection,subsection,likesubsection,subsubsubsection,likesubsubsubsection,paragraph,likeparagraph}
+\navsection{chapter}{chapter,likechapter,section,likesection,subsection,likesubsection,subsubsection,likesubsubsection,subsubsubsection,likesubsubsubsection,paragraph,likeparagraph}
+\navsection{likechapter}{chapter,likechapter,section,likesection,subsection,likesubsection,subsubsection,likesubsubsection,subsubsubsection,likesubsubsubsection,paragraph,likeparagraph}
+\navsection{section}{section,likesection,subsection,likesubsection,subsubsection,likesubsubsection,subsubsubsection,likesubsubsubsection,paragraph,likeparagraph}
+\navsection{likesection}{section,likesection,subsection,likesubsection,subsubsection,likesubsubsection,subsubsubsection,likesubsubsubsection,paragraph,likeparagraph}
+\navsection{subsection}{subsection,likesubsection,subsubsection,likesubsubsection,subsubsubsection,likesubsubsubsection,paragraph,likeparagraph}
+\navsection{likesubsection}{subsection,likesubsection,subsubsection,likesubsubsection,subsubsubsection,likesubsubsubsection,paragraph,likeparagraph}
+\navsection{subsubsection}{subsubsection,likesubsubsection,subsubsubsection,likesubsubsubsection,paragraph,likeparagraph}
+\navsection{likesubsubsection}{subsubsection,likesubsubsection,subsubsubsection,likesubsubsubsection,paragraph,likeparagraph}
+\navsection{subsubsubsection}{subsubsubsection,likesubsubsubsection,paragraph,likeparagraph}
+\navsection{likesubsubsubsection}{subsubsubsection,likesubsubsubsection,paragraph,likeparagraph}
+\navsection{paragraph}{subsubsubsection,likesubsubsubsection,paragraph,likeparagraph}
+\navsection{likeparagraph}{subsubsubsection,likesubsubsubsection,paragraph,likeparagraph}
  \HtmlParOff
  \Configure{toTocLink}{}{}
  \Configure{NavSection}{\booltrue{tocnoempty}\HCode{\Hnewline<navPoint id="navPoint-}%
