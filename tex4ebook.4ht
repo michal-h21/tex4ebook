@@ -238,35 +238,41 @@ href="#1" media-type="\a:CoverMimeType" />}}
 \def\finishtoclevel#1{%
   \csgdef{nav#1finish}{\d:NavSection}
 }
+
 \def\closelevels#1{
-  \usetoclevels{#1}
-  \resettoclevels{#1}
+  \expandafter\usetoclevels\expandafter{#1}
+  \expandafter\resettoclevels\expandafter{#1}
 }
 % 1 - section type 2 - closed sections 
 
 \def\navsection#1#2{
   \ConfigureToc{#1}%
-  {\closelevels{#2}%
+  {\expandafter\closelevels\expandafter{#2}
   \a:NavSection\Ncx:Mark}
   {\c:NavSection}
   {}
   {\b:NavSection%
-    \finishtoclevel{#1}%
+    \expandafter\finishtoclevel\expandafter{#1}%
   }
 }
 
 % define closing groups for all levels defined in \Configure{resettoclevels}
+
 \def\tmp:processlevel#1{
   \bgroup
-  \xdef\tmp:resettoclevels{}
-  \def\do##1{\xdef\tmp:resettoclevels{\tmp:resettoclevels ##1,like##1,}}
+  \csxdef{tmp:resettoclevels#1}{}
+  \def\do##1{\csxdef{tmp:resettoclevels#1}{\csname tmp:resettoclevels#1\endcsname ##1,like##1,}}
   \def\tmp:parse##1#1##2\nil{
     \docsvlist{#1##2}
   }
   \expandafter\tmp:parse\a:resettoclevels\nil
   \egroup
-  \navsection{#1}{\tmp:resettoclevels}
+  \navsection{#1}{\csname tmp:resettoclevels#1\endcsname}
+  % define hierarchy also for starred sections
+  \navsection{like#1}{\endcsname tmp:resettoclevels#1\endcsname}
 }
+
+% define children levels for each sectioning level
 \def\confnavsections{%
   \def\do##1{%
     \tmp:processlevel{##1}%
@@ -303,7 +309,7 @@ href="#1" media-type="\a:CoverMimeType" />}}
 
 % define toc levels which should be included in the NCX file
 \NewConfigure{resettoclevels}{1}
-\Configure{resettoclevels}{part,chapter,section,subsection,subsubsection,subsubsubsection,paragraph}
+\Configure{resettoclevels}{part,chapter,section,subsection,subsubsection,paragraph}
 
 \def\:tempa{%
 \EndP
@@ -327,13 +333,13 @@ href="#1" media-type="\a:CoverMimeType" />}}
 	  <content src="\jobname.\:html" />
 	  </navPoint>}}%
 	\Tg</navMap>}{}{}{}  
-% We need to configure TocLink
-% in navmapsrc is link to the file and anchor, where chapter or section is located
-\def\navmapsrc{}  
-\Configure{TocLink}{\def\navmapsrc{\ncx:hfile{##2}\:sharp ##2}\opf:registerfilename{\ncx:hfile{##2}}##4}
-% Configuraion of entries
-\resettoclevels{\a:resettoclevels}%
-\confnavsections%
+ % We need to configure TocLink
+ % in navmapsrc is link to the file and anchor, where chapter or section is located
+ \def\navmapsrc{}  
+ \Configure{TocLink}{\def\navmapsrc{\ncx:hfile{##2}\:sharp ##2}\opf:registerfilename{\ncx:hfile{##2}}##4}
+ % Configuraion of entries
+ \expandafter\resettoclevels\expandafter{\a:resettoclevels}%
+ \confnavsections%
  \HtmlParOff%
  \Configure{toTocLink}{}{}%
  \Configure{NavSection}{\booltrue{tocnoempty}\HCode{\Hnewline<navPoint id="navPoint-}%
