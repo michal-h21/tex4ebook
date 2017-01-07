@@ -17,7 +17,7 @@ tex4ebook-doc.pdf: tex4ebook-doc.tex readme.tex changelog.tex
 	latexmk -lualatex tex4ebook-doc.tex
 
 readme.tex: README.md
-	pandoc -f markdown+definition_lists+inline_notes -t LaTeX README.md > readme.tex
+	pandoc -f markdown+definition_lists+inline_notes+autolink_bare_uris -t LaTeX README.md > readme.tex
 
 changelog.tex: CHANGELOG.md
 	pandoc -f markdown+definition_lists -t LaTeX CHANGELOG.md > changelog.tex
