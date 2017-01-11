@@ -1,5 +1,9 @@
 # Changes
 
+- 11/01/2017
+
+    - pass `settings` table to the build file.
+
 - 19/12/2016
 
     - new configuration: `\Configure{resettoclevels}{list of sectioning levels to be included in the NCX}`
