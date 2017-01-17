@@ -169,7 +169,9 @@ function make_opf()
       local lg_file = Make.lgfile  or ebookutils.parse_lg(outputfilename..".lg")
 			local used_files = {}
       for _,filename in ipairs(lg_file["files"]) do
-        -- we can save the used filenames in the sam
+        -- we need to test the filenames in order to prevent duplicates
+        -- filenames are tested without paths, so there may be issues if 
+        -- the same filename is used in different directories. Is that a problem?
         used_files[filename] = true
       end
 			--[[for f in lfs.dir("./OEBPS") do
