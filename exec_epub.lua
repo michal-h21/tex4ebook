@@ -167,12 +167,16 @@ function make_opf()
       -- The lg_file has been already loaded by make4ht, it doesn't make sense to load it again
       -- Furthermore, it is now possible to add new files from Lua build files
       local lg_file = Make.lgfile  or ebookutils.parse_lg(outputfilename..".lg")
-			local used_files = lg_file["files"]
+			local used_files = {}
+      for _,filename in ipairs(lg_file["files"]) do
+        -- we can save the used filenames in the sam
+        used_files[filename] = true
+      end
 			--[[for f in lfs.dir("./OEBPS") do
 			--table.insert(used_files,f)
 			--used_files[f] = true
 			end--]]
-			local all_html = find_all_files(table.concat(used_files,"\n"))
+			-- local all_html = find_all_files(table.concat(used_files,"\n"))
 			local outside_spine = {}
 			-- This was duplicated code
 			--[[for i, ext in pairs(all_html) do
@@ -220,13 +224,16 @@ function make_opf()
 					end
 				end
 			end
-      -- The images have been processed already
-			-- for _,f in ipairs(lg_file["images"]) do
-			-- 	local f = f.output
-			-- 	local p = lg_item(f)
-			-- 	ebookutils.copy(f, outputdir .. "/"..f)
-			-- 	table.insert(opf_complete,p)
-			-- end
+			for _,f in ipairs(lg_file["images"]) do
+				local f = f.output
+        -- process the images only if they weren't registered in lg_file["files"]
+        -- they would be processed twice otherwise
+        if not used_files[f] then
+          local p = lg_item(f)
+          ebookutils.copy(f, outputdir .. "/"..f)
+          table.insert(opf_complete,p)
+        end
+			end
 			local end_opf = h_second:read("*all")
 			local spine_items = {}
 			for _,i in ipairs(outside_spine) do
