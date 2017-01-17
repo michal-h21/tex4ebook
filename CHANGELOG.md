@@ -1,5 +1,10 @@
 # Changes
 
+- 17/01/2017
+
+    - process duplicate images only once
+    - check the OPF table for duplicated id attributes
+
 - 11/01/2017
 
     - pass `settings` table to the build file.
