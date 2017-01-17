@@ -189,6 +189,7 @@ function make_opf()
 			end--]]
 			local all_used_files = find_all_files(opf_complete[1],"([%a%d%-%_]+%.[%a%d]+)")
 			local used_paths = {}
+      local used_ids   = {}
 			for _,k in ipairs(lg_file["files"]) do
 				local ext = k:match("%.([%a%d]*)$")
 				local parts = k:split "/"
@@ -200,7 +201,8 @@ function make_opf()
 				--print("SSSSS "..fn.." ext .." .. ext)
 				--if string.find("jpg gif png", ext) and not all_used_files[k] then
 				local item,id = lg_item(k) 
-				if item then
+				if item and not used_ids[id] then
+          used_ids[id] = true
 					local path = table.concat(parts)
 					if not used_paths[path] then
 						ebookutils.mkdirectories(parts)
@@ -226,13 +228,14 @@ function make_opf()
 			end
 			for _,f in ipairs(lg_file["images"]) do
 				local f = f.output
+        local p, id = lg_item(f)
         -- process the images only if they weren't registered in lg_file["files"]
         -- they would be processed twice otherwise
-        if not used_files[f] then
-          local p = lg_item(f)
+        if not used_files[f] and not used_ids[id] then
           ebookutils.copy(f, outputdir .. "/"..f)
           table.insert(opf_complete,p)
         end
+        used_ids[id] = true
 			end
 			local end_opf = h_second:read("*all")
 			local spine_items = {}
