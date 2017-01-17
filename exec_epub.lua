@@ -203,8 +203,7 @@ function make_opf()
 				--print("SSSSS "..fn.." ext .." .. ext)
 				--if string.find("jpg gif png", ext) and not all_used_files[k] then
 				local item,id = lg_item(k) 
-				if item and not used_ids[id] then
-          used_ids[id] = true
+				if item then
 					local path = table.concat(parts)
 					if not used_paths[path] then
 						ebookutils.mkdirectories(parts)
@@ -220,12 +219,13 @@ function make_opf()
 						end
 					end
 					ebookutils.copy(k, outputdir .. "/"..k)
-					if not all_used_files[fn] then
+					if not all_used_files[fn] and not used_ids[id] then
 						table.insert(opf_complete,item)
 						if allow_in_spine[ext] then 
 						table.insert(outside_spine,id)
 						end
 					end
+          used_ids[id] = true
 				end
 			end
 			for _,f in ipairs(lg_file["images"]) do
