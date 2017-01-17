@@ -220,12 +220,13 @@ function make_opf()
 					end
 				end
 			end
-			for _,f in ipairs(lg_file["images"]) do
-				local f = f.output
-				local p = lg_item(f)
-				ebookutils.copy(f, outputdir .. "/"..f)
-				table.insert(opf_complete,p)
-			end
+      -- The images have been processed already
+			-- for _,f in ipairs(lg_file["images"]) do
+			-- 	local f = f.output
+			-- 	local p = lg_item(f)
+			-- 	ebookutils.copy(f, outputdir .. "/"..f)
+			-- 	table.insert(opf_complete,p)
+			-- end
 			local end_opf = h_second:read("*all")
 			local spine_items = {}
 			for _,i in ipairs(outside_spine) do
