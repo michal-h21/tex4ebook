@@ -218,8 +218,8 @@ function make_opf()
 							print "Tidy: Cannot load tidyconf.conf"
 						end
 					end
-					ebookutils.copy(k, outputdir .. "/"..k)
-					if not all_used_files[fn] and not used_ids[id] then
+          if not all_used_files[fn] and not used_ids[id] then
+            ebookutils.copy(k, outputdir .. "/"..k)
 						table.insert(opf_complete,item)
 						if allow_in_spine[ext] then 
 						table.insert(outside_spine,id)
