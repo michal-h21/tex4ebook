@@ -190,6 +190,9 @@ function make_opf()
 				end
 			end--]]
 			local all_used_files = find_all_files(opf_complete[1],"([%a%d%-%_]+%.[%a%d]+)")
+      for k,v in pairs(all_used_files) do 
+        print("alll used files", k, v)
+      end
 			local used_paths = {}
       local used_ids   = {}
 			for _,k in ipairs(lg_file["files"]) do
@@ -200,11 +203,11 @@ function make_opf()
 				table.remove(parts,#parts)
 				--table.insert(parts,1,"OEBPS")
 				table.insert(parts,1,outputdir)
-				--print("SSSSS "..fn.." ext .." .. ext)
+				-- print("SSSSS "..fn.." ext .." .. ext)
 				--if string.find("jpg gif png", ext) and not all_used_files[k] then
 				local item,id = lg_item(k) 
 				if item then
-					local path = table.concat(parts)
+         local path = table.concat(parts)
 					if not used_paths[path] then
 						ebookutils.mkdirectories(parts)
 						used_paths[path]=true
@@ -218,12 +221,14 @@ function make_opf()
 							print "Tidy: Cannot load tidyconf.conf"
 						end
 					end
-          if not all_used_files[fn] and not used_ids[id] then
+          if not used_ids[id] then    
             ebookutils.copy(k, outputdir .. "/"..k)
+            if all_used_files[fn] then
 						table.insert(opf_complete,item)
 						if allow_in_spine[ext] then 
 						table.insert(outside_spine,id)
 						end
+            end
 					end
           used_ids[id] = true
 				end
@@ -327,4 +332,4 @@ end
 		--deldir(outputdir)
 		--deldir(metadir)
 		--os.remove(mimetype)
-	end
+end
