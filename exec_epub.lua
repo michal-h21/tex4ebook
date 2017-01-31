@@ -220,11 +220,11 @@ function make_opf()
 					end
           if not used_ids[id] then    
             ebookutils.copy(k, outputdir .. "/"..k)
-            if all_used_files[fn] then
-						table.insert(opf_complete,item)
-						if allow_in_spine[ext] then 
-						table.insert(outside_spine,id)
-						end
+            if not all_used_files[fn] then
+              table.insert(opf_complete,item)
+              if allow_in_spine[ext] then 
+                table.insert(outside_spine,id)
+              end
             end
 					end
           used_ids[id] = true
