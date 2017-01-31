@@ -190,9 +190,6 @@ function make_opf()
 				end
 			end--]]
 			local all_used_files = find_all_files(opf_complete[1],"([%a%d%-%_]+%.[%a%d]+)")
-      for k,v in pairs(all_used_files) do 
-        print("alll used files", k, v)
-      end
 			local used_paths = {}
       local used_ids   = {}
 			for _,k in ipairs(lg_file["files"]) do
