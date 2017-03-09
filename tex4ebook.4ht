@@ -269,7 +269,7 @@ href="#1" media-type="\a:CoverMimeType" />}}
   \egroup
   \navsection{#1}{\csname tmp:resettoclevels#1\endcsname}
   % define hierarchy also for starred sections
-  \navsection{like#1}{\endcsname tmp:resettoclevels#1\endcsname}
+  \navsection{like#1}{\csname tmp:resettoclevels#1\endcsname}
 }
 
 % define children levels for each sectioning level
