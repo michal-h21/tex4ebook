@@ -10,6 +10,7 @@ function prepare(params)
 	outputdir= basedir.."/"..outputdir_name
   input = params.input 
   params.ext = ext
+  params.tex4ht_sty_par = params.tex4ht_sty_par .. ",html5"
   params.packages = params.packages .. string.format("\\Configure{ext}{%s}",ext)
 	return eb.prepare(params)
 end
