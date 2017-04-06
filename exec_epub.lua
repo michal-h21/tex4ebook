@@ -303,6 +303,8 @@ function make_opf()
 		end
 		print(mimetype)
     local zip = find_zip()
+    -- we need to remove the epub file if it exists already, because it may contain files which aren't used anymore
+    if ebookutils.file_exists(outputfile) then os.remove(outputfile) end
 		print("Pack mimetype " .. os.execute("cd "..basedir.." && "..zip.." -q0X "..outputfile .." ".. mimetype_name))
 		print("Pack metadir "   .. os.execute("cd "..basedir.." && "..zip.." -qXr9D " .. outputfile.." "..metadir_name))
 		print("Pack outputdir " .. os.execute("cd "..basedir.." && "..zip.." -qXr9D " .. outputfile.." "..outputdir_name))
