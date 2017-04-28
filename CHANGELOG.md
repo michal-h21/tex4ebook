@@ -2,7 +2,8 @@
 
 - 27/04/2017 Version 0.1e
 
-    - no new changes, just pack the accumulated changes for distribution
+    - pack the accumulated changes for distribution
+    - set version number from git tag
 
 - 17/01/2017
 
