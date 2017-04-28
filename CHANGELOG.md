@@ -1,5 +1,9 @@
 # Changes
 
+- 27/04/2017 Version 0.1e
+
+    - no new changes, just pack the accumulated changes for distribution
+
 - 17/01/2017
 
     - process duplicate images only once
