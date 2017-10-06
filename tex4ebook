@@ -127,6 +127,9 @@ local params = mkparams.process_args(args)
 
 
 local output_format = params.output_format --args.format
+-- use epub as default output_format
+output_format = output_format or "epub"
+local extensions = ebookutils.load_extensions(params.extensions, output_format)
 -- but also support tex4ebook!s own parameters
 local oldparams = {
   -- htlatex=latex_cmd
@@ -158,6 +161,9 @@ params.tex4ht_par= " -cmozhtf -utf8" .. params.tex4ht_par
 if output_formats[output_format] then
   executor=require("exec_"..output_format)
   params=executor.prepare(params)
+  if #extensions > 0 then
+    params = ebookutils.extensions_prepare_parameters(extensions,params)
+  end
 else
   print("Unknown output format: "..output_format)
   return
@@ -174,6 +180,10 @@ local config_file = ebookutils.load_config(params, build_file)
 params["config_file"] = config_file
 --config_file.Make:run()
 print("${htlatex} ${input} \"${tex4ht_sty_par}\" \"${tex4ht_par}\" \"${t4ht_par}\" \"${latex_par}\"" % params)
+if #extensions > 0 then
+  config_file.Make = ebookutils.extensions_modify_build(extensions, config_file.Make)
+end
+
 executor.run(input,params)
 executor.writeContainer()
 executor.clean()
