@@ -9,6 +9,7 @@ SYSTEM_DIR = /usr/local/bin
 BUILD_DIR = build
 BUILD_TEX4EBOOK = $(BUILD_DIR)/tex4ebook/
 VERSION:= $(shell git --no-pager describe --abbrev=0 --tags --always )
+DATE:= $(firstword $(shell git --no-pager show --date=short --format="%ad" --name-only))
 
 all: doc
 
