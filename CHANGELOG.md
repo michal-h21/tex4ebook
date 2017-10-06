@@ -1,5 +1,9 @@
 # Changes
 
+- 06/10/2017
+
+    - added support for Make4ht extensions
+
 - 27/04/2017 Version 0.1e
 
     - pack the accumulated changes for distribution
