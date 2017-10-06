@@ -125,12 +125,14 @@ local latex_par = latex_par + args[5]
 args.filename=input_file
 local params = mkparams.process_args(args)
 
+
+local output_format = params.output_format --args.format
 -- but also support tex4ebook!s own parameters
 local oldparams = {
   -- htlatex=latex_cmd
   -- ,input=input 
   -- ,tex_file = tex_file
-  format=args.format
+  format= output_format
   -- ,latex_par=latex_par
   -- ,tex4ht_sty_par=tex4ht_sty_par
   -- ,tex4ht_par=tex4ht_par
@@ -152,11 +154,12 @@ end
 params.tex4ht_sty_par=params.tex4ht_sty_par .. ",charset=utf-8,"..args.format
 params.tex4ht_par= " -cmozhtf -utf8" .. params.tex4ht_par
 
-if output_formats[args.format] then
-  executor=require("exec_"..args.format)
+
+if output_formats[output_format] then
+  executor=require("exec_"..output_format)
   params=executor.prepare(params)
 else
-  print("Unknown output format: "..args.format)
+  print("Unknown output format: "..output_format)
   return
 end
 
