@@ -40,5 +40,5 @@ install: doc $(tex_content) $(lua_content)
 	cp $(lua_content) $(LUA_DIR)
 	cp $(doc_file) $(MANUAL_DIR)
 	chmod +x $(INSTALL_DIR)/tex4ebook
-	ln -s $(INSTALL_DIR)/tex4ebook $(SYSTEM_DIR)/tex4ebook
+	sudo ln -s $(INSTALL_DIR)/tex4ebook $(SYSTEM_DIR)/tex4ebook
 
