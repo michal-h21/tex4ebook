@@ -37,6 +37,7 @@ tex4ebook [switches] filename ["tex4ht.sty op." "tex4ht op." "t4ht op" "latex op
 -s,--shell-escape  Enable shell escape in htlatex run
 -t,--tidy Run html tidy on html output. May result in wrong spacing!
 -v,--version  Display version number
+-x,--xetex Use xelatex for document compilation
 <filename> (string) Input file name
 ]]
 
@@ -58,6 +59,8 @@ end
 
 if args.lua then
   latex_cmd="dvilualatex"
+elseif args.xetex then
+  latex_cmd="xelatex --no-pdf"
 end
 
 
