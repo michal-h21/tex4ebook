@@ -1,4 +1,7 @@
 # Changes
+- 19/10/2017
+
+    - added support for XeTeX
 
 - 06/10/2017
 
