@@ -6,9 +6,11 @@
 \ifdefined\HCode
 \usepackage[T1]{fontenc}
 \usepackage[utf8]{inputenc}
+\author{\href{mailto:michal.h21@gmail.com}{Michal Hoftich}}
 \else
 \usepackage{fontspec}
 \setmainfont{TeX Gyre Schola}
+\author{Michal Hoftich\footnote{\url{michal.h21@gmail.com}}}
 \fi
 \usepackage{microtype}
 \providecommand\tightlist{\relax}
@@ -16,7 +18,7 @@
 \ifdefined\version\else\def\version{Version undefined}\fi
 
 \title{The \texttt{tex4ebook} package}
-\author{Michal Hoftich\footnote{\url{michal.h21@gmail.com}}}
+% \author{Michal Hoftich\thanks{\url{michal.h21@gmail.com}}}
 \date{Version \version\\\gitdate}
 \begin{document}
 \maketitle
