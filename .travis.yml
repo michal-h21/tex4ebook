@@ -1,0 +1,18 @@
+
+install:
+  - sudo apt-get install -qq luatex texlive-base texlive-luatex pandoc latexmk texlive texlive-xetex tex4ht texlive-latex-extra 
+  # make4ht
+  - git clone https://github.com/michal-h21/make4ht
+  - cd make4ht
+  - make
+  - sudo make install
+  - cd ..
+
+script:
+  # From https://github.com/michal-h21/tex4ebook/issues/37#issuecomment-354447097
+  - git fetch --tags
+  # Install globally
+  - make
+  - sudo make install
+  # Run
+  - tex4ebook tex4ebook-doc.tex
