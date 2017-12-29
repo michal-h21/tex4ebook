@@ -13,9 +13,15 @@ DATE:= $(firstword $(shell git --no-pager show --date=short --format="%ad" --nam
 
 all: doc
 
+.PHONY: tags
+
+tags:
+	git fetch --tags
+
 doc: $(doc_file) readme.tex
 
-tex4ebook-doc.pdf: tex4ebook-doc.tex readme.tex changelog.tex
+
+tex4ebook-doc.pdf: tex4ebook-doc.tex readme.tex changelog.tex tags
 	latexmk -pdf -pdflatex='lualatex "\def\version{${VERSION}}\def\gitdate{${DATE}}\input{%S}"' tex4ebook-doc.tex
 
 readme.tex: README.md
