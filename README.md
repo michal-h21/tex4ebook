@@ -1,3 +1,5 @@
+% ![Build Status](https://travis-ci.org/michal-h21/tex4ebook.svg?branch=master)](https://travis-ci.org/michal-h21/tex4ebook)
+
 # Introduction
 
 `TeX4ebook` is bundle of Lua scripts and `LaTeX` packages for conversion of
