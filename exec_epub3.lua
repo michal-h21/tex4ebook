@@ -1,5 +1,6 @@
 module(...,package.seeall)
 local eb = require("exec_epub")
+local dom = require("luaxml-domobject")
 
 local ext = "xhtml"
 local outputdir = nil
@@ -42,6 +43,53 @@ local function makeTOC(document)
   return template
 end
 
+local function add_media_overlays(content)
+  local opfdom = dom.parse(content)
+  local items = opfdom:query_selector("manifest item")
+  local ref = {}
+  local times = {}
+  local package = opfdom:query_selector("metadata")[1]
+  -- we must read all smil files and find references to html files
+  -- it is necessary to add media-overlay attribute to the referenced items
+  for _, item in ipairs(items) do
+    local href = item:get_attribute("href")
+    ref[href] = item
+    -- we must read audio length from the smil file and add it as a <meta> property
+    if href:match("smil$") then
+      local f = io.open(outputdir .. "/" .. href, "r")
+      local smil = f:read("*all")
+      f:close()
+      local smildom = dom.parse(smil)
+      local audios = smildom:query_selector("audio")
+      local last = audios[#audios]
+      -- add audio duration to the metadata section
+      if last then
+        local duration = last:get_attribute("clipend")
+        if duration then
+          -- todo: calculate total audio length
+          table.insert(times, duration)
+          local audio_id = item:get_attribute("id")
+          local meta = package:create_element("meta",{property="media:duration", refines="#"..audio_id})
+          local dur_el = meta:create_text_node(duration)
+          meta:add_child_node(dur_el)
+          package:add_child_node(meta)
+        end
+      end
+
+      -- add the media-overlay attribute
+      local textref = smil:match('epub:textref="(.-)"')
+      local id = item:get_attribute("id")
+      local referenced = ref[textref]
+      if referenced then
+        referenced:set_attribute("media-overlay", id)
+      end
+    end
+  end
+  local serialized = opfdom:serialize()
+  return serialized
+end
+
+
 local function cleanOPF()
   -- in epub3, there must be table of contents
 	-- if there is no toc in the document, we must add generic one
@@ -72,6 +120,7 @@ local function cleanOPF()
     -- remove empty guide element
   end
   content = content:gsub("<guide>%s*</guide>","")
+  content = add_media_overlays(content)
   f = io.open(outputdir .. "/" ..opf,"w")
   f:write(content)
   f:close()
