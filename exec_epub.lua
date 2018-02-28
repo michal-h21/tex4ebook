@@ -121,7 +121,7 @@ local mimetypes = {
 	woff = "application/font-woff",
   js = "text/javascript",
   mp3 = "audio/mpeg3",
-  smil = "application/smil"
+  smil = "application/smil+xml"
 }
 
 function make_opf()
