@@ -1,4 +1,9 @@
 # Changes
+
+- 28/02/2018
+
+    - added media overlays handling
+
 - 19/10/2017
 
     - added support for XeTeX
