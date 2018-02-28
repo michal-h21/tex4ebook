@@ -44,6 +44,22 @@ local function makeTOC(document)
 end
 
 local function add_media_overlays(content)
+  local add_meta = function(package, attributes, text)
+    local meta = package:create_element("meta",attributes)
+    local dur_el = meta:create_text_node(text)
+    meta:add_child_node(dur_el)
+    package:add_child_node(meta)
+  end
+  -- calculate total audio time
+  local calc_times = function(times)
+    local time = 0
+    for _, curr in ipairs(times) do
+      -- smil file contains timestamps in the H:M:S format, we need to parse it
+      local hours, minutes, seconds = curr:match("(%d+):(%d+):(%d+)")
+      time = time +  os.time({year=1970, day=1, month=1, hour=hours, min=minutes, sec=seconds})
+    end
+    return os.date("%H:%M:%S",time)
+  end
   local opfdom = dom.parse(content)
   local items = opfdom:query_selector("manifest item")
   local ref = {}
@@ -57,6 +73,7 @@ local function add_media_overlays(content)
     -- we must read audio length from the smil file and add it as a <meta> property
     if href:match("smil$") then
       local f = io.open(outputdir .. "/" .. href, "r")
+      if not f then break end
       local smil = f:read("*all")
       f:close()
       local smildom = dom.parse(smil)
@@ -69,10 +86,7 @@ local function add_media_overlays(content)
           -- todo: calculate total audio length
           table.insert(times, duration)
           local audio_id = item:get_attribute("id")
-          local meta = package:create_element("meta",{property="media:duration", refines="#"..audio_id})
-          local dur_el = meta:create_text_node(duration)
-          meta:add_child_node(dur_el)
-          package:add_child_node(meta)
+          add_meta(package, {property="media:duration", refines="#"..audio_id}, duration)
         end
       end
 
@@ -84,6 +98,11 @@ local function add_media_overlays(content)
         referenced:set_attribute("media-overlay", id)
       end
     end
+  end
+  -- calculate length of all media overlay audio files
+  if #times > 0 then
+    local totaltime = calc_times(times)
+    add_meta(package,{property="media:duration"}, totaltime)
   end
   local serialized = opfdom:serialize()
   return serialized
