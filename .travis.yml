@@ -1,6 +1,6 @@
 
 install:
-  - sudo apt-get install -qq luatex texlive-base texlive-luatex pandoc latexmk texlive texlive-xetex tex4ht texlive-latex-extra 
+  - sudo apt-get install -qq luatex texlive-base texlive-luatex pandoc latexmk texlive texlive-xetex tex4ht texlive-latex-extra texlive-fonts-extra
   # make4ht
   - git clone https://github.com/michal-h21/make4ht
   - cd make4ht
