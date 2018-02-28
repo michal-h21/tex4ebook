@@ -120,7 +120,7 @@ local mimetypes = {
 	ttf = "application/truetype",
 	woff = "application/font-woff",
   js = "text/javascript",
-  mp3 = "audio/mpeg3",
+  mp3 = "audio/mpeg",
   smil = "application/smil+xml"
 }
 
