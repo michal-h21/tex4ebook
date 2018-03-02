@@ -1,5 +1,9 @@
 # Changes
 
+- 02/03/2018
+
+    - added support for `.tex4ebook` configuration file
+
 - 28/02/2018
 
     - added media overlays handling

@@ -7,6 +7,7 @@ require("lapp-mk4")
 -- require("ebookutils")
 local ebookutils = require "mkutils"
 local mkparams = require "mkparams"
+local mk_config = require "make4ht-config"
 
 -- Setting
 local latex_cmd="latex"
@@ -170,6 +171,16 @@ if output_formats[output_format] then
 else
   print("Unknown output format: "..output_format)
   return
+end
+
+-- find tex4ebook configuration file
+local configname = "tex4ebook"
+local conffile = mk_config.find_config(configname) or mk_config.find_xdg_config(configname)
+if conffile then
+  print("Using configuration file: " .. conffile)
+  ebookutils.load_config(params, conffile)
+else
+  print "No conffile"
 end
 
 local build_file = input.. ".mk4"
