@@ -1,5 +1,9 @@
 # Changes
 
+- 06/04/2018
+
+    - documented the configuration file
+
 - 02/03/2018
 
     - added support for `.tex4ebook` configuration file

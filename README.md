@@ -218,6 +218,20 @@ Add xml name space to `xhtml` files. Useful in `EPUB 3`
 `tex4ebook` uses `make4ht`^[https://github.com/michal-h21/make4ht] as a build
 system. See `make4ht` documentation for details on build files. 
 
+## `.tex4ebook` configuration file
+
+It is possible to globally modify the build settings using the configuration
+file. New compilation commands can be added, extensions can be loaded or
+disabled and settings can be set.
+
+### Location
+
+The configuration file can be saved either in
+`$HOME/.config/tex4ebook/config.lua` or in `.tex4ebook` in the current directory or
+it's parents (up to `$HOME`).
+
+See the `make4ht` documentation for an example and more information.
+
 # Troubleshooting
 
 When compilation of the document breaks with error during `LaTeX` run, it may
