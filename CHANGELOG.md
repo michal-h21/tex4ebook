@@ -1,5 +1,9 @@
 # Changes
 
+- 09/04/2018
+
+    - released version `0.2`
+
 - 06/04/2018
 
     - documented the configuration file
