@@ -16,7 +16,9 @@ all: doc
 .PHONY: tags
 
 tags:
+ifeq ($(strip $(shell git rev-parse --is-inside-work-tree 2>/dev/null)),true)
 	git fetch --tags
+endif
 
 doc: $(doc_file) readme.tex
 
