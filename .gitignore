@@ -11,7 +11,12 @@
 *.swp
 *.dvi
 *.idv
+*.epub
+*.fls
+*.pdf
+*.fdb_latexmk
 readme.tex
+changelog.tex
 tags
 tex4ebook-doc-epub3/
 make4ht-eb.lua
