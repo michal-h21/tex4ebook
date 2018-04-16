@@ -1,5 +1,9 @@
 # Changes
 
+- 16/04/2018
+
+    - don't run Git if the Makefile is executed outside of Git repo
+
 - 09/04/2018
 
     - released version `0.2`
