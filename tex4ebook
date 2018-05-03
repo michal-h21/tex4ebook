@@ -158,7 +158,7 @@ for k,v in pairs(oldparams) do
   params[k] = v
 end
 
-params.tex4ht_sty_par=params.tex4ht_sty_par .. ",charset=utf-8,"..args.format
+params.tex4ht_sty_par=params.tex4ht_sty_par .. ",charset=utf-8,"..output_format
 params.tex4ht_par= " -cmozhtf -utf8" .. params.tex4ht_par
 
 
