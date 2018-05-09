@@ -1,5 +1,10 @@
 # Changes
 
+- 04/05/2018
+
+    - added support for Polyglossia language codes
+    - released version `0.2a`
+
 - 03/05/2018
 
     - fixed output format handling
