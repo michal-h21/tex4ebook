@@ -13,6 +13,8 @@ local mimetype_name="mimetype"
 outputdir=""
 outputfile=""
 outputfilename=""
+-- the directory where the epub file should be moved to
+destdir=""
 basedir = ""
 tidy = false
 local include_fonts = false
@@ -45,6 +47,10 @@ function prepare(params)
 	--ebookutils.mkdirectories(ebookutils.prepare_path(outputdir.."/"))
 	metadir = basedir .."/" .. metadir_name --"metadir-"..randname
 	makedir(metadir)
+  if params.outdir ~= "" then
+    destdir = params.outdir .. "/"
+    makedir(destdir)
+  end
 	--local dd = ebookutils.prepare_path(metadir.."/")
 	--for _,d in pairs(dd) do print("metadir path: "..d) end
 	-- lfs.mkdir(metadir)
@@ -311,7 +317,7 @@ function make_opf()
 		print("Pack metadir "   .. os.execute("cd "..basedir.." && "..zip.." -qXr9D " .. outputfile.." "..metadir_name))
 		print("Pack outputdir " .. os.execute("cd "..basedir.." && "..zip.." -qXr9D " .. outputfile.." "..outputdir_name))
 		print("Copy generated epub ")
-		ebookutils.cp(basedir .."/"..outputfile, outputfile)
+		ebookutils.cp(basedir .."/"..outputfile, destdir .. outputfile)
 end
 
 
