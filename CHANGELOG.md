@@ -1,6 +1,10 @@
 # Changes
 
-- 04/05/2018
+- 22/06/2018
+
+    - added support for the output directory selectio
+
+- 09/05/2018
 
     - added support for Polyglossia language codes
     - released version `0.2a`
