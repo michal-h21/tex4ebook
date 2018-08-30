@@ -1,8 +1,12 @@
 # Changes
 
+- 30/08/2018
+
+    - removed spurious `\NoFonts` command in the footnote configuration, it caused formating issues in the document following a footnote
+
 - 22/06/2018
 
-    - added support for the output directory selectio
+    - added support for the output directory selection
 
 - 09/05/2018
 
