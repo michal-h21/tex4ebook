@@ -1,5 +1,9 @@
 # Changes
 
+- 03/09/2018
+
+    - updated the `--help` message
+
 - 30/08/2018
 
     - removed spurious `\NoFonts` command in the footnote configuration, it caused formating issues in the document following a footnote
