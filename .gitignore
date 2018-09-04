@@ -12,6 +12,9 @@
 *.dvi
 *.idv
 *.epub
+*.html
+*.opf
+*.ncx
 *.fls
 *.pdf
 *.fdb_latexmk
@@ -19,5 +22,6 @@ readme.tex
 changelog.tex
 tags
 tex4ebook-doc-epub3/
+tex4ebook-doc-epub/
 make4ht-eb.lua
 build/
