@@ -49,9 +49,9 @@ Positional optional argumens:
   ["t4ht op"]         Options for t4ht command
   ["latex op"]        Additional options for LaTeX
 
-Documentation:                    <https://tug.org/applications/tex4ht/mn.html>
-Issue tracker for tex4ht bugs:    <https://puszcza.gnu.org.ua/bugs/?group=tex4ht>
-Issue tracker for tex4ebook bugs: <https://github.com/michal-h21/tex4ebook/issues>
+Documentation:                    https://tug.org/applications/tex4ht/mn.html
+Issue tracker for tex4ht bugs:    https://puszcza.gnu.org.ua/bugs/?group=tex4ht
+Issue tracker for tex4ebook bugs: https://github.com/michal-h21/tex4ebook/issues
 ]]
 
 -- This option is no longer available, all files must be unicode
