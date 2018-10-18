@@ -122,9 +122,9 @@ structure is
     ...
     \EndPreamble
 
-Basic info about command configurations can be found in a work-in-progres 
- *tex4ht tutorial*^[https://github.com/michal-h21/helpers4ht/wiki/tex4ht-tutorial],
- *tex4ht documentation*^[http://www.tug.org/applications/tex4ht/mn11.html], 
+Basic info about command configurations can be found in a 
+work-in-progres *tex4ht tutorial*^[https://github.com/michal-h21/helpers4ht/wiki/tex4ht-tutorial], 
+*tex4ht documentation*^[http://www.tug.org/applications/tex4ht/mn11.html], 
 and in series of blogposts on CV Radhakrishnan's blog:
 *Configure part 1*^[http://www.cvr.cc/?p=323], 
 *Configure part 2*^[http://www.cvr.cc/?p=362], 
@@ -244,8 +244,9 @@ if same error as in `tex4ebook` run arises, the problem is in some `tex4ht`
 configuration. Try to identify the source of problem and if you cannot find the
 solution, make minimal example showing the error and ask for help either on
 *tex4ht mailing list*^[http://tug.org/mailman/listinfo/tex4ht] or on
-*TeX-sx*^[http://tex.stackexchange.com/]. 
+*TeX.sx*^[http://tex.stackexchange.com/]. 
 
+<!--
 ## Fontspec
 
 `tex4ht` currently doesn't support `fontspec` and open type fonts. At this
@@ -278,6 +279,7 @@ Other approach is to use `alternative4ht` package from [helpers4ht](https://gith
 bundle. It works only with Lua backend, but it supports full unicode and you 
 don't have to use conditional package inclusion in your document. See 
 an [example](http://michal-h21.github.io/samples/helpers4ht/fontspec.html).
+-->
 
 ## Validation
 
