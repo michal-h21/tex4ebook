@@ -44,7 +44,7 @@ preamble:
 
     \usepackage{tex4ebook}
 
-but it is optional. You shouldn't need to modify your \TeX\ files
+But it is optional. You shouldn't need to modify your \TeX\ files
 
 ## Available commands
 
@@ -79,7 +79,7 @@ but it is optional. You shouldn't need to modify your \TeX\ files
   
 `-f,--format (default epub)`
 
-:    Output format. epub, epub3 and mobi are supported.
+:    Output format. Epub, Epub3 and Mobi formats are supported.
 
 `-l,--lua`
 
@@ -123,8 +123,8 @@ structure is
     \EndPreamble
 
 Basic info about command configurations can be found in a work-in-progres 
- *tex4ht tutorial*^[https://github.com/michal-h21/helpers4ht/wiki/tex4ht-tutorial]
-, *tex4ht documentation*^[http://www.tug.org/applications/tex4ht/mn11.html], 
+ *tex4ht tutorial*^[https://github.com/michal-h21/helpers4ht/wiki/tex4ht-tutorial],
+ *tex4ht documentation*^[http://www.tug.org/applications/tex4ht/mn11.html], 
 and in series of blogposts on CV Radhakrishnan's blog:
 *Configure part 1*^[http://www.cvr.cc/?p=323], 
 *Configure part 2*^[http://www.cvr.cc/?p=362], 
@@ -209,8 +209,8 @@ Add xml name space to `xhtml` files. Useful in `EPUB 3`
 
 `\OpfGuide[filename]{title}{type}`
 
-:    Add file to the `<guide>` section in the `OPF` file. See *Where do you    start an ePUB and what is the `<guide>` section of the .OPF
-     file?*^[http://epubsecrets.com/where-do-you-start-an-epub-and-what-is-the-guide-section-of-the-opf-file.php]
+:    Add file to the `<guide>` section in the `OPF` file. See 
+     *Where do you start an ePUB and what is the `<guide>` section of the `.OPF` file?*^[http://epubsecrets.com/where-do-you-start-an-epub-and-what-is-the-guide-section-of-the-opf-file.php]
      for some details. Note that `<guide>` is deprecated in `EPUB 3`.
 
 ## Build files
