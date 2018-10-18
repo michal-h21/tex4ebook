@@ -5,7 +5,10 @@ TEXMFHOME = $(shell kpsewhich -var-value=TEXMFHOME)
 INSTALL_DIR = $(TEXMFHOME)/tex/latex/tex4ebook
 LUA_DIR = $(TEXMFHOME)/scripts/lua/tex4ebook
 MANUAL_DIR = $(TEXMFHOME)/doc/latex/tex4ebook
-SYSTEM_DIR = /usr/local/bin
+BIN_DIR = /usr/local/bin
+# expand the bin directory
+SYSTEM_DIR = $(realpath $(BIN_DIR))
+EXECUTABLE = $(SYSTEM_DIR)/tex4ebook
 BUILD_DIR = build
 BUILD_TEX4EBOOK = $(BUILD_DIR)/tex4ebook/
 VERSION:= undefined
@@ -13,6 +16,19 @@ DATE:= undefined
 ifeq ($(strip $(shell git rev-parse --is-inside-work-tree 2>/dev/null)),true)
 	VERSION:= $(shell git --no-pager describe --abbrev=0 --tags --always )
 	DATE:= $(firstword $(shell git --no-pager show --date=short --format="%ad" --name-only))
+endif
+
+# use sudo for install to destination directory outise home
+ifeq ($(findstring home,$(SYSTEM_DIR)),home)
+	SUDO:=
+else
+	SUDO:=sudo
+endif
+
+ifeq ("$(wildcard $(EXECUTABLE))","")
+	INSTALL_COMMAND:=$(SUDO) ln -s $(INSTALL_DIR)/tex4ebook $(EXECUTABLE)
+else
+	INSTALL_COMMAND:=
 endif
 
 
@@ -53,5 +69,5 @@ install: doc $(tex_content) $(lua_content)
 	cp $(lua_content) $(LUA_DIR)
 	cp $(doc_file) $(MANUAL_DIR)
 	chmod +x $(INSTALL_DIR)/tex4ebook
-	sudo ln -s $(INSTALL_DIR)/tex4ebook $(SYSTEM_DIR)/tex4ebook
+	$(INSTALL_COMMAND)
 

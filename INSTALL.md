@@ -1,6 +1,10 @@
 Installation
 ------------
 
+The stable version of `tex4ebook` is distributed by TeX distributions, it is
+included in both TeX Live and Miktex. The development version may be installed
+using the following instructions.
+
 > This package depends on
 > [`make4ht`](https://github.com/michal-h21/make4ht#instalation) now, please
 > install it first.
@@ -12,8 +16,12 @@ Installation
 On Unix systems, clone this repository to your disc and run command
 
     make
-    sudo make install
+    make install
 
+`tex4ebook` is installed to `/usr/local/bin` directory by default. The
+directory can be changed by passing it's location to the `BIN_DIR` variable:
+
+    make install BIN_DIR=~/.local/bin/
 
 For Windows settings, see a 
 [guide](https://d800fotos.wordpress.com/2015/01/19/create-e-books-from-latex-tex-files-ebook-aus-latex-tex-dateien-erstellen/) by Volker Gottwald
