@@ -1,5 +1,9 @@
 # Changes
 
+- 18/10/2018
+
+    - fixed the executable installation
+
 - 03/09/2018
 
     - updated the `--help` message
