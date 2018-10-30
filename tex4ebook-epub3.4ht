@@ -32,7 +32,9 @@
 %%%%%%%%%%%
 \Configure{NavSection}{%
 	\booltrue{tocnoempty}
-	\HCode{<li>}\setbox0=\hbox\bgroup}{\HCode{<ol>\Hnewline}}{\egroup}{\Tg</ol>\Tg</li>}
+	\HCode{<li>}}{\HCode{<ol>\Hnewline}}{}{\Tg</ol>\Tg</li>}
+% Disable numbering of the TOC by the reading system, numbers are added by tex4ht
+\Css{nav\#toc ol{list-style: none;}}
 %%%% End toc nav configuration
 \def\CoverMetadata#1{%
 \special{t4ht+@File: #1}%

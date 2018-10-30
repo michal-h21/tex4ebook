@@ -1,5 +1,9 @@
 # Changes
 
+- 30/10/2018
+
+    - use the original section numbering in TOC in the Epub 3 output. The numbering of the `<ol>` list is disabled by CSS.
+
 - 18/10/2018
 
     - fixed the executable installation
