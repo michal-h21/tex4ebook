@@ -35,9 +35,8 @@ Run on the command line:
     tex4ebook [options] filename
 
 You don't have to modify your source files unless you want to use commands
-defined by `tex4ebook` in the document, or when your document uses some
-unsupported package like `fontspec` (see details bellow how to solve this
-issue).
+defined by `tex4ebook` in the document, or when your document uses a 
+package which causes a compilation error. 
 
 If you want to use `tex4ebook` commands, add this line to your document
 preamble:
