@@ -1,5 +1,9 @@
 # Changes
 
+- 13/12/2018
+
+    - added --xetex option to the README
+
 - 30/10/2018
 
     - use the original section numbering in TOC in the Epub 3 output. The numbering of the `<ol>` list is disabled by CSS.

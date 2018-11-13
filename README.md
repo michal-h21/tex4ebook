@@ -82,7 +82,7 @@ But it is optional. You shouldn't need to modify your \TeX\ files
 
 `-l,--lua`
 
-:    Runs htlualatex instead of htlatex.
+:    Use LuaLaTeX as TeX engine.
 
 `-m,--mode (default default)`
 
@@ -104,9 +104,14 @@ But it is optional. You shouldn't need to modify your \TeX\ files
 
 :     process output html files with `HTML tidy` command^[It needs to be installed separately].
 
+`-x,--xetex`
+
+:     Use xelatex for document compilation
+
+
 `-v,--version`
 
-:     print version number
+:     Print the version number.
 
  
 # Configuration

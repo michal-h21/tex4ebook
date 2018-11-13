@@ -33,7 +33,7 @@ tex4ebook [switches] filename ["tex4ht.sty op."] ["tex4ht op."] ["t4ht op"] ["la
   -e,--build-file (default nil)  If build file is different than `filename`.mk4
   -f,--format (default epub) Output format. Supported values: epub, epub3, mobi
   -h,--help  Display help message
-  -l,--lua  Runs htlualatex instead of htlatex
+  -l,--lua  Use lualatex for document compilation
   -m,--mode (default default) Switch which can be used in the makefile
   -r,--resolution (default 167)
   -s,--shell-escape  Enable shell escape in htlatex run
