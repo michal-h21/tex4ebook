@@ -62,6 +62,7 @@ function prepare(params)
 	tidy = params.tidy
 	include_fonts = params.include_fonts
 	params["t4ht_par"] = params["t4ht_par"] -- + "-d"..string.format(params["t4ht_dir_format"],outputdir)
+  params.tex4ht_sty_par = params.tex4ht_sty_par .. ",uni-html4"
 	return(params)
 end
 

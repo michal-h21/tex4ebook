@@ -1,6 +1,10 @@
 # Changes
 
-- 13/12/2018
+- 27/11/2018
+
+    - use the `uni-html4` option by default. It will convert some math characters as Unicode chars.
+
+- 13/11/2018
 
     - added --xetex option to the README
 
