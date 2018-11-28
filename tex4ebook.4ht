@@ -309,7 +309,7 @@ href="#1" media-type="\a:CoverMimeType" />}}
 
 % define toc levels which should be included in the NCX file
 \NewConfigure{resettoclevels}{1}
-\Configure{resettoclevels}{part,chapter,section,subsection,subsubsection,paragraph}
+\Configure{resettoclevels}{part,appendix,chapter,appendixsec,section,appendixsubsec,subsection,appendixsubsubsec,subsubsection,paragraph}
 
 \def\:tempa{%
 \EndP
@@ -326,7 +326,7 @@ href="#1" media-type="\a:CoverMimeType" />}}
 % so:
 \let\contentsname=\empty
 \Configure{tableofcontents}{\boolfalse{tocnoempty}\Tg<navMap>}{%
-	\usetoclevels{part,chapter,likechapter,section,likesection,subsection,likesubsection,subsubsection,likesubsubsection,subsubsubsection,paragraph}%
+	\usetoclevels{part,appendix,chapter,likechapter,appendixsec,section,likesection,subsection,appendixsubsec,likesubsection,subsubsection,likesubsubsection,appendixsubsubsec,subsubsubsection,paragraph}%
 	\ifbool{tocnoempty}{}%
 	{\HCode{<navPoint id="mainentry" playOrder="1">
 	  <navLabel><text>Document</text></navLabel>

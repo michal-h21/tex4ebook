@@ -1,5 +1,9 @@
 # Changes
 
+- 28/11/2018
+
+    - added support for appendix sections to the NCX file
+
 - 27/11/2018
 
     - use the `uni-html4` option by default. It will convert some math characters as Unicode chars.
