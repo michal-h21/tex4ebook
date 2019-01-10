@@ -1,5 +1,9 @@
 # Changes
 
+- 2019/01/10
+
+    - released version `0.2b`
+
 - 28/11/2018
 
     - added support for appendix sections to the NCX file
