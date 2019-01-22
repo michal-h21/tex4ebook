@@ -29,6 +29,9 @@
 % use this only if it doesn't work
 \NewConfigure{DocumentLanguage}[1]{\def\GetLanguage{#1}}
 
+% definitions of commands ignored in \author
+\def\a:@author{}
+\NewConfigure{@author}[1]{\concat:config\a:@author{#1}}
 
 \NewConfigure{OpfScheme}{1}
 \Configure{OpfScheme}{URI}
@@ -381,7 +384,7 @@ href="#1" media-type="\a:CoverMimeType" />}}
 %Add interface for such things
 {\HCode{<dc:identifier id="dcidid" \print:opf:scheme\a:OpfScheme>\a:UniqueIdentifier}\HCode{</dc:identifier>\Hnewline}}
 \def\and{\HCode{</dc:creator>\Hnewline<dc:creator>}}
-{\HCode{<dc:creator>}\Author\HCode{</dc:creator>\Hnewline}}
+{\HCode{<dc:creator>}{\a:@author\Author}\HCode{</dc:creator>\Hnewline}}
 %{\HCode{<dc:contributor>\HP:file</dc:contributor>\Hnewline}}
 {\HCode{<dc:date>}\:iso:date\HCode{</dc:date>}}
 \a:OpfMetadata

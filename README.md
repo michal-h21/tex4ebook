@@ -152,19 +152,25 @@ or *setting image size in em units instead of pt*^[http://tex.stackexchange.com/
 Every epub file should have unique identifier, like ISBN, DOI, URI etc. 
 Default identifier is URI, with value `http://example.com/\jobname`.
 
+    \Configure{@author}{\let\footnote\@gobble}
+
+Local definitions of commands used in the `\author` command. As contents of
+`\author` are used in XML files, it is necessary to strip away any information
+which don't belongs here, such as `\footnote`.
+
     \Configure{OpfScheme}{URI}
 
 Type of unique identifier, default type is URI. It is
-used only in epub, it is deprecated for `epub3`
+used only in `epub`, it is deprecated for `epub3`
 
     \Configure{resettoclevels}{list of section types in descending order}
 
 Configure section types which should be included in the `NCX` file. Default
-value is the whole document hiearchy, from `\part` to `\paragraph`.
+value is the whole document hierarchy, from `\part` to `\paragraph`.
 
     \Configure{DocumentLanguage}{language code}
 
-Each epub must declare the document language. It is inferred from `babel` main
+Each ePub file must declare the document language. It is inferred from `babel` main
 language by default, but you can configure it when it doesn't work correctly.
 The `language code` should be in [ISO
 639-1](https://en.wikipedia.org/wiki/List_of_ISO_639-1_codes) form.

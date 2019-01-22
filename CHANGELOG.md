@@ -1,5 +1,9 @@
 # Changes
 
+- 2019/01/21
+
+  - added `\Configure{@author}`
+
 - 2019/01/10
 
     - released version `0.2b`
