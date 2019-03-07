@@ -322,7 +322,7 @@ href="#1" media-type="\a:CoverMimeType" />}}
 % We don't want crosslinks in xml
 % Basic sctructure of the ncx file
 \NoFonts
-{\HCode{<?xml version="1.0"?>\Hnewline}}
+{\HCode{<?xml version="1.0" encoding="utf-8"?>\Hnewline}}
 {\a:NcxDoctype}
 {\Tg<ncx xmlns="http://www.daisy.org/z3986/2005/ncx/" version="2005-1">}{}
 % To print document map, we customize the tableofcontents. We don't want TOC title,
@@ -375,7 +375,7 @@ href="#1" media-type="\a:CoverMimeType" />}}
 \special{t4ht>content.opf}
 \NoFonts
 \HtmlParOff
-{\HCode{<?xml version="1.0"?>\Hnewline}}
+{\HCode{<?xml version="1.0" encoding="utf-8"?>\Hnewline}}
 \HCode{<package xmlns="http://www.idpf.org/2007/opf" unique-identifier="dcidid"
    version="\a:EpubVersion">\Hnewline}
 {\HCode{<metadata\Hnewline xmlns:dc="http://purl.org/dc/elements/1.1/"\Hnewline  xmlns:opf="http://www.idpf.org/2007/opf">\Hnewline}}
