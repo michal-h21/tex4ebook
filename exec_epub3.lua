@@ -138,7 +138,9 @@ local function cleanOPF()
     content = content:gsub("<spine([^>]*)>", "<spine%1>\n<itemref idref=\"htmltoc\" linear=\"no\"/>\n")
     -- remove empty guide element
   end
-  content = content:gsub("<guide>%s*</guide>","")
+  -- content = content:gsub("<guide>%s*</guide>","")
+  content = eb.remove_empty_guide(content)
+
   content = add_media_overlays(content)
   f = io.open(outputdir .. "/" ..opf,"w")
   f:write(content)

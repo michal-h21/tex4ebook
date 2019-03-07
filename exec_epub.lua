@@ -131,6 +131,10 @@ local mimetypes = {
   smil = "application/smil+xml"
 }
 
+function remove_empty_guide(content)
+  return content:gsub("<guide>%s*</guide>","")
+end
+
 function make_opf()
 	-- Join files content.opf and content-part2.opf
 	-- make item record for every converted image
@@ -263,6 +267,7 @@ function make_opf()
       local opf_completed = table.concat(opf_complete,"\n")
       -- poor man's tidy: remove trailing whitespace befora xml tags
       opf_completed = opf_completed:gsub("[ ]*<","<")
+      opf_completed = remove_empty_guide(opf_completed)
 			h_first:write(opf_completed)
 			h_first:close()
 			os.remove(opf_second_part)
