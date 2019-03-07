@@ -187,21 +187,7 @@ function make_opf()
         -- the same filename is used in different directories. Is that a problem?
         used_files[filename] = true
       end
-			--[[for f in lfs.dir("./OEBPS") do
-			--table.insert(used_files,f)
-			--used_files[f] = true
-			end--]]
-			-- local all_html = find_all_files(table.concat(used_files,"\n"))
 			local outside_spine = {}
-			-- This was duplicated code
-			--[[for i, ext in pairs(all_html) do
-				if not used_html[i] then
-					print("Prvni insert: ".. i .."."..ext)
-					local item, id = lg_item(i.."."..ext) 
-					table.insert(opf_complete,item)
-					table.insert(outside_spine,id)
-				end
-			end--]]
 			local all_used_files = find_all_files(opf_complete[1],"([%a%d%-%_]+%.[%a%d]+)")
 			local used_paths = {}
       local used_ids   = {}
