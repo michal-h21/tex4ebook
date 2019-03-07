@@ -1,5 +1,11 @@
 # Changes
 
+2019/03/07
+
+  - use `Luatexbase` package in the documentation because of `Microtype` error
+  - remove `<guide>` element even in ePub 2
+  - added `encoding` attribute to XML declaration in the NCX and OPF files
+
 - 2019/01/21
 
   - added `\Configure{@author}`
@@ -14,7 +20,7 @@
 
 - 27/11/2018
 
-    - use the `uni-html4` option by default. It will convert some math characters as Unicode chars.
+    - use the `uni-html4` option by default. It will convert some math characters as Unicode chars
 
 - 13/11/2018
 
