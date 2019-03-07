@@ -20,7 +20,26 @@ tidy = false
 local include_fonts = false
 local metadir=""
 
-
+-- from https://stackoverflow.com/a/43407750/2467963
+local function deletedir(dir)
+  local attr = lfs.attributes(dir)
+  if attr then
+    for file in lfs.dir(dir) do
+        local file_path = dir..'/'..file
+        if file ~= "." and file ~= ".." then
+            if lfs.attributes(file_path, 'mode') == 'file' then
+                os.remove(file_path)
+                print('remove file',file_path)
+            elseif lfs.attributes(file_path, 'mode') == 'directory' then
+                print('dir', file_path)
+                deletedir(file_path)
+            end
+        end
+    end
+    lfs.rmdir(dir)
+  end
+  print('remove dir',dir)
+end
 
 function prepare(params)
 	local randname=tostring(math.random(12000))
@@ -42,6 +61,7 @@ function prepare(params)
 	end
 	basedir = params.input.."-".. params.format
 	outputdir= basedir.."/"..outputdir_name --"outdir-"..randname --os.tmpdir()
+  deletedir(basedir)
 	makedir(outputdir)
 	-- lfs.mkdir(outputdir)
 	--ebookutils.mkdirectories(ebookutils.prepare_path(outputdir.."/"))

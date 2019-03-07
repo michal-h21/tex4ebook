@@ -5,6 +5,7 @@
   - use `Luatexbase` package in the documentation because of `Microtype` error
   - remove `<guide>` element even in ePub 2
   - added `encoding` attribute to XML declaration in the NCX and OPF files
+  - clean the temporary directory (`filename-format`) before file packing
 
 - 2019/01/21
 
