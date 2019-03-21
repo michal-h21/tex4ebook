@@ -1,6 +1,10 @@
 # Changes
 
-2019/03/07
+- 2019/03/21
+
+  - released version `0.2c`   
+
+- 2019/03/07
 
   - use `Luatexbase` package in the documentation because of `Microtype` error
   - remove `<guide>` element even in ePub 2
