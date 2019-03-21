@@ -112,7 +112,6 @@ But it is optional. You shouldn't need to modify your \TeX\ files
 `-v,--version`
 
 :     Print the version number.
-
  
 # Configuration
 
@@ -130,11 +129,11 @@ Basic info about command configurations can be found in a
 work-in-progres *tex4ht tutorial*^[https://github.com/michal-h21/helpers4ht/wiki/tex4ht-tutorial], 
 *tex4ht documentation*^[http://www.tug.org/applications/tex4ht/mn11.html], 
 and in series of blogposts on CV Radhakrishnan's blog:
-*Configure part 1*^[http://www.cvr.cc/?p=323], 
-*Configure part 2*^[http://www.cvr.cc/?p=362], 
-*Low level commands*^[http://www.cvr.cc/?p=482]. 
+*Configure part 1*^[https://web.archive.org/web/20180908234227/http://www.cvr.cc/?p=323], 
+*Configure part 2*^[https://web.archive.org/web/20180908201057/http://www.cvr.cc/?p=362], 
+*Low level commands*^[https://web.archive.org/web/20180909101325/http://cvr.cc/?p=482]. 
 Available options for `\Preamble` command are listed in the article 
-*TeX4ht: options*^[http://www.cvr.cc/?p=504]. *Comparison of tex4ebook and Pandoc output*^[https://github.com/richelbilderbeek/travis_tex_to_epub_example_1]
+*TeX4ht: options*^[https://web.archive.org/web/20180813043722/http://cvr.cc/?p=504]. *Comparison of tex4ebook and Pandoc output*^[https://github.com/richelbilderbeek/travis_tex_to_epub_example_1]
 
 Great source of tips for `tex4ht` configuring is *tex4ht tag on TeX.sx*^[http://tex.stackexchange.com/questions/tagged/tex4ht], there is also a *tag for tex4ebook*^[http://tex.stackexchange.com/questions/tagged/tex4ebook].
 
