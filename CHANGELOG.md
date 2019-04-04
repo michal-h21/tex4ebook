@@ -3,6 +3,7 @@
 - 2019/04/04
 
   - register appendix chapters and section in the OPF file list
+  - fixed handling of appendices in the NCX table of contents
 
 - 2019/03/21
 

@@ -268,7 +268,7 @@ href="#1" media-type="\a:CoverMimeType" />}}
 \def\tmp:processlevel#1{
   \bgroup
   \csxdef{tmp:resettoclevels#1}{}
-  \def\do##1{\csxdef{tmp:resettoclevels#1}{\csname tmp:resettoclevels#1\endcsname ##1,like##1,}}
+  \def\do##1{\csxdef{tmp:resettoclevels#1}{\csname tmp:resettoclevels#1\endcsname ##1,like##1,\appendix:type{##1}}}
   \def\tmp:parse##1#1##2\nil{
     \docsvlist{#1##2}
   }
@@ -277,6 +277,8 @@ href="#1" media-type="\a:CoverMimeType" />}}
   \navsection{#1}{\csname tmp:resettoclevels#1\endcsname}
   % define hierarchy also for starred sections
   \navsection{like#1}{\csname tmp:resettoclevels#1\endcsname}
+  % and for appendices
+  \ifcsdef{appendix:type:#1}{\navsection{\csuse{appendix:type:#1}}{\csname tmp:resettoclevels#1\endcsname}}{}
 }
 
 % define children levels for each sectioning level
@@ -296,6 +298,14 @@ href="#1" media-type="\a:CoverMimeType" />}}
   \ifx\:temp\z@ro\else#1\fi
 }
 
+% to create correct hiearchical NCX for appendices, we register corresponding appendix types 
+% for various section types
+\def\appendix:type#1{\ifcsdef{appendix:type:#1}{\csuse{appendix:type:#1},}{}}
+\def\def:appendix:type#1#2{\csdef{appendix:type:#1}{#2}}
+\def:appendix:type{chapter}{appendix}
+\def:appendix:type{section}{appendixsec}
+\def:appendix:type{subsection}{appendixsubsec}
+\def:appendix:type{subsubsection}{appendixsubsubsec}
 
 %
 \def\ncx:head{%
@@ -316,7 +326,7 @@ href="#1" media-type="\a:CoverMimeType" />}}
 
 % define toc levels which should be included in the NCX file
 \NewConfigure{resettoclevels}{1}
-\Configure{resettoclevels}{part,appendix,chapter,appendixsec,section,appendixsubsec,subsection,appendixsubsubsec,subsubsection,paragraph}
+\Configure{resettoclevels}{part,chapter,section,subsection,subsubsection,paragraph}
 
 \def\:tempa{%
 \EndP
