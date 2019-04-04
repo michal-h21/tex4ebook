@@ -1,5 +1,9 @@
 # Changes
 
+- 2019/04/04
+
+  - register appendix chapters and section in the OPF file list
+
 - 2019/03/21
 
   - released version `0.2c`   

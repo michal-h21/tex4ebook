@@ -178,6 +178,10 @@ href="#1" media-type="\a:CoverMimeType" />}}
 \patch:sec:register{likesection}
 \patch:sec:register{likesubsection}
 \patch:sec:register{likesubsubsection}
+\patch:sec:register{appendix}
+\patch:sec:register{appendixsec}
+\patch:sec:register{appendixsubsec}
+\patch:sec:register{appendixsubsubsec}
 
 \:CheckOption{epub}
 \if:Option
