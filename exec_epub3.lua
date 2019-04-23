@@ -109,6 +109,67 @@ local function add_media_overlays(content)
 end
 
 
+local function remove_spurious_TOC_elements(tocdom)
+  local function count_child_elements(el)
+    -- count children elements of the current element
+    local  count = 0
+    for _, curr_el in ipairs(el:get_children()) do
+      if curr_el:is_element() then count = count + 1 end
+    end
+    return count
+  end
+  -- modify the TOC to comply to epubcheck tests
+  -- add a blank <li> to empty <ol>
+  for _, el in ipairs(tocdom:query_selector("ol")) do
+    if count_child_elements(el) == 0 then 
+      el:remove_node()
+      -- local newli = el:create_element("li")
+      -- local newspan = newli:create_element("span")
+      -- newli:add_child_node(newspan)
+      -- el:add_child_node(newli)
+    end
+  end
+  -- place child elements of the <li> elements to a <span>, epubcheck reports 
+  -- error for text nodes that are direct child of <li>
+  for _, el in ipairs(tocdom:query_selector("li")) do
+    for _, child in ipairs(el._children) do
+      if child:is_text() then 
+        local new_el = el:create_element("span")
+        print("replace child", child._text)
+        new_el:add_child_node(child:copy_node())
+        child:replace_node(new_el)
+      end
+    end
+  end
+  return tocdom
+
+end
+local function cleanTOC(content)
+  -- remove spurious empty elements from the TOC, to make epubcheck happy
+  -- find the file with TOC ("properties" attribute set to "nav"
+  local opfdom = dom.parse(content)
+  for _,item in ipairs(opfdom:query_selector("item")) do
+    local properties = item:get_attribute("properties") or ""
+    if properties:match("nav") then
+      local filename =  item:get_attribute("href")
+      if filename then
+        filename = outputdir .. "/" ..  filename
+        local f = io.open(filename, "r")
+        local t = f:read("*all")
+        f:close()
+        local tocdom = dom.parse(t)
+        tocdom = remove_spurious_TOC_elements(tocdom)
+        f = io.open(filename,"w")
+        f:write(tocdom:serialize())
+        f:close()
+      end
+    end
+  end
+
+
+end
+
+
 local function cleanOPF()
   -- in epub3, there must be table of contents
 	-- if there is no toc in the document, we must add generic one
@@ -122,6 +183,7 @@ local function cleanOPF()
 	f:close()
 	if content:find "properties[%s]*=[%s]*\"[^\"]*nav" then
     print "TOC nav found"
+    cleanTOC(content)
   else
     print "no TOC, using generic one"
     local inputfile = input .. "." .. ext
@@ -152,6 +214,7 @@ end
 
 function writeContainer()			
 	--local ret =  eb.writeContainer()
+  print "write container"
 	eb.make_opf()
 	cleanOPF()
 	local ret = eb.pack_container()
