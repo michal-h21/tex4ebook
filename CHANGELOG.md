@@ -1,5 +1,9 @@
 # Changes
 
+- 2019/05/09
+
+  - added support for \title command with optional argument
+
 - 2019/04/04
 
   - register appendix chapters and section in the OPF file list

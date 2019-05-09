@@ -122,11 +122,23 @@
 \def\Author{Anonymous}
 
 % We need to save values of title, author etc.
-%\AtBeginDocument{
 \let\origtitle\title
-\renewcommand\title[1]{%
-  \origtitle{#1}
-  \let\Title\@title
+
+% normal \title
+\newcommand\tftitle[1]{%
+  \origtitle{#1}%
+  \let\Title\@title%
+}
+
+% \title with optional argument
+\newcommand\tfopttitle[2][]{%
+  \origtitle[#1]{#2}%
+  \let\Title\@title%
+}
+
+% some classes (amsart) define \title command with optional argument
+\renewcommand\title{%
+\@ifnextchar[\tfopttitle\tftitle%
 }
 
 \let\origauthor\author
