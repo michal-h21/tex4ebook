@@ -1,8 +1,12 @@
 # Changes
 
+- 2019/07/24
+
+  - added support for the `\author` command with an optional argument
+
 - 2019/05/09
 
-  - added support for \title command with optional argument
+  - added support for the `\title` command with an optional argument
 
 - 2019/04/04
 

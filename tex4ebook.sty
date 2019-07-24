@@ -122,39 +122,39 @@
 \def\Author{Anonymous}
 
 % We need to save values of title, author etc.
-\let\origtitle\title
+\let\tf@orig@title\title
 
 % normal \title
-\newcommand\tftitle[1]{%
-  \origtitle{#1}%
+\newcommand\tf@title[1]{%
+  \tf@orig@title{#1}%
   \let\Title\@title%
 }
 
 % \title with optional argument
-\newcommand\tfopttitle[2][]{%
-  \origtitle[#1]{#2}%
+\newcommand\tf@opttitle[2][]{%
+  \tf@orig@title[#1]{#2}%
   \let\Title\@title%
 }
 
 % some classes (amsart) define \title command with optional argument
 \renewcommand\title{%
-\@ifnextchar[\tfopttitle\tftitle%
+\@ifnextchar[\tf@opttitle\tf@title%
 }
 
-\let\origauthor\author
-\newcommand\tfauthor[1]{%
-  \origauthor{#1}%
+\let\tf@orig@author\author
+\newcommand\tf@author[1]{%
+  \tf@orig@author{#1}%
   \let\Author\@author%
 }
 
-\newcommand\tfoptauthor[2][]{%
-  \origauthor[#1]{#2}%
+\newcommand\tf@optauthor[2][]{%
+  \tf@orig@author[#1]{#2}%
   \let\Author\@author%
 }
 
 % support optiona argument for \author as well
 \renewcommand\author{%
-\@ifnextchar[\tfoptauthor\tfauthor%
+\@ifnextchar[\tf@optauthor\tf@author%
 }
 
 %\let\Author\@author
