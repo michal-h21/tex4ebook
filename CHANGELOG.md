@@ -1,5 +1,9 @@
 # Changes
 
+- 2019/08/25
+
+  - use the `mkparams.get_args` function to retrieve the command line options
+
 - 2019/07/24
 
   - added support for the `\author` command with an optional argument

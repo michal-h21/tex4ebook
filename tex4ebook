@@ -24,6 +24,8 @@ local output_formats={epub=true,mobi=true,epub3=true}
 local executor=nil
 local tidy = false
 local include_fonts = false
+
+-- message used for option parsing by the mkparams lib
 local arg_message = [[
 tex4ebook - ebook generation support for LaTeX
 Usage:
@@ -40,23 +42,16 @@ tex4ebook [switches] filename ["tex4ht.sty op."] ["tex4ht op."] ["t4ht op"] ["la
   -t,--tidy Run html tidy on html output. May result in wrong spacing!
   -v,--version  Display version number
   -x,--xetex Use xelatex for document compilation
+  ]]
   
-  <filename> (string) Input file name
+-- options for the template used by mkparams to generate the help message
+local mkparams_parameters = {
+  progname = "tex4ebook",
+  issue_tracker = "https://github.com/michal-h21/tex4ebook/issues"
+}
 
-Positional optional argumens:
-  ["tex4ht.sty op."]  Additional parameters for tex4ht.sty
-  ["tex4ht op."]      Options for tex4ht command
-  ["t4ht op"]         Options for t4ht command
-  ["latex op"]        Additional options for LaTeX
-
-Documentation:                    https://tug.org/applications/tex4ht/mn.html
-Issue tracker for tex4ht bugs:    https://puszcza.gnu.org.ua/bugs/?group=tex4ht
-Issue tracker for tex4ebook bugs: https://github.com/michal-h21/tex4ebook/issues
-]]
-
--- This option is no longer available, all files must be unicode
--- -u,--utf8 
-local args=lapp(arg_message)
+-- process the command line arguments
+local args = mkparams.get_args(mkparams_parameters, arg_message)
 
 if args["filename"] == nil and args["version"] == false then
   print(arg_message) 
@@ -140,6 +135,7 @@ local latex_par = latex_par + args[5]
 -- use default parameter processing from make4ht
 -- add some needed args
 args.filename=input_file
+args.input = input
 local params = mkparams.process_args(args)
 
 
