@@ -111,13 +111,15 @@ local t4ht_par = t4ht_par + args[4]
 local latex_par = latex_par + args[5]
 
 -- use default parameter processing from make4ht
--- add some needed args
+-- add some needed args (is it useful anymore?)
 args.filename=input_file
-args.input = input
+
+-- let make4ht handle the common options
 local params = mkparams.process_args(args)
+local input = params.input
 
 
-local output_format = params.output_format --args.format
+local output_format = params.output_format 
 -- use epub as default output_format
 output_format = output_format or "epub"
 local extensions = ebookutils.load_extensions(params.extensions, output_format)

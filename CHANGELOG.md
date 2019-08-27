@@ -1,5 +1,9 @@
 # Changes
 
+- 2019/08/27
+
+  - added support for the `--jobname` command line option.
+
 - 2019/08/25
 
   - use the `mkparams.get_args` function to retrieve the command line options
