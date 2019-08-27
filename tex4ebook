@@ -81,11 +81,6 @@ if args["include-fonts"] then
   include_fonts = true
 end
 
--- local mathml = ","
--- if args["mathml"] then
---   -- mathml = ",mathml,"
---   tex4ht_sty_par = tex4ht_sty_par .. ",mathml"
--- end
 local   mode = args.mode or "default"
 
 if os.type=="unix" then
@@ -105,25 +100,7 @@ if args.tidy then
 else
   tidy = false
 end
--- Env file copying 
 
---[[if not ebookutils.file_exists("tex4ht.env") then
-local env_file = kpse.find_file("epub2.env")
-ebookutils.copy_filter(env_file,"tex4ht.env",function(s) return s % {
-move = move_cmd,
-copy = copy_cmd,
-resolution = args.resolution
-} end)
-end--]]
-
---print ("nazdar ${world}" % {world="svete"})
---print(args.config)
-
-
-local input = ebookutils.remove_extension(input_file)
-local config=ebookutils.remove_extension(args.config)
--- local tex4ht_sty_par = config ..tex4ht_sty_par..","+args.format
---local sty_args =  args[2] and ", " .. args[2]  or ""
 local sty_args = ""
 if args[2] then 
   sty_args = "," .. args[2]
@@ -149,7 +126,7 @@ local oldparams = {
   -- htlatex=latex_cmd
   -- ,input=input 
   -- ,tex_file = tex_file
-  format= output_format
+  format = output_format
   -- ,latex_par=latex_par
   -- ,tex4ht_sty_par=tex4ht_sty_par
   -- ,tex4ht_par=tex4ht_par
@@ -159,7 +136,6 @@ local oldparams = {
   ,tidy = tidy
   ,include_fonts = include_fonts
   ,resolution=args.resolution
-  ,mathml=mathml
   ,packages="\\RequirePackage{tex4ebook}"
 }  
 
