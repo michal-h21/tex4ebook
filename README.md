@@ -38,6 +38,7 @@ You don't have to modify your source files unless you want to use commands
 defined by `tex4ebook` in the document, or when your document uses a 
 package which causes a compilation error. 
 
+
 If you want to use `tex4ebook` commands, add this line to your document
 preamble:
 
@@ -79,6 +80,10 @@ But it is optional. You shouldn't need to modify your \TeX\ files
 `-f,--format (default epub)`
 
 :    Output format. Epub, Epub3 and Mobi formats are supported.
+
+`-j,--jobname`
+
+:    Specify the output file name, without file extension.
 
 `-l,--lua`
 

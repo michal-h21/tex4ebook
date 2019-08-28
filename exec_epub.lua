@@ -113,6 +113,15 @@ media-type="application/oebps-package+xml"/>
 	end
 	params.config_file.Make:tex4ht()
 	params.config_file.Make:t4ht()
+  -- do some cleanup
+  params.config_file.Make:match("tmp$",function(filename, par)
+    -- detect if a tmp file was created for content from STDIN
+    if par.is_tmp_file then
+      -- and remove it
+      print("Removing temporary file", par.tex_file)
+      os.remove(par.tex_file)
+    end
+  end)
 	params.config_file.Make:run()
 	print("-------------------")
 	--[[for k,v in pairs(params.config_file.Make) do

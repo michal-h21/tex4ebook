@@ -1,5 +1,9 @@
 # Changes
 
+- 2019/08/28
+
+  - added support for reading input from `STDIN`.
+
 - 2019/08/27
 
   - added support for the `--jobname` command line option.
