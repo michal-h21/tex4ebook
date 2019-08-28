@@ -190,165 +190,165 @@ function make_opf()
 	--local opf_second_part = outputdir .. "/content-part2.opf"
 	if 
 		ebookutils.file_exists(opf_first_part) and ebookutils.file_exists(opf_second_part) 
-		then
-			local h_first  = io.open(opf_first_part,"r")
-			local h_second = io.open(opf_second_part,"r")
-			local opf_complete = {}
-			table.insert(opf_complete,h_first:read("*all"))
-			local used_html = find_all_files(opf_complete[1])
-			-- local lg_file = ebookutils.parse_lg(outputfilename..".lg")
-      -- The lg_file has been already loaded by make4ht, it doesn't make sense to load it again
-      -- Furthermore, it is now possible to add new files from Lua build files
-      local lg_file = Make.lgfile  or ebookutils.parse_lg(outputfilename..".lg")
-			local used_files = {}
-      for _,filename in ipairs(lg_file["files"]) do
-        -- we need to test the filenames in order to prevent duplicates
-        -- filenames are tested without paths, so there may be issues if 
-        -- the same filename is used in different directories. Is that a problem?
-        used_files[filename] = true
-      end
-			local outside_spine = {}
-			local all_used_files = find_all_files(opf_complete[1],"([%a%d%-%_]+%.[%a%d]+)")
-			local used_paths = {}
-      local used_ids   = {}
-			for _,k in ipairs(lg_file["files"]) do
-				local ext = k:match("%.([%a%d]*)$")
-				local parts = k:split "/"
-				local fn = parts[#parts]
-				local allow_in_spine =  {html="",xhtml = "", xml = ""}
-				table.remove(parts,#parts)
-				--table.insert(parts,1,"OEBPS")
-				table.insert(parts,1,outputdir)
-				-- print("SSSSS "..fn.." ext .." .. ext)
-				--if string.find("jpg gif png", ext) and not all_used_files[k] then
-				local item,id = lg_item(k) 
-				if item then
-         local path = table.concat(parts)
-					if not used_paths[path] then
-						ebookutils.mkdirectories(parts)
-						used_paths[path]=true
-					end
-					if allow_in_spine[ext] and tidy then 
-						if tidyconf then
-							print("Tidy: "..k)
-							local run ="tidy -c  -w 200 -q -utf8 -m -config " .. tidyconf .." " .. k
-							os.execute(run) 
-						else
-							print "Tidy: Cannot load tidyconf.conf"
-						end
-					end
-          if not used_ids[id] then    
-            ebookutils.copy(k, outputdir .. "/"..k)
-            if not all_used_files[fn] then
-              table.insert(opf_complete,item)
-              if allow_in_spine[ext] then 
-                table.insert(outside_spine,id)
-              end
+	then
+    local h_first  = io.open(opf_first_part,"r")
+    local h_second = io.open(opf_second_part,"r")
+    local opf_complete = {}
+    table.insert(opf_complete,h_first:read("*all"))
+    local used_html = find_all_files(opf_complete[1])
+    -- local lg_file = ebookutils.parse_lg(outputfilename..".lg")
+    -- The lg_file has been already loaded by make4ht, it doesn't make sense to load it again
+    -- Furthermore, it is now possible to add new files from Lua build files
+    local lg_file = Make.lgfile  or ebookutils.parse_lg(outputfilename..".lg")
+    local used_files = {}
+    for _,filename in ipairs(lg_file["files"]) do
+      -- we need to test the filenames in order to prevent duplicates
+      -- filenames are tested without paths, so there may be issues if 
+      -- the same filename is used in different directories. Is that a problem?
+      used_files[filename] = true
+    end
+    local outside_spine = {}
+    local all_used_files = find_all_files(opf_complete[1],"([%a%d%-%_]+%.[%a%d]+)")
+    local used_paths = {}
+    local used_ids   = {}
+    for _,k in ipairs(lg_file["files"]) do
+      local ext = k:match("%.([%a%d]*)$")
+      local parts = k:split "/"
+      local fn = parts[#parts]
+      local allow_in_spine =  {html="",xhtml = "", xml = ""}
+      table.remove(parts,#parts)
+      --table.insert(parts,1,"OEBPS")
+      table.insert(parts,1,outputdir)
+      -- print("SSSSS "..fn.." ext .." .. ext)
+      --if string.find("jpg gif png", ext) and not all_used_files[k] then
+      local item,id = lg_item(k) 
+      if item then
+        local path = table.concat(parts)
+        if not used_paths[path] then
+          ebookutils.mkdirectories(parts)
+          used_paths[path]=true
+        end
+        if allow_in_spine[ext] and tidy then 
+          if tidyconf then
+            print("Tidy: "..k)
+            local run ="tidy -c  -w 200 -q -utf8 -m -config " .. tidyconf .." " .. k
+            os.execute(run) 
+          else
+            print "Tidy: Cannot load tidyconf.conf"
+          end
+        end
+        if not used_ids[id] then    
+          ebookutils.copy(k, outputdir .. "/"..k)
+          if not all_used_files[fn] then
+            table.insert(opf_complete,item)
+            if allow_in_spine[ext] then 
+              table.insert(outside_spine,id)
             end
-					end
-          used_ids[id] = true
-				end
-			end
-			for _,f in ipairs(lg_file["images"]) do
-				local f = f.output
-        local p, id = lg_item(f)
-        -- process the images only if they weren't registered in lg_file["files"]
-        -- they would be processed twice otherwise
-        if not used_files[f] and not used_ids[id] then
-          ebookutils.copy(f, outputdir .. "/"..f)
-          table.insert(opf_complete,p)
+          end
         end
         used_ids[id] = true
-			end
-			local end_opf = h_second:read("*all")
-			local spine_items = {}
-			for _,i in ipairs(outside_spine) do
-				table.insert(spine_items,
-				'<itemref idref="${idref}" linear="no" />' % {idref=i})
-			end
-			table.insert(opf_complete,end_opf % {spine = table.concat(spine_items,"\n")})
-			h_first:close()
-			h_second:close()
-			h_first = io.open(opf_first_part,"w")
-      local opf_completed = table.concat(opf_complete,"\n")
-      -- poor man's tidy: remove trailing whitespace befora xml tags
-      opf_completed = opf_completed:gsub("[ ]*<","<")
-      opf_completed = remove_empty_guide(opf_completed)
-			h_first:write(opf_completed)
-			h_first:close()
-			os.remove(opf_second_part)
-			--ebookutils.copy(outputfilename ..".css",outputdir.."/")
-			ebookutils.copy(opf_first_part,outputdir.."/"..opf_first_part)
-			--for c,v in pairs(lg_file["fonts"]) do
-			--	print(c, table.concat(v,", "))
-			--end
-			--print(table.concat(opf_complete,"\n"))
-		else
-			print("Missing opf file")
-		end
-	end
-  local function find_zip()
-    if io.popen("zip -v","r"):close() then
-      return "zip"
-    elseif io.popen("miktex-zip -v","r"):close() then
-      return "miktex-zip"
-    end
-    print "It appears you don't have zip command installed. I can't pack the ebook"
-    return "zip"
-  end
-
-	function pack_container()
-    local ncxfilename = outputdir .. "/" .. outputfilename .. ".ncx"
-		if os.execute("tidy -v") > 0 then
-			print("Warning:\n  tidy command seems missing, you should install it" ..
-			" in order\n  to make valid epub file") 
-      print("Using regexp based cleaning")
-      local lines = {}
-      for line in io.lines(ncxfilename) do
-        local content = line:gsub("[ ]*<","<")
-        if content:len() > 0 then
-          table.insert(lines, content)
-        end
       end
-      table.insert(lines,"")
-      local ncxfile = io.open(ncxfilename,"w")
-      ncxfile:write(table.concat(lines,"\n"))
-      ncxfile:close()
-		else
-		  print("Tidy ncx "..
-		  os.execute("tidy -xml -i -q -utf8 -m " ..  ncxfilename))
-			print("Tidy opf "..
-			os.execute("tidy -xml -i -q -utf8 -m " .. 
-			outputdir .. "/" .. "content.opf"))
-		end
-		print(mimetype)
-    local zip = find_zip()
-    -- we need to remove the epub file if it exists already, because it may contain files which aren't used anymore
-    if ebookutils.file_exists(outputfile) then os.remove(outputfile) end
-		print("Pack mimetype " .. os.execute("cd "..basedir.." && "..zip.." -q0X "..outputfile .." ".. mimetype_name))
-		print("Pack metadir "   .. os.execute("cd "..basedir.." && "..zip.." -qXr9D " .. outputfile.." "..metadir_name))
-		print("Pack outputdir " .. os.execute("cd "..basedir.." && "..zip.." -qXr9D " .. outputfile.." "..outputdir_name))
-		print("Copy generated epub ")
-		ebookutils.cp(basedir .."/"..outputfile, destdir .. outputfile)
+    end
+    for _,f in ipairs(lg_file["images"]) do
+      local f = f.output
+      local p, id = lg_item(f)
+      -- process the images only if they weren't registered in lg_file["files"]
+      -- they would be processed twice otherwise
+      if not used_files[f] and not used_ids[id] then
+        ebookutils.copy(f, outputdir .. "/"..f)
+        table.insert(opf_complete,p)
+      end
+      used_ids[id] = true
+    end
+    local end_opf = h_second:read("*all")
+    local spine_items = {}
+    for _,i in ipairs(outside_spine) do
+      table.insert(spine_items,
+      '<itemref idref="${idref}" linear="no" />' % {idref=i})
+    end
+    table.insert(opf_complete,end_opf % {spine = table.concat(spine_items,"\n")})
+    h_first:close()
+    h_second:close()
+    h_first = io.open(opf_first_part,"w")
+    local opf_completed = table.concat(opf_complete,"\n")
+    -- poor man's tidy: remove trailing whitespace befora xml tags
+    opf_completed = opf_completed:gsub("[ ]*<","<")
+    opf_completed = remove_empty_guide(opf_completed)
+    h_first:write(opf_completed)
+    h_first:close()
+    os.remove(opf_second_part)
+    --ebookutils.copy(outputfilename ..".css",outputdir.."/")
+    ebookutils.copy(opf_first_part,outputdir.."/"..opf_first_part)
+    --for c,v in pairs(lg_file["fonts"]) do
+    --	print(c, table.concat(v,", "))
+    --end
+    --print(table.concat(opf_complete,"\n"))
+  else
+    print("Missing opf file")
+  end
+end
+local function find_zip()
+  if io.popen("zip -v","r"):close() then
+    return "zip"
+  elseif io.popen("miktex-zip -v","r"):close() then
+    return "miktex-zip"
+  end
+  print "It appears you don't have zip command installed. I can't pack the ebook"
+  return "zip"
+end
+
+function pack_container()
+  local ncxfilename = outputdir .. "/" .. outputfilename .. ".ncx"
+  if os.execute("tidy -v") > 0 then
+    print("Warning:\n  tidy command seems missing, you should install it" ..
+    " in order\n  to make valid epub file") 
+    print("Using regexp based cleaning")
+    local lines = {}
+    for line in io.lines(ncxfilename) do
+      local content = line:gsub("[ ]*<","<")
+      if content:len() > 0 then
+        table.insert(lines, content)
+      end
+    end
+    table.insert(lines,"")
+    local ncxfile = io.open(ncxfilename,"w")
+    ncxfile:write(table.concat(lines,"\n"))
+    ncxfile:close()
+  else
+    print("Tidy ncx "..
+    os.execute("tidy -xml -i -q -utf8 -m " ..  ncxfilename))
+    print("Tidy opf "..
+    os.execute("tidy -xml -i -q -utf8 -m " .. 
+    outputdir .. "/" .. "content.opf"))
+  end
+  print(mimetype)
+  local zip = find_zip()
+  -- we need to remove the epub file if it exists already, because it may contain files which aren't used anymore
+  if ebookutils.file_exists(outputfile) then os.remove(outputfile) end
+  print("Pack mimetype " .. os.execute("cd "..basedir.." && "..zip.." -q0X "..outputfile .." ".. mimetype_name))
+  print("Pack metadir "   .. os.execute("cd "..basedir.." && "..zip.." -qXr9D " .. outputfile.." "..metadir_name))
+  print("Pack outputdir " .. os.execute("cd "..basedir.." && "..zip.." -qXr9D " .. outputfile.." "..outputdir_name))
+  print("Copy generated epub ")
+  ebookutils.cp(basedir .."/"..outputfile, destdir .. outputfile)
 end
 
 
-	function writeContainer()
-		make_opf()
-		pack_container()
-	end
-	local function deldir(path)
-		for entry in lfs.dir(path) do
-			if entry~="." and entry~=".." then  
-				os.remove(path.."/"..entry)
-			end
-		end
-		os.remove(path)
-		--]]
-	end
+function writeContainer()
+  make_opf()
+  pack_container()
+end
+local function deldir(path)
+  for entry in lfs.dir(path) do
+    if entry~="." and entry~=".." then  
+      os.remove(path.."/"..entry)
+    end
+  end
+  os.remove(path)
+  --]]
+end
 
-	function clean()
-		--deldir(outputdir)
-		--deldir(metadir)
-		--os.remove(mimetype)
+function clean()
+  --deldir(outputdir)
+  --deldir(metadir)
+  --os.remove(mimetype)
 end
