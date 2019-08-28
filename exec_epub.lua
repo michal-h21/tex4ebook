@@ -42,12 +42,6 @@ local function deletedir(dir)
 end
 
 function prepare(params)
-	local randname=tostring(math.random(12000))
-	-- if not ebookutils.file_exists("tex4ht.env") then
-	--  local env_file = kpse.find_file("epub2.env")
-	--print("Local env file: "..env_file)
-	--  ebookutils.copy(env_file,"tex4ht.env")
-	-- end
 	local makedir= function(path)
 		local current = lfs.currentdir()
 		local dir = ebookutils.prepare_path(path .. "/")
@@ -60,22 +54,15 @@ function prepare(params)
 		lfs.chdir(current)
 	end
 	basedir = params.input.."-".. params.format
-	outputdir= basedir.."/"..outputdir_name --"outdir-"..randname --os.tmpdir()
+	outputdir= basedir.."/"..outputdir_name
   deletedir(basedir)
 	makedir(outputdir)
-	-- lfs.mkdir(outputdir)
-	--ebookutils.mkdirectories(ebookutils.prepare_path(outputdir.."/"))
-	metadir = basedir .."/" .. metadir_name --"metadir-"..randname
+	metadir = basedir .."/" .. metadir_name 
 	makedir(metadir)
   if params.outdir ~= "" then
     destdir = params.outdir .. "/"
     makedir(destdir)
   end
-	--local dd = ebookutils.prepare_path(metadir.."/")
-	--for _,d in pairs(dd) do print("metadir path: "..d) end
-	-- lfs.mkdir(metadir)
-	--local status, msg = ebookutils.mkdirectories(ebookutils.prepare_path(metadir.."/"))
-	--if not status then print("make mmetadir error:" ..msg) end
 	mimetype= basedir .. "/" ..mimetype_name --os.tmpname()
 	print(outputdir)
 	print(mimetype)
