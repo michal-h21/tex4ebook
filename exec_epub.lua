@@ -70,6 +70,31 @@ function prepare(params)
 	include_fonts = params.include_fonts
 	params["t4ht_par"] = params["t4ht_par"] -- + "-d"..string.format(params["t4ht_dir_format"],outputdir)
   params.tex4ht_sty_par = params.tex4ht_sty_par .. ",uni-html4"
+	params.config_file.Make.params = params
+  local mode = params.mode
+	if params.config_file.Make:length() < 1 then
+    if mode == "draft" then
+      params.config_file.Make:htlatex()
+    else
+      params.config_file.Make:htlatex()
+      params.config_file.Make:htlatex()
+      params.config_file.Make:htlatex() 
+    end
+	end
+	if #params.config_file.Make.image_patterns > 0 then
+		params["t4ht_par"] = params["t4ht_par"] .." -p"
+	end
+	params.config_file.Make:tex4ht()
+	params.config_file.Make:t4ht()
+  -- do some cleanup
+  params.config_file.Make:match("tmp$",function(filename, par)
+    -- detect if a tmp file was created for content from STDIN
+    if par.is_tmp_file then
+      -- and remove it
+      print("Removing temporary file", par.tex_file)
+      os.remove(par.tex_file)
+    end
+  end)
 	return(params)
 end
 
@@ -97,31 +122,6 @@ media-type="application/oebps-package+xml"/>
 	local htlatex_run = "${htlatex} ${input} \"${config}${tex4ht_sty_par}\" \"${tex4ht_par}\" \"${t4ht_par}\" \"${latex_par}\"" % params
 	print("Make4ht run")
 	print("-------------------")
-	params.config_file.Make.params = params
-  local mode = params.mode
-	if params.config_file.Make:length() < 1 then
-    if mode == "draft" then
-      params.config_file.Make:htlatex()
-    else
-      params.config_file.Make:htlatex()
-      params.config_file.Make:htlatex()
-      params.config_file.Make:htlatex() 
-    end
-	end
-	if #params.config_file.Make.image_patterns > 0 then
-		params["t4ht_par"] = params["t4ht_par"] .." -p"
-	end
-	params.config_file.Make:tex4ht()
-	params.config_file.Make:t4ht()
-  -- do some cleanup
-  params.config_file.Make:match("tmp$",function(filename, par)
-    -- detect if a tmp file was created for content from STDIN
-    if par.is_tmp_file then
-      -- and remove it
-      print("Removing temporary file", par.tex_file)
-      os.remove(par.tex_file)
-    end
-  end)
 	params.config_file.Make:run()
 	print("-------------------")
 	--[[for k,v in pairs(params.config_file.Make) do

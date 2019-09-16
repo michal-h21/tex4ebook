@@ -150,16 +150,6 @@ params.tex4ht_sty_par=params.tex4ht_sty_par .. ",charset=utf-8,"..output_format
 params.tex4ht_par= " -cmozhtf -utf8" .. params.tex4ht_par
 
 
-if output_formats[output_format] then
-  executor=require("exec_"..output_format)
-  params=executor.prepare(params)
-  if #extensions > 0 then
-    params = ebookutils.extensions_prepare_parameters(extensions,params)
-  end
-else
-  print("Unknown output format: "..output_format)
-  return
-end
 
 -- find tex4ebook configuration file
 local configname = "tex4ebook"
@@ -180,6 +170,18 @@ end
 local config_file = ebookutils.load_config(params, build_file)
 
 params["config_file"] = config_file
+
+
+if output_formats[output_format] then
+  executor=require("exec_"..output_format)
+  params=executor.prepare(params)
+  if #extensions > 0 then
+    params = ebookutils.extensions_prepare_parameters(extensions,params)
+  end
+else
+  print("Unknown output format: "..output_format)
+  return
+end
 --config_file.Make:run()
 print("${htlatex} ${input} \"${tex4ht_sty_par}\" \"${tex4ht_par}\" \"${t4ht_par}\" \"${latex_par}\"" % params)
 if #extensions > 0 then
