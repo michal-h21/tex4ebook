@@ -1,5 +1,11 @@
 # Changes
 
+- 2019/09/16
+
+  - fixed bug with void elements parsing in the OPF file.
+  - make the default build sequence before loading of the extensions. Some
+    extensions need to modify the build sequence.
+
 - 2019/08/28
 
   - added support for reading input from `STDIN`.
