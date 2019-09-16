@@ -60,7 +60,10 @@ local function add_media_overlays(content)
     end
     return os.date("%H:%M:%S",time)
   end
-  local opfdom = dom.parse(content)
+  -- the second parameter for parse is table with void elements. the OPF format has no
+  -- void elements, so it needs to be empty, otherwise we may get parsing error because of
+  -- <meta> element, which is included in the default void elements
+  local opfdom = dom.parse(content, {})
   local items = opfdom:query_selector("manifest item")
   local ref = {}
   local times = {}
