@@ -18,7 +18,7 @@ ifeq ($(strip $(shell git rev-parse --is-inside-work-tree 2>/dev/null)),true)
 	DATE:= $(firstword $(shell git --no-pager show --date=short --format="%ad" --name-only))
 endif
 
-# use sudo for install to destination directory outise home
+# use sudo for install to a destination directory outside of $HOME
 ifeq ($(findstring home,$(SYSTEM_DIR)),home)
 	SUDO:=
 else
