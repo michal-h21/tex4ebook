@@ -150,7 +150,7 @@ end
 local function cleanTOC(content)
   -- remove spurious empty elements from the TOC, to make epubcheck happy
   -- find the file with TOC ("properties" attribute set to "nav"
-  local opfdom = dom.parse(content)
+  local opfdom = dom.parse(content,{})
   for _,item in ipairs(opfdom:query_selector("item")) do
     local properties = item:get_attribute("properties") or ""
     if properties:match("nav") then
