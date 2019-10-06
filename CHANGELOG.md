@@ -3,6 +3,7 @@
 - 2019/10/06
 
   - fixed bug with void elements parsing in the OPF file.
+  - undo `\XeTeXcharclass` for the `:` character when the OPF file is generated.
 
 - 2019/09/16
 
