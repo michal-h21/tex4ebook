@@ -5,7 +5,6 @@ install:
   # make4ht
   - git clone https://github.com/michal-h21/make4ht
   - cd make4ht
-  - make
   - sudo make justinstall
   - cd ..
 
