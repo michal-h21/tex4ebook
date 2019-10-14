@@ -1,3 +1,4 @@
+dist: bionic
 
 install:
   - sudo apt-get install -qq luatex texlive-base texlive-luatex pandoc latexmk texlive texlive-xetex tex4ht texlive-latex-extra texlive-fonts-extra  texlive-fonts-recommended fonts-lmodern tex-gyre fonts-texgyre
