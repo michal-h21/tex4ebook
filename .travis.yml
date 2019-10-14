@@ -6,7 +6,7 @@ install:
   - git clone https://github.com/michal-h21/make4ht
   - cd make4ht
   - make
-  - sudo make install
+  - sudo make justinstall
   - cd ..
 
 script:
