@@ -41,8 +41,8 @@ tex4ebook [switches] filename ["tex4ht.sty op."] ["tex4ht op."] ["t4ht op"] ["la
   -r,--resolution (default 167)
   -s,--shell-escape  Enable shell escape in htlatex run
   -t,--tidy Run html tidy on html output. May result in wrong spacing!
-  -v,--version  Display version number
   -x,--xetex Use xelatex for document compilation
+  -v,--version  Display version number
   ]]
   
 -- options for the template used by mkparams to generate the help message
