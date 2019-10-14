@@ -8,6 +8,7 @@ install:
   - sudo make justinstall
   - cd ..
 
+
 script:
   # From https://github.com/michal-h21/tex4ebook/issues/37#issuecomment-354447097
   - git fetch --tags
