@@ -5,6 +5,7 @@
 kpse.set_program_name("luatex")
 require("lapp-mk4")
 -- require("ebookutils")
+logging = require "make4ht-logging"
 local ebookutils = require "mkutils"
 local mkparams = require "mkparams"
 local mk_config = require "make4ht-config"
@@ -30,6 +31,8 @@ local arg_message = [[
 tex4ebook - ebook generation support for LaTeX
 Usage:
 tex4ebook [switches] filename ["tex4ht.sty op."] ["tex4ht op."] ["t4ht op"] ["latex op"]
+  -a,--loglevel (default warning) Set log level.
+                possible values: debug, info, warning, error, fatal
   -c,--config (default xhtml) Custom config file
   -d,--output-dir (default nil)  Output directory
   -e,--build-file (default nil)  If build file is different than `filename`.mk4

@@ -52,6 +52,10 @@ But it is optional. You shouldn't need to modify your \TeX\ files
 
 # Command line options
 
+`-a,--loglevel` 
+
+:      Set message log level. Possible values: debug, info, warning, error, fatal. Default: warning.
+
 `-c,--config`
 
 :    specify custom config file for `tex4ht`
