@@ -6,6 +6,7 @@ kpse.set_program_name("luatex")
 require("lapp-mk4")
 -- require("ebookutils")
 logging = require "make4ht-logging"
+if os.type == "windows" then logging.use_colors = false end
 local ebookutils = require "mkutils"
 local mkparams = require "mkparams"
 local mk_config = require "make4ht-config"
