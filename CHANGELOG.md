@@ -1,5 +1,9 @@
 # Changes
 
+- 2019/10/20
+
+  - addapted to use the `make4ht` logging mechanism.
+
 - 2019/10/06
 
   - fixed bug with void elements parsing in the OPF file.

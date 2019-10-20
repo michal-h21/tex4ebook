@@ -7,6 +7,7 @@ require("lapp-mk4")
 -- require("ebookutils")
 logging = require "make4ht-logging"
 if os.type == "windows" then logging.use_colors = false end
+local log = logging.new("tex4ebook")
 local ebookutils = require "mkutils"
 local mkparams = require "mkparams"
 local mk_config = require "make4ht-config"
@@ -121,6 +122,8 @@ args.filename=input_file
 -- let make4ht handle the common options
 local params = mkparams.process_args(args)
 local input = params.input
+log:status("Conversion started")
+log:status("Input file: ".. params.tex_file)
 
 
 local output_format = params.output_format 
@@ -195,4 +198,5 @@ end
 executor.run(input,params)
 executor.writeContainer()
 executor.clean()
+log:status("Conversion finished")
 --print(args[1])
