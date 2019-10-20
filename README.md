@@ -54,7 +54,7 @@ But it is optional. You shouldn't need to modify your \TeX\ files
 
 `-a,--loglevel` 
 
-:      Set message log level. Possible values: debug, info, warning, error, fatal. Default: warning.
+:      Set message log level. Possible values: debug, info, status, warning, error, fatal. Default: status.
 
 `-c,--config`
 

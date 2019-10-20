@@ -32,8 +32,8 @@ local arg_message = [[
 tex4ebook - ebook generation support for LaTeX
 Usage:
 tex4ebook [switches] filename ["tex4ht.sty op."] ["tex4ht op."] ["t4ht op"] ["latex op"]
-  -a,--loglevel (default warning) Set log level.
-                possible values: debug, info, warning, error, fatal
+  -a,--loglevel (default status) Set log level.
+                possible values: debug, info, status, warning, error, fatal
   -c,--config (default xhtml) Custom config file
   -d,--output-dir (default nil)  Output directory
   -e,--build-file (default nil)  If build file is different than `filename`.mk4
