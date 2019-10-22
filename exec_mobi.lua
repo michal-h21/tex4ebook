@@ -1,6 +1,7 @@
 module(...,package.seeall)
 local eb = require("exec_epub")
 local ebookutils = require("mkutils")
+local log = logging.new "exec_mobi"
 
 function prepare(params)
 	return eb.prepare(params)
@@ -14,7 +15,7 @@ function writeContainer()
 	local ret =  eb.writeContainer()
   -- convert the epub file to mobi
   local epubpath = eb.basedir .. "/" .. eb.outputfile
-	print("Pack mobi "..os.execute("kindlegen " .. epubpath))
+	log:info("Pack mobi "..os.execute("kindlegen " .. epubpath))
   -- find the mobi filename 
   local mobifile = epubpath:gsub("epub$", "mobi")
   local mobidist = eb.destdir ..  eb.outputfile:gsub("epub$", "mobi")

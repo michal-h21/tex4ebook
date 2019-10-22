@@ -162,10 +162,10 @@ params.tex4ht_par= " -cmozhtf -utf8" .. params.tex4ht_par
 local configname = "tex4ebook"
 local conffile = mk_config.find_config(configname) or mk_config.find_xdg_config(configname)
 if conffile then
-  print("Using configuration file: " .. conffile)
+  log:info("Using configuration file: " .. conffile)
   ebookutils.load_config(params, conffile)
 else
-  print "No conffile"
+  log:info "No conffile"
 end
 
 local build_file = input.. ".mk4"
@@ -186,11 +186,11 @@ if output_formats[output_format] then
     params = ebookutils.extensions_prepare_parameters(extensions,params)
   end
 else
-  print("Unknown output format: "..output_format)
+  log:error("Unknown output format: "..output_format)
   return
 end
 --config_file.Make:run()
-print("${htlatex} ${input} \"${tex4ht_sty_par}\" \"${tex4ht_par}\" \"${t4ht_par}\" \"${latex_par}\"" % params)
+-- print("${htlatex} ${input} \"${tex4ht_sty_par}\" \"${tex4ht_par}\" \"${t4ht_par}\" \"${latex_par}\"" % params)
 if #extensions > 0 then
   config_file.Make = ebookutils.extensions_modify_build(extensions, config_file.Make)
 end

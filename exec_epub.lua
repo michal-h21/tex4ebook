@@ -2,6 +2,7 @@ module("exec_epub",package.seeall)
 local lfs = require("lfs")
 local os = require("os")
 local io = require("io")
+local log = logging.new("exec_epub")
 --local ebookutils = require("ebookutils")
 local ebookutils = require "mkutils"
 -- font loading doesn't work, font database format changes  often
@@ -29,16 +30,16 @@ local function deletedir(dir)
         if file ~= "." and file ~= ".." then
             if lfs.attributes(file_path, 'mode') == 'file' then
                 os.remove(file_path)
-                print('remove file',file_path)
+                log:info('remove file',file_path)
             elseif lfs.attributes(file_path, 'mode') == 'directory' then
-                print('dir', file_path)
+                log:info('dir', file_path)
                 deletedir(file_path)
             end
         end
     end
     lfs.rmdir(dir)
   end
-  print('remove dir',dir)
+  log:info('remove dir',dir)
 end
 
 function prepare(params)
@@ -64,8 +65,6 @@ function prepare(params)
     makedir(destdir)
   end
 	mimetype= basedir .. "/" ..mimetype_name --os.tmpname()
-	print(outputdir)
-	print(mimetype)
 	tidy = params.tidy
 	include_fonts = params.include_fonts
 	params["t4ht_par"] = params["t4ht_par"] -- + "-d"..string.format(params["t4ht_dir_format"],outputdir)
@@ -91,7 +90,7 @@ function prepare(params)
     -- detect if a tmp file was created for content from STDIN
     if par.is_tmp_file then
       -- and remove it
-      print("Removing temporary file", par.tex_file)
+      log:info("Removing temporary file", par.tex_file)
       os.remove(par.tex_file)
     end
   end)
@@ -102,7 +101,7 @@ function run(out,params)
 	--local currentdir=
 	outputfilename=out
 	outputfile = outputfilename..".epub"
-	print("Output file: "..outputfile)
+	log:info("Output file: "..outputfile)
 	--lfs.chdir(metadir)
 	local m= io.open(metadir.."/container.xml","w")
 	m:write([[
@@ -119,11 +118,7 @@ media-type="application/oebps-package+xml"/>
 	m=io.open(mimetype,"w")
 	m:write("application/epub+zip")
 	m:close()
-	local htlatex_run = "${htlatex} ${input} \"${config}${tex4ht_sty_par}\" \"${tex4ht_par}\" \"${t4ht_par}\" \"${latex_par}\"" % params
-	print("Make4ht run")
-	print("-------------------")
 	params.config_file.Make:run()
-	print("-------------------")
 	--[[for k,v in pairs(params.config_file.Make) do
 		print(k.. " : "..type(v))
 	end--]]
@@ -158,7 +153,7 @@ function make_opf()
 		-- Find mimetype and make item tag for each converted file in the lg file
 		local fname,ext = item:match("([%a%d%_%-]*)%p([%a%d]*)$")
 		local mimetype = mimetypes[ext] or ""
-		if mimetype == "" then print("Mimetype for "..ext.." is not registered"); return nil end
+		if mimetype == "" then log:info("Mimetype for "..ext.." is not registered"); return nil end
 		local dir_part = item:split("/")
 		table.remove(dir_part,#dir_part)
 		local id=table.concat(dir_part,"-")..fname.."_"..ext
@@ -226,11 +221,11 @@ function make_opf()
         end
         if allow_in_spine[ext] and tidy then 
           if tidyconf then
-            print("Tidy: "..k)
+            log:info("Tidy: "..k)
             local run ="tidy -c  -w 200 -q -utf8 -m -config " .. tidyconf .." " .. k
             os.execute(run) 
           else
-            print "Tidy: Cannot load tidyconf.conf"
+            log:info "Tidy: Cannot load tidyconf.conf"
           end
         end
         if not used_ids[id] then    
@@ -280,7 +275,7 @@ function make_opf()
     --end
     --print(table.concat(opf_complete,"\n"))
   else
-    print("Missing opf file")
+    log:warning("Missing opf file")
   end
 end
 local function find_zip()
@@ -289,16 +284,16 @@ local function find_zip()
   elseif io.popen("miktex-zip -v","r"):close() then
     return "miktex-zip"
   end
-  print "It appears you don't have zip command installed. I can't pack the ebook"
+  log:warning "It appears you don't have zip command installed. I can't pack the ebook"
   return "zip"
 end
 
 function pack_container()
   local ncxfilename = outputdir .. "/" .. outputfilename .. ".ncx"
   if os.execute("tidy -v") > 0 then
-    print("Warning:\n  tidy command seems missing, you should install it" ..
+    log:warning("tidy command seems missing, you should install it" ..
     " in order\n  to make valid epub file") 
-    print("Using regexp based cleaning")
+    log:info("Using regexp based cleaning")
     local lines = {}
     for line in io.lines(ncxfilename) do
       local content = line:gsub("[ ]*<","<")
@@ -311,20 +306,19 @@ function pack_container()
     ncxfile:write(table.concat(lines,"\n"))
     ncxfile:close()
   else
-    print("Tidy ncx "..
+    log:info("Tidy ncx "..
     os.execute("tidy -xml -i -q -utf8 -m " ..  ncxfilename))
-    print("Tidy opf "..
+    log:info("Tidy opf "..
     os.execute("tidy -xml -i -q -utf8 -m " .. 
     outputdir .. "/" .. "content.opf"))
   end
-  print(mimetype)
   local zip = find_zip()
   -- we need to remove the epub file if it exists already, because it may contain files which aren't used anymore
   if ebookutils.file_exists(outputfile) then os.remove(outputfile) end
-  print("Pack mimetype " .. os.execute("cd "..basedir.." && "..zip.." -q0X "..outputfile .." ".. mimetype_name))
-  print("Pack metadir "   .. os.execute("cd "..basedir.." && "..zip.." -qXr9D " .. outputfile.." "..metadir_name))
-  print("Pack outputdir " .. os.execute("cd "..basedir.." && "..zip.." -qXr9D " .. outputfile.." "..outputdir_name))
-  print("Copy generated epub ")
+  log:info("Pack mimetype " .. os.execute("cd "..basedir.." && "..zip.." -q0X "..outputfile .." ".. mimetype_name))
+  log:info("Pack metadir "   .. os.execute("cd "..basedir.." && "..zip.." -qXr9D " .. outputfile.." "..metadir_name))
+  log:info("Pack outputdir " .. os.execute("cd "..basedir.." && "..zip.." -qXr9D " .. outputfile.." "..outputdir_name))
+  log:info("Copy generated epub ")
   ebookutils.cp(basedir .."/"..outputfile, destdir .. outputfile)
 end
 

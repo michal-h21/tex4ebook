@@ -1,6 +1,7 @@
 module(...,package.seeall)
 local eb = require("exec_epub")
 local dom = require("luaxml-domobject")
+local log = logging.new "exec_epub3"
 
 local ext = "xhtml"
 local outputdir = nil
@@ -138,7 +139,7 @@ local function remove_spurious_TOC_elements(tocdom)
     for _, child in ipairs(el._children) do
       if child:is_text() then 
         local new_el = el:create_element("span")
-        print("replace child", child._text)
+        log:info("replace child", child._text)
         new_el:add_child_node(child:copy_node())
         child:replace_node(new_el)
       end
@@ -179,18 +180,18 @@ local function cleanOPF()
 	local opf =  "content.opf"
 	local f = io.open(opf,"r")
 	if not f then 
-    print("Cannot open "..opf .. " for toc searching")
+    log:info("Cannot open "..opf .. " for toc searching")
 		return nil
   end
   local content = f:read("*all")
 	f:close()
 	if content:find "properties[%s]*=[%s]*\"[^\"]*nav" then
-    print "TOC nav found"
+    log:info "TOC nav found"
     cleanTOC(content)
   else
-    print "no TOC, using generic one"
+    log:info "no TOC, using a generic one"
     local inputfile = input .. "." .. ext
-    print("Main file name", inputfile)
+    log:info("Main file name: ".. inputfile)
 		-- write toc file
     local toc_name = "generic_toc" .."."..ext
 		local f = io.open(outputdir .. "/" .. toc_name, "w")
@@ -217,7 +218,7 @@ end
 
 function writeContainer()			
 	--local ret =  eb.writeContainer()
-  print "write container"
+  log:info "write container"
 	eb.make_opf()
 	cleanOPF()
 	local ret = eb.pack_container()
