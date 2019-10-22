@@ -4,9 +4,9 @@
 
 `TeX4ebook` is a tool for conversion from  \LaTeX\ to 
 ebook formats, such as `epub`, `mobi` and `epub3`. 
-It is based on [TeX4ht](https://tug.org/tex4ht/), 
+It is based on `TeX4ht`^[https://tug.org/tex4ht/], 
 which provides instructions for the actual \LaTeX\ to HTML conversion, 
-and on [make4ht](https://ctan.org/pkg/make4ht?lang=en). 
+and on `make4ht`^[https://ctan.org/pkg/make4ht?lang=en]. 
 
 
 The conversion is focuded on the logical structure of the converted document
