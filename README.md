@@ -2,24 +2,22 @@
 
 # Introduction
 
-`TeX4ebook` is bundle of Lua scripts and `LaTeX` packages for conversion of
-LaTeX files to ebook formats, for example `epub`, `mobi` and `epub3`. `tex4ht`
-is used as conversion engine. 
+`TeX4ebook` is a tool for conversion from  \LaTeX\ to 
+ebook formats, such as `epub`, `mobi` and `epub3`. 
+It is based on [TeX4ht](https://tug.org/tex4ht/), 
+which provides instructions for the actual \LaTeX\ to HTML conversion, 
+and on [make4ht](https://ctan.org/pkg/make4ht?lang=en). 
 
-Note that while `mobi` is supported by Amazon Kindle, most widespread ebook 
-reader, it doesn't support `mathml` and this means that math must re represented
-as images. The same is true for `epub`. This is not a good thing, especially 
-for inline math, as you may experience wrong baselines. If your ebook contains
-math, the only correct solution is to produce `epub3`, as it supports `mathml`.
-The issue with `epub3` is, that majority of `e-ink` ebook readers doesn't 
-support this format, reader applications exists mainly for Android and Apple 
-devices. For books which contains mainly prose, all formats should be suitable,
-but `epub3` supports most features from web standards, such as `CSS`. 
 
-As with `tex4ht`, the emphasis is on conversion of document's logical structure
-and metadata, basic visual appearance is preserved as well, but you should use
+The conversion is focuded on the logical structure of the converted document
+and metadata. Basic visual appearance is preserved as well, but you should use
 custom configurations if you want to make the document more visually appealing.
-You can include custom `CSS` or fonts in configuration files.
+You can include custom `CSS` or fonts in a configuration file. 
+
+`TeX4ebook` supports the same features as `make4ht`, in particular build files and extensions.
+These may be used for post-processing of the generated HTML files, or to configure the image conversion.
+See the `make4ht` documentation to see the supported features.
+
 
 ## License
 
@@ -58,7 +56,7 @@ But it is optional. You shouldn't need to modify your \TeX\ files
 
 `-c,--config`
 
-:    specify custom config file for `tex4ht`
+:    specify custom config file for `TeX4ht`
 
    **example config file**: File `sample.cfg`
   
@@ -124,8 +122,8 @@ But it is optional. You shouldn't need to modify your \TeX\ files
  
 # Configuration
 
-`tex4ebook` uses `tex4ht`^[http://www.tug.org/tex4ht/] for conversion from LaTeX
-to html. `tex4ht` is highly configurable using config files. Basic config file
+`TeX4ebook` uses `TeX4ht`^[http://www.tug.org/tex4ht/] for conversion from LaTeX
+to html. `TeX4ht` is highly configurable using config files. Basic config file
 structure is
 
     \Preamble{xhtml, comma separated list of options}
@@ -135,8 +133,8 @@ structure is
     \EndPreamble
 
 Basic info about command configurations can be found in a 
-work-in-progres *tex4ht tutorial*^[https://github.com/michal-h21/helpers4ht/wiki/tex4ht-tutorial], 
-*tex4ht documentation*^[http://www.tug.org/applications/tex4ht/mn11.html], 
+work-in-progres *TeX4ht tutorial*^[https://github.com/michal-h21/helpers4ht/wiki/tex4ht-tutorial], 
+*TeX4ht documentation*^[http://www.tug.org/applications/tex4ht/mn11.html], 
 and in series of blogposts on CV Radhakrishnan's blog:
 *Configure part 1*^[https://web.archive.org/web/20180908234227/http://www.cvr.cc/?p=323], 
 *Configure part 2*^[https://web.archive.org/web/20180908201057/http://www.cvr.cc/?p=362], 
@@ -144,7 +142,7 @@ and in series of blogposts on CV Radhakrishnan's blog:
 Available options for `\Preamble` command are listed in the article 
 *TeX4ht: options*^[https://web.archive.org/web/20180813043722/http://cvr.cc/?p=504]. *Comparison of tex4ebook and Pandoc output*^[https://github.com/richelbilderbeek/travis_tex_to_epub_example_1]
 
-Great source of tips for `tex4ht` configuring is *tex4ht tag on TeX.sx*^[http://tex.stackexchange.com/questions/tagged/tex4ht], there is also a *tag for tex4ebook*^[http://tex.stackexchange.com/questions/tagged/tex4ebook].
+Great source of tips for `TeX4ht` configuring is *tex4ht tag on TeX.sx*^[http://tex.stackexchange.com/questions/tagged/tex4ht], there is also a *tag for tex4ebook*^[http://tex.stackexchange.com/questions/tagged/tex4ebook].
 
 Examples of interesting questions are 
 *including images and fonts in ebooks*^[http://tex.stackexchange.com/a/213165/2891] 
@@ -252,16 +250,31 @@ See the `make4ht` documentation for an example and more information.
 
 # Troubleshooting
 
+## Math issues
+
+Note that while `mobi` is supported by Amazon Kindle, most widespread ebook 
+reader, it doesn't support `MathML`. This means that math must be represented
+as images. The same issue is true for the `epub` format as well. 
+This is problematic especially for the inline math, as you may experience wrong 
+vertical alignment of the math content and surrounding text. If your ebook contains
+math, a better solution is to produce the `epub3` format, as it supports `MathML`.
+The issue with `epub3` is, that majority of `e-ink` ebook readers doesn't 
+support this format, reader applications exists mainly for Android and Apple 
+devices. For books which contains mainly prose, all formats should be suitable,
+but `epub3` supports most features from web standards, such as `CSS`. 
+
+## Compilation errors 
+
 When compilation of the document breaks with error during `LaTeX` run, it may
-be caused by some problem in `tex4ht` configuration. Comment out line
+be caused by some problem in `TeX4ht` configuration. Comment out line
 `\usepackage{tex4ebook}` in your source file and run command:
 
     htlatex filename 
 
-if same error as in `tex4ebook` run arises, the problem is in some `tex4ht`
+if same error as in `tex4ebook` run arises, the problem is in some `TeX4ht`
 configuration. Try to identify the source of problem and if you cannot find the
 solution, make minimal example showing the error and ask for help either on
-*tex4ht mailing list*^[http://tug.org/mailman/listinfo/tex4ht] or on
+*TeX4ht mailing list*^[http://tug.org/mailman/listinfo/tex4ht] or on
 *TeX.sx*^[http://tex.stackexchange.com/]. 
 
 <!--
