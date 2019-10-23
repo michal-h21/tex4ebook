@@ -186,6 +186,38 @@ local function cleanTOC(content)
 
 end
 
+local function fix_properties(content)
+  -- some properties should be used only in the <spine> element, so we need to move them
+  -- here from the <manifest> section
+  -- because why it should be easy, when you can just make messy specification
+  -- and of course my old code is extremely messy as well. 
+  if content:match("page%-spread%-") then
+    local spread_ids = {}
+    local opfdom = dom.parse(content,{})
+    for _,item in ipairs(opfdom:query_selector("manifest item")) do
+      local properties = item:get_attribute "properties"
+      if properties then
+        local id = item:get_attribute "id"
+        properties = properties:gsub("(page%-spread%-[^%s]+)", function(s) 
+          log:info("spread", id, s)
+          spread_ids[id] = s
+          return ""
+        end)
+        -- properties attribute cannot be empty, we must disable it if 
+        -- it doesn't contain anything after removing of the page spread
+        if properties=="" then properties = nil end
+        item:set_attribute("properties", properties)
+      end
+    end
+    for _, item in ipairs(opfdom:query_selector("spine itemref")) do
+      local idref = item:get_attribute("idref")
+      local spread = spread_ids[idref]
+      if spread then item:set_attribute("properties", spread) end
+    end
+    return opfdom:serialize()
+  end
+  return content
+end
 
 local function cleanOPF()
   -- in epub3, there must be table of contents
@@ -221,6 +253,7 @@ local function cleanOPF()
   content = eb.remove_empty_guide(content)
 
   content = add_media_overlays(content)
+  content = fix_properties(content)
   f = io.open(outputdir .. "/" ..opf,"w")
   f:write(content)
   f:close()

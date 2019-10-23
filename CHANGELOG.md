@@ -3,6 +3,7 @@
 - 2019/10/20
 
   - fixed the `TOC` cleanup in the `ePub 3` mode.
+  - added support for the `page-spread-left` and `page-spreat-right` properties.
 
 - 2019/10/20
 
