@@ -191,28 +191,36 @@ local function fix_properties(content)
   -- here from the <manifest> section
   -- because why it should be easy, when you can just make messy specification
   -- and of course my old code is extremely messy as well. 
-  if content:match("page%-spread%-") then
+  if content:match("page%-spread%-") or content:match("rendition") then
     local spread_ids = {}
     local opfdom = dom.parse(content,{})
+    local update_properties = function(id, s)
+      local current_val = spread_ids[id] or {}
+      current_val[#current_val + 1] = s
+      spread_ids[id] = current_val 
+      return ""
+    end
     for _,item in ipairs(opfdom:query_selector("manifest item")) do
       local properties = item:get_attribute "properties"
       if properties then
         local id = item:get_attribute "id"
-        properties = properties:gsub("(page%-spread%-[^%s]+)", function(s) 
-          log:info("spread", id, s)
-          spread_ids[id] = s
-          return ""
-        end)
+        properties = properties:gsub("(page%-spread%-[^%s]+)", function(s) return update_properties(id,s) end)
+        properties = properties:gsub("(rendition%:[^%s]+)", function(s) return update_properties(id,s) end)
         -- properties attribute cannot be empty, we must disable it if 
         -- it doesn't contain anything after removing of the page spread
-        if properties=="" then properties = nil end
+        if properties:match("^%s*$") then properties = nil 
+        else
+          log:warning(string.format("Máme properties :%s:",properties))
+        end
         item:set_attribute("properties", properties)
       end
     end
     for _, item in ipairs(opfdom:query_selector("spine itemref")) do
       local idref = item:get_attribute("idref")
       local spread = spread_ids[idref]
-      if spread then item:set_attribute("properties", spread) end
+      if spread then 
+        item:set_attribute("properties", table.concat(spread, " "))
+      end
     end
     return opfdom:serialize()
   end
