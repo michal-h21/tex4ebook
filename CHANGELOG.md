@@ -2,6 +2,10 @@
 
 - 2019/10/20
 
+  - fixed the `TOC` cleanup in the `ePub 3` mode.
+
+- 2019/10/20
+
   - addapted to use the `make4ht` logging mechanism.
 
 - 2019/10/06

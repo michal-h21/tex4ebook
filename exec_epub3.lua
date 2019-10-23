@@ -133,16 +133,29 @@ local function remove_spurious_TOC_elements(tocdom)
       -- el:add_child_node(newli)
     end
   end
-  -- place child elements of the <li> elements to a <span>, epubcheck reports 
+  -- place child elements of the <li> elements to an <a> element, epubcheck reports 
   -- error for text nodes that are direct child of <li>
   for _, el in ipairs(tocdom:query_selector("li")) do
-    for _, child in ipairs(el._children) do
-      if child:is_text() then 
-        local new_el = el:create_element("span")
-        log:info("replace child", child._text)
-        new_el:add_child_node(child:copy_node())
-        child:replace_node(new_el)
+    local text = {}
+    local link  -- save the <a> element
+    for i, child in ipairs(el._children) do
+      if child:is_text()  then 
+        -- trim spurious spaces
+        local childtext = child._text:gsub("^%s*",""):gsub("%s*$","")
+        -- save the text for the later use
+        table.insert(text, childtext)
+        child:remove_node()
+      elseif child:is_element() and child:get_element_name() == "a"  then
+        link = child
+        table.insert(text, child:get_text())
       end
+    end
+    if link then
+      local content = table.concat(text, " ")
+      -- remove the original text
+      link._children = {}
+      local text = link:create_text_node(content)
+      link:add_child_node(text)
     end
   end
   return tocdom
