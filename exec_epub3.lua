@@ -209,8 +209,6 @@ local function fix_properties(content)
         -- properties attribute cannot be empty, we must disable it if 
         -- it doesn't contain anything after removing of the page spread
         if properties:match("^%s*$") then properties = nil 
-        else
-          log:warning(string.format("Máme properties :%s:",properties))
         end
         item:set_attribute("properties", properties)
       end
