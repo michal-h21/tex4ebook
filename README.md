@@ -3,13 +3,13 @@
 # Introduction
 
 `TeX4ebook` is a tool for conversion from  \LaTeX\ to 
-ebook formats, such as `epub`, `mobi` and `epub3`. 
+ebook formats, such as EPUB, MOBI and EPUB 3. 
 It is based on `TeX4ht`^[https://tug.org/tex4ht/], 
 which provides instructions for the actual \LaTeX\ to HTML conversion, 
 and on `make4ht`^[https://ctan.org/pkg/make4ht?lang=en]. 
 
 
-The conversion is focuded on the logical structure of the converted document
+The conversion is focused on the logical structure of the converted document
 and metadata. Basic visual appearance is preserved as well, but you should use
 custom configurations if you want to make the document more visually appealing.
 You can include custom `CSS` or fonts in a configuration file. 
@@ -81,7 +81,7 @@ But it is optional. You shouldn't need to modify your \TeX\ files
   
 `-f,--format (default epub)`
 
-:    Output format. Epub, Epub3 and Mobi formats are supported.
+:    Output format. Possible values are `epub`, `epub3` and `mobi`.
 
 `-j,--jobname`
 
@@ -104,7 +104,7 @@ But it is optional. You shouldn't need to modify your \TeX\ files
 
 `-s,--shell-escape`
 
-:     Enable shell escape in htlatex run. This may be needed if you run external
+:     Enable shell escape in the `htlatex` run. This is necessary for the execution of the external
       commands from your source files.
 
 `-t,--tidy`
@@ -142,7 +142,7 @@ and in series of blogposts on CV Radhakrishnan's blog:
 Available options for `\Preamble` command are listed in the article 
 *TeX4ht: options*^[https://web.archive.org/web/20180813043722/http://cvr.cc/?p=504]. *Comparison of tex4ebook and Pandoc output*^[https://github.com/richelbilderbeek/travis_tex_to_epub_example_1]
 
-Great source of tips for `TeX4ht` configuring is *tex4ht tag on TeX.sx*^[http://tex.stackexchange.com/questions/tagged/tex4ht], there is also a *tag for tex4ebook*^[http://tex.stackexchange.com/questions/tagged/tex4ebook].
+A great source of tips for `TeX4ht` configuration is *tex4ht tag on TeX.sx*^[http://tex.stackexchange.com/questions/tagged/tex4ht]. There is also a *tag for tex4ebook*^[http://tex.stackexchange.com/questions/tagged/tex4ebook].
 
 Examples of interesting questions are 
 *including images and fonts in ebooks*^[http://tex.stackexchange.com/a/213165/2891] 
@@ -155,7 +155,7 @@ or *setting image size in em units instead of pt*^[http://tex.stackexchange.com/
     \Configure{UniqueIdentifier}{identifier}
 
 
-Every epub file should have unique identifier, like ISBN, DOI, URI etc. 
+Every EPUB file should have unique identifier, like ISBN, DOI, URI etc. 
 Default identifier is URI, with value `http://example.com/\jobname`.
 
     \Configure{@author}{\let\footnote\@gobble}
@@ -167,7 +167,7 @@ which don't belongs here, such as `\footnote`.
     \Configure{OpfScheme}{URI}
 
 Type of unique identifier, default type is URI. It is
-used only in `epub`, it is deprecated for `epub3`
+used only in the EPUB format, it is deprecated for EPUB 3.
 
     \Configure{resettoclevels}{list of section types in descending order}
 
@@ -176,7 +176,7 @@ value is the whole document hierarchy, from `\part` to `\paragraph`.
 
     \Configure{DocumentLanguage}{language code}
 
-Each ePub file must declare the document language. It is inferred from `babel` main
+Each EPUB file must declare the document language. It is inferred from `babel` main
 language by default, but you can configure it when it doesn't work correctly.
 The `language code` should be in [ISO
 639-1](https://en.wikipedia.org/wiki/List_of_ISO_639-1_codes) form.
@@ -209,11 +209,11 @@ Add item to `<manifest>` section in the `OPF` file.
 
     \Configure{xmlns}{prefix}{uri}
 
-Add xml name space to `xhtml` files. Useful in `EPUB 3`
+Add `XML` name space to the generated `XHTML` files. Useful in `EPUB 3`.
 
 
 
-## Commands available in config files
+## Commands available in the config file
 
 `\OpfRegisterFile[filename]`
 
@@ -250,18 +250,29 @@ See the `make4ht` documentation for an example and more information.
 
 # Troubleshooting
 
+## Fixed layout EPUB
+
+The basic support for the Fixed layout EPUB 3 can be enabled using the following configurations:
+
+    \Configure{OpfMetadata}{\HCode{<meta property="rendition:layout">pre-paginated</meta>}}
+    \Configure{OpfMetadata}{\HCode{<meta property="rendition:orientation">landscape</meta>}}
+    \Configure{OpfMetadata}{\HCode{<meta property="rendition:spread">none</meta>}}
+    \Configure{@HEAD}{\HCode{<meta name="viewport" content="width=1920, height=1080"/>\Hnewline}}
+
+Modify the dimensions in the `<meta name="viewport>` element according to your needs. 
+
 ## Math issues
 
 Note that while `mobi` is supported by Amazon Kindle, most widespread ebook 
 reader, it doesn't support `MathML`. This means that math must be represented
-as images. The same issue is true for the `epub` format as well. 
+as images. The same issue is true for the EPUB format as well. 
 This is problematic especially for the inline math, as you may experience wrong 
 vertical alignment of the math content and surrounding text. If your ebook contains
 math, a better solution is to produce the `epub3` format, as it supports `MathML`.
-The issue with `epub3` is, that majority of `e-ink` ebook readers doesn't 
-support this format, reader applications exists mainly for Android and Apple 
+The issue with EPUB 3 is that majority of `e-ink` ebook readers don't 
+support it. Reader applications exists mainly for Android and Apple 
 devices. For books which contains mainly prose, all formats should be suitable,
-but `epub3` supports most features from web standards, such as `CSS`. 
+but EPUB 3 supports most features from web standards, such as `CSS`. 
 
 ## Compilation errors 
 
@@ -276,41 +287,6 @@ configuration. Try to identify the source of problem and if you cannot find the
 solution, make minimal example showing the error and ask for help either on
 *TeX4ht mailing list*^[http://tug.org/mailman/listinfo/tex4ht] or on
 *TeX.sx*^[http://tex.stackexchange.com/]. 
-
-<!--
-## Fontspec
-
-`tex4ht` currently doesn't support `fontspec` and open type fonts. At this
-moment, workaround for this is to modify your source file and conditionally
-include fontspec and any other conflicting packages only when document is not
-processed with `tex4ht`. 
-
-Sample:
-
-    \documentclass{article}
-    \makeatletter
-    \@ifpackageloaded{tex4ht}{%
-    % Packages for tex4ht unicode support
-    \usepackage[utf8]{inputenc}
-    \usepackage[T1]{fontenc}
-    \usepackage[english,czech]{babel}
-    }{%
-    % Packages for xelatex
-    \usepackage{fontspec}
-    \usepackage{polyglossia}
-    \setmainfont{Latin Modern Roman}
-    }
-    \makeatother
-
-The drawback is that not all characters of the Unicode range are supported with
-`inputenc`. For some solutions of this limitation, see a thread on *tex4ht
-mailing list*^[http://tug.org/pipermail/tex4ht/2013q1/000719.html]
-
-Other approach is to use `alternative4ht` package from [helpers4ht](https://github.com/michal-h21/helpers4ht)
-bundle. It works only with Lua backend, but it supports full unicode and you 
-don't have to use conditional package inclusion in your document. See 
-an [example](http://michal-h21.github.io/samples/helpers4ht/fontspec.html).
--->
 
 ## Validation
 
