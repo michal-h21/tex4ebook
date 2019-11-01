@@ -5,9 +5,6 @@ local io = require("io")
 local log = logging.new("exec_epub")
 --local ebookutils = require("ebookutils")
 local ebookutils = require "mkutils"
--- font loading doesn't work, font database format changes  often
--- and it is different between TL and Miktex
--- local load_font = require("list-fonts")
 local outputdir_name="OEBPS"
 local metadir_name = "META-INF"
 local mimetype_name="mimetype"
