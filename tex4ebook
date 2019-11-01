@@ -180,7 +180,7 @@ params["config_file"] = config_file
 
 
 if output_formats[output_format] then
-  executor=require("exec_"..output_format)
+  executor=require("tex4ebook-exec_"..output_format)
   params=executor.prepare(params)
   if #extensions > 0 then
     params = ebookutils.extensions_prepare_parameters(extensions,params)

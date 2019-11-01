@@ -1,5 +1,5 @@
 module(...,package.seeall)
-local eb = require("exec_epub")
+local eb = require("tex4ebook-exec_epub")
 local ebookutils = require("mkutils")
 local log = logging.new "exec_mobi"
 

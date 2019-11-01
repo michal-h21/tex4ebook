@@ -1,5 +1,5 @@
 module(...,package.seeall)
-local eb = require("exec_epub")
+local eb = require("tex4ebook-exec_epub")
 local dom = require("luaxml-domobject")
 local log = logging.new "exec_epub3"
 
