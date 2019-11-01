@@ -170,7 +170,7 @@ function make_opf()
 	end
 	local tidyconf = nil
 	if tidy then 
-		tidyconf = kpse.find_file("tidyconf.conf")
+		tidyconf = kpse.find_file("tex4ebook-tidyconf.conf")
 	end
 	--local opf_first_part = outputdir .. "/content.opf" 
 	local opf_first_part =   "content.opf" 
