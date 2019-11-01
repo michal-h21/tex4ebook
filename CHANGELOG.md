@@ -2,6 +2,12 @@
 
 - 2019/11/01
 
+  - released version `0.3a`
+  - added `tex4ebook-` prefix to the output formats.
+  - removed unused files.
+
+- 2019/11/01
+
   - released version `0.3`   
 
 - 2019/10/20
