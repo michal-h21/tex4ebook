@@ -1,5 +1,9 @@
 # Changes
 
+- 2019/11/01
+
+  - released version `0.3`   
+
 - 2019/10/20
 
   - fixed the `TOC` cleanup in the `ePub 3` mode.
