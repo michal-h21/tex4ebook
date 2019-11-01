@@ -1,4 +1,4 @@
-module("exec_epub",package.seeall)
+module(...,package.seeall)
 local lfs = require("lfs")
 local os = require("os")
 local io = require("io")
