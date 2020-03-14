@@ -370,7 +370,7 @@ href="#1" media-type="\a:CoverMimeType" />}}
 \ncx:head
 % Book title
 \ncx:title
-\tableofcontents%[part,chapter,likechapter,section,likesection,subsection,likesubsection]%
+\tableofcontents[part,appendix,chapter,likechapter,appendixsec,section,likesection,appendixsubsec,subsection,likesubsection]%
 %Hack to get close tag working
 \HCode{</ncx>}
 \EndNoFonts

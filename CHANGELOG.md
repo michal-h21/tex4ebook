@@ -1,5 +1,9 @@
 # Changes
 
+- 2020/03/14
+
+  - explicitly list supported section types in the NCX table
+
 - 2019/11/01
 
   - released version `0.3a`
