@@ -5,6 +5,7 @@ local io = require("io")
 local log = logging.new("exec_epub")
 --local ebookutils = require("ebookutils")
 local ebookutils = require "mkutils"
+local dom = require("luaxml-domobject")
 local outputdir_name="OEBPS"
 local metadir_name = "META-INF"
 local mimetype_name="mimetype"
@@ -319,9 +320,57 @@ function pack_container()
   ebookutils.cp(basedir .."/"..outputfile, destdir .. outputfile)
 end
 
+local function update_file(filename, fn)
+  -- update contents of a filename using function
+  local f = io.open(filename, "r")
+  local content = f:read("*all")
+  f:close()
+  local newcontent = fn(content)
+  local f = io.open(filename, "w")
+  f:write(newcontent)
+  f:close()
+end
+
+local function clean_xml_files()
+  local opf_file = outputdir .. "/content.opf"
+  update_file(opf_file, function(content)
+    -- remove wrong elements from the OPF file
+    -- open opf file and create LuaXML DOM
+    local opf_dom = dom.parse(content)
+    -- remove child elements from elements that don't allow them
+    for _, el in ipairs(opf_dom:query_selector("dc|title, dc|creator")) do
+      -- get text content
+      local text = el:get_text()
+      -- replace element text with a new text node containing original text
+      el._children = {el:create_text_node(text)}
+    end
+    return opf_dom:serialize()
+  end)
+  local ncxfilename = outputdir .. "/" .. outputfilename .. ".ncx"
+  update_file(ncxfilename, function(content)
+    -- remove spurious spaces at the beginning
+    content = content:gsub("^%s*","")
+    local ncx_dom = dom.parse(content)
+    -- remove child elements from <text> element
+    for _, el in ipairs(ncx_dom:query_selector("text")) do
+      local text = el:get_text()
+      -- replace element text with a new text node containing original text
+      el._children = {el:create_text_node(text)}
+    end
+    for _, el in ipairs(ncx_dom:query_selector("navPoint")) do
+      -- fix attribute names. this issue is caused by a  LuaXML behavior
+      -- that makes all attributes lowercase
+      el._attr["playOrder"] = el._attr["playorder"]
+      el._attr["playorder"] = nil
+    end
+    return ncx_dom:serialize()
+  end)
+
+end
 
 function writeContainer()
   make_opf()
+  clean_xml_files()
   pack_container()
 end
 local function deldir(path)
