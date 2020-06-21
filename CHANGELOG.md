@@ -1,5 +1,9 @@
 # Changes
 
+- 2020/06/21
+
+  - save `\title` element
+
 - 2020/06/15
 
   - remove child elements from elements that don't allow them in the OPF and NCX file.

@@ -157,7 +157,7 @@ href="#1" media-type="\a:CoverMimeType" />}}
   "http://www.daisy.org/z3986/2005/ncx-2005-1.dtd">\Hnewline}}
 
 %Get sanitized value of \title
-%\def\Title{\Ref{TITLE+}}
+\ifTag{TITLE+}{\def\Title{\LikeRef{TITLE+}}}{}
 % If title contains macros, SafeTitle should be configured 
 % in the custom cfg file
 \NewConfigure{SafeTitle}[1]{\gdef\Title{#1}}
