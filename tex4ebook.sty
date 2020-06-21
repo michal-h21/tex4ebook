@@ -144,12 +144,12 @@
 \let\tf@orig@author\author
 \newcommand\tf@author[1]{%
   \tf@orig@author{#1}%
-  \let\Author\@author%
+  \def\Author{#1}%
 }
 
 \newcommand\tf@optauthor[2][]{%
   \tf@orig@author[#1]{#2}%
-  \let\Author\@author%
+  \def\Author{#2}%
 }
 
 % support optiona argument for \author as well

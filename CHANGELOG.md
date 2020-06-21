@@ -3,6 +3,7 @@
 - 2020/06/21
 
   - save `\title` element
+  - save contents of `\author` in macro directly
 
 - 2020/06/15
 
