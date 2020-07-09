@@ -23,7 +23,7 @@ local tex4ht_sty_par=""
 local tex4ht_par=""
 local t4ht_par=""
 local latex_par=""
-local output_formats={epub=true,mobi=true,epub3=true,azw=true}
+local output_formats={epub=true,mobi=true,epub3=true,azw=true, azw3=true}
 local executor=nil
 local tidy = false
 local include_fonts = false

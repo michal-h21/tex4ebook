@@ -2,7 +2,7 @@
 
 - 2020/07/09
 
-  - addded `AZW` format support.
+  - addded `AZW` and `AZW3` format support.
 
 - 2020/06/21
 

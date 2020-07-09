@@ -81,7 +81,7 @@ But it is optional. You shouldn't need to modify your \TeX\ files
   
 `-f,--format (default epub)`
 
-:    Output format. Possible values are `epub`, `epub3` and `mobi`.
+:    Output format. Possible values are `epub`, `epub3`, `mobi`, `azw` and `azw3`.
 
 `-j,--jobname`
 
@@ -304,7 +304,7 @@ Type
 -  WARNING: filename.epub: item (OEBPS/foo.boo) exists in the zip file, but is
 not declared in the OPF file
 
-  Delete the `filename-(epub|epub3|mobi)` folder and `filename.epub`. Then
+  Delete the `filename-(epub|epub3|mobi|azw|azw3)` folder and `filename.epub`. Then
   run `tex4ebook` again.
 
 - WARNING(ACC-009): hsmmt10t.epub/OEBPS/hsmmt10tch17.xhtml(235,15): 
