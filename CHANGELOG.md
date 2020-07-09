@@ -1,5 +1,9 @@
 # Changes
 
+- 2020/07/09
+
+  - addded `AZW` format support.
+
 - 2020/06/21
 
   - save `\title` element
