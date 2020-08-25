@@ -331,6 +331,13 @@ local function update_file(filename, fn)
   f:close()
 end
 
+local function fix_ncx_toc_levels(dom)
+  -- OK, this is a weird hack. The problem is that when \backmatter
+  -- follows \part, the subsequent chapters are listed under part 
+  -- in the NCX TOC
+  return dom
+end
+
 local function clean_xml_files()
   local opf_file = outputdir .. "/content.opf"
   update_file(opf_file, function(content)
@@ -351,6 +358,7 @@ local function clean_xml_files()
     -- remove spurious spaces at the beginning
     content = content:gsub("^%s*","")
     local ncx_dom = dom.parse(content)
+    fix_ncx_toc_levels(ncx_dom)
     -- remove child elements from <text> element
     for _, el in ipairs(ncx_dom:query_selector("text")) do
       local text = el:get_text()
@@ -373,6 +381,7 @@ function writeContainer()
   clean_xml_files()
   pack_container()
 end
+
 local function deldir(path)
   for entry in lfs.dir(path) do
     if entry~="." and entry~=".." then  

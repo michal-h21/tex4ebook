@@ -255,7 +255,7 @@ href="#1" media-type="\a:CoverMimeType" />}}
 \def\navsection#1#2{
   \ConfigureToc{#1}%
   {\expandafter\closelevels\expandafter{#2}
-  \a:NavSection\Ncx:Mark}
+  \def\curr:sect:type{#1}\a:NavSection\Ncx:Mark}
   {\c:NavSection}
   {}
   {\b:NavSection%
@@ -361,11 +361,11 @@ href="#1" media-type="\a:CoverMimeType" />}}
  \Configure{toTocLink}{}{}%
  \Configure{NavSection}{\booltrue{tocnoempty}\HCode{\Hnewline<navPoint id="navPoint-}%
   \stepnavpoint\HCode{" playOrder="}%
-  \the\navpoint\HCode{">\Hnewline<navLabel>\Hnewline<text>}%
+  \the\navpoint\HCode{">\Hnewline<navLabel>\Hnewline<text><navmark type="\curr:sect:type">}%
 }{\HCode{</text>\Hnewline%
   </navLabel>\Hnewline}%
  \HCode{<content src="\navmapsrc" />}%
-}{ }{\HCode{</navPoint>\Hnewline}}
+}{\HCode{</navmark>}}{\HCode{</navPoint>\Hnewline}}
 % Meta inf
 \ncx:head
 % Book title
