@@ -335,6 +335,61 @@ local function fix_ncx_toc_levels(dom)
   -- OK, this is a weird hack. The problem is that when \backmatter
   -- follows \part, the subsequent chapters are listed under part 
   -- in the NCX TOC
+  -- I've added special element <navmark> to the ncx file to detect mark numbers.
+  -- chapters in backmatter should have empty mark number
+
+  -- get current <navpoint> section type and mark number
+  local get_navpoint_info = function(navpoint)
+    local navmarks = navpoint:query_selector("navmark")
+    if navmarks and #navmarks > 0 then
+      -- we are interested only in the first navmark, because it contains the current navPoint info
+      local navmark = navmarks[1]
+      return navmark:get_attribute("type"), navmark:get_text()
+    end
+    return nil, "Cannot find navLabel"
+  end
+
+  local fix_chapters = function(part)
+    -- move chapters from backmatter and appendix from the current part
+    -- find part position in the element list, it will be place where backmatter will be moved
+    local part_pos = part:find_element_pos() + 1
+    local part_parent = part:get_parent()
+    -- child chapters
+    local children = part:get_children()
+    -- loop over children from back, where backmatter or appendix may be placed
+    for i = #children, 1, -1 do
+      local current = children[i]
+      local sect_type, mark = get_navpoint_info(current)
+      if sect_type then
+        -- remove spaces from mark
+        mark = mark:gsub("%s", "") 
+        if sect_type == "appendix" or (sect_type == "chapter" and mark=="") then
+          -- move chapter at the same level as part, after part
+          -- the correct order will be kept, because we move from the back of the node list
+          -- and every new node is placed before previous added nodes
+          part_parent:add_child_node(current:copy_node(), part_pos)
+          current:remove_node()
+        else
+          -- break processing if we find normal chapter
+          break
+        end
+      end
+    end
+  end
+
+  -- find the last part in the ncx table. it can contain incorrectly nested chapters
+  local parts = {}
+  for _, navpoint in ipairs(dom:query_selector("navMap navPoint")) do
+    -- we are not able to match just direct navPoint ancestors, so we will use this trick
+    if navpoint:get_parent():get_element_name() == "navMap" then
+      local sec_type, navmark = get_navpoint_info(navpoint)
+      if sec_type == "part" then table.insert(parts, navpoint) end
+    end
+  end
+  if #parts > 0 then
+    -- fix chapters in the last part
+    fix_chapters(parts[#parts])
+  end
   return dom
 end
 

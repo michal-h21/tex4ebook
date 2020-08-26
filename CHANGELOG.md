@@ -1,5 +1,9 @@
 # Changes
 
+- 2020/08/26
+
+  - fixed hiearchical structure in NCX TOC for chapters in backmatter and appendix
+
 - 2020/07/09
 
   - addded `AZW` and `AZW3` format support.
