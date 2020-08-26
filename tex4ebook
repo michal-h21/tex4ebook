@@ -129,7 +129,9 @@ log:status("Input file: ".. params.tex_file)
 local output_format = params.output_format 
 -- use epub as default output_format
 output_format = output_format or "epub"
-local extensions = ebookutils.load_extensions(params.extensions, output_format)
+-- load common_domfilters extension by default
+local extensions = ebookutils.add_extensions("+common_domfilters", params.extensions)
+extensions = ebookutils.load_extensions(extensions, output_format)
 -- but also support tex4ebook!s own parameters
 local oldparams = {
   -- htlatex=latex_cmd

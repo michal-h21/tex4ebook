@@ -3,6 +3,7 @@
 - 2020/08/26
 
   - fixed hiearchical structure in NCX TOC for chapters in backmatter and appendix
+  - load `common_domfilters` extension by default.
 
 - 2020/07/09
 
