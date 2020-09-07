@@ -1,5 +1,9 @@
 # Changes
 
+- 2020/09/07
+
+  - released version `0.3b`
+
 - 2020/08/26
 
   - fixed hiearchical structure in NCX TOC for chapters in backmatter and appendix
