@@ -3,6 +3,7 @@
 - 2020/11/06
 
   - bug fix: remove custom elements from the NCX file in the Epub 3 format.
+  - released version `0.3c`
 
 - 2020/09/07
 
