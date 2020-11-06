@@ -393,12 +393,13 @@ local function fix_ncx_toc_levels(dom)
   return dom
 end
 
-local function clean_xml_files()
+function clean_xml_files()
   local opf_file = outputdir .. "/content.opf"
   update_file(opf_file, function(content)
     -- remove wrong elements from the OPF file
     -- open opf file and create LuaXML DOM
-    local opf_dom = dom.parse(content)
+    -- the second argument to dom.parse is needed to avoid parsing issues due to the <meta> element.
+    local opf_dom = dom.parse(content, {})
     -- remove child elements from elements that don't allow them
     for _, el in ipairs(opf_dom:query_selector("dc|title, dc|creator")) do
       -- get text content

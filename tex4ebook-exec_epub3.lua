@@ -273,6 +273,7 @@ function writeContainer()
   log:info "write container"
 	eb.make_opf()
 	cleanOPF()
+  eb.clean_xml_files()
 	local ret = eb.pack_container()
 	return ret
 end
