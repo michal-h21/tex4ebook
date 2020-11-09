@@ -193,10 +193,6 @@ href="#1" media-type="\a:CoverMimeType" />}}
 % Support for SVG isn't ready
 %\Configure{Picture}{.svg}
 \Configure{Picture}{.png}
-\Configure{PicDisplay}
-  {\edef\MathPar{\ifvmode par-\fi}\IgnorePar\endgraf\EndP
-   \HCode{<div class="\MathPar math-display">}}
-  {\HCode{</div>}}  {}  {class="\MathPar math-display" }
 \Configure{()}{$}{$}
 \fi
 \:CheckOption{kindle} \if:Option

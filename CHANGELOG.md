@@ -1,5 +1,9 @@
 # Changes
 
+- 2020/11/09
+
+  - don't redefine `PicDisplay` configuration.
+
 - 2020/11/06
 
   - bug fix: remove custom elements from the NCX file in the Epub 3 format.
