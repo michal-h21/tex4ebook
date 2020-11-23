@@ -1,6 +1,10 @@
 # Changes
 
 - 2020/11/09
+  
+  - set exit status
+
+- 2020/11/09
 
   - don't redefine `PicDisplay` configuration.
 
