@@ -249,6 +249,15 @@ Add `XML` name space to the generated `XHTML` files. Useful in `EPUB 3`.
     {\HCode{<dc:date opf:event='original-publication'>1888</dc:date>}}
     \EndPreamble
 
+Remarks:
+
+- Leading percent signs in the `.cfg` file introduce comments
+- If the unique identifier is a URI which contains diacritical characters, the        
+   equivalent HTML code needs to be inserted. `UTF8` is not recognized at that place.
+- `UTF8` characters may be used in the `OpfMetadata` sections.
+
+
+
 
 ## Commands available in the config file
 
