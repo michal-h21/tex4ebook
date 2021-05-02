@@ -46,7 +46,17 @@ But it is optional. You shouldn't need to modify your \TeX\ files
 
 ## Available commands
 
-- `\coverimage{coverimage.name}` - include cover image to the document. 
+- `\coverimage[<graphicx options>]{coverimage.name}` - include cover image to
+  the document. You can pass the same options as to `\includegraphics` command
+  in the optional argument.
+
+For example:
+
+    \thispagestyle{empty}
+    \begin{document}
+    \coverimage[scale=0.8]{coverimage.name} % include scaled cover image
+    ...
+    \pagestyle{headings}
 
 # Command line options
 
@@ -212,6 +222,33 @@ Add item to `<manifest>` section in the `OPF` file.
 Add `XML` name space to the generated `XHTML` files. Useful in `EPUB 3`.
 
 
+### Example config file
+
+    \Preamble{xhtml}
+    \begin{document}
+    \Configure{DocumentLanguage}{de}
+    % Use following lines if your document has ISBN:
+    % \Configure{OpfScheme}{ISBN}
+    % \Configure{UniqueIdentifier}{3-0000-1111-X}
+    % Another possibility is URI that points for example to the ebook homepage:
+    \Configure{OpfScheme}{URI}
+    \Configure{UniqueIdentifier}
+    {https://de.wikipedia.org/wiki/Der_achte_Sch&ouml;pfungstag}
+    \Configure{CoverMimeType}{image/jpeg}
+    % If you don't use \coverimage in the document text, 
+    % add cover image using this command:
+    \CoverMetadata{coverimage.jpg}
+    % You can also add more authors to your ebook metadata:
+    \Configure{OpfMetadata}
+    {\HCode{<dc:publisher>Deutscher Bücherbund</dc:publisher>}}
+    \Configure{OpfMetadata}
+    {\HCode{<dc:contributor>Image Artist</dc:contributor>}}
+    \Configure{OpfMetadata}
+    {\HCode{<dc:contributor>Trans Lator</dc:contributor>}}
+    \Configure{OpfMetadata}
+    {\HCode{<dc:date opf:event='original-publication'>1888</dc:date>}}
+    \EndPreamble
+
 
 ## Commands available in the config file
 
@@ -228,6 +265,7 @@ Add `XML` name space to the generated `XHTML` files. Useful in `EPUB 3`.
 :    Add file to the `<guide>` section in the `OPF` file. See 
      *Where do you start an ePUB and what is the `<guide>` section of the `.OPF` file?*^[http://epubsecrets.com/where-do-you-start-an-epub-and-what-is-the-guide-section-of-the-opf-file.php]
      for some details. Note that `<guide>` is deprecated in `EPUB 3`.
+
 
 ## Build files
 
@@ -254,10 +292,14 @@ See the `make4ht` documentation for an example and more information.
 
 The basic support for the Fixed layout EPUB 3 can be enabled using the following configurations:
 
-    \Configure{OpfMetadata}{\HCode{<meta property="rendition:layout">pre-paginated</meta>}}
-    \Configure{OpfMetadata}{\HCode{<meta property="rendition:orientation">landscape</meta>}}
-    \Configure{OpfMetadata}{\HCode{<meta property="rendition:spread">none</meta>}}
-    \Configure{@HEAD}{\HCode{<meta name="viewport" content="width=1920, height=1080"/>\Hnewline}}
+    \Configure{OpfMetadata}
+    {\HCode{<meta property="rendition:layout">pre-paginated</meta>}}
+    \Configure{OpfMetadata}
+    {\HCode{<meta property="rendition:orientation">landscape</meta>}}
+    \Configure{OpfMetadata}
+    {\HCode{<meta property="rendition:spread">none</meta>}}
+    \Configure{@HEAD}
+    {\HCode{<meta name="viewport" content="width=1920, height=1080"/>\Hnewline}}
 
 Modify the dimensions in the `<meta name="viewport>` element according to your needs. 
 

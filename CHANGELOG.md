@@ -1,5 +1,9 @@
 # Changes
 
+- 2021/05/02
+
+  - added more examples of configuration to the documentation.
+
 - 2020/11/09
   
   - set exit status
