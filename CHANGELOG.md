@@ -3,6 +3,8 @@
 - 2021/05/15
 
   - use `assert` in checking of existence of the `zip` command.
+  - replace colons in `OPF` `id` attributes and add trailing `x` if the `id`
+    starts with number. It should fix some validation issues.
 
 - 2021/05/02
 
