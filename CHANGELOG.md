@@ -1,5 +1,11 @@
 # Changes
 
+- 2021/05/29
+
+  - renamed `DeclareLanguage` to `\DeclareLanguageEbook`. 
+    Fixes [issue 78](https://github.com/michal-h21/tex4ebook/issues/78).
+
+
 - 2021/05/15
 
   - use `assert` in checking of existence of the `zip` command.
