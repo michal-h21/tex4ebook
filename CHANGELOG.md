@@ -1,5 +1,9 @@
 # Changes
 
+- 2021/07/26
+
+  - released version `0.3d`
+
 - 2021/05/29
 
   - renamed `DeclareLanguage` to `\DeclareLanguageEbook`. 
