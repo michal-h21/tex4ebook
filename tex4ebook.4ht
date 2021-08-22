@@ -318,7 +318,27 @@ href="#1" media-type="\a:CoverMimeType" />}}
 }
 
 % Get filename from tableofcontents anchor
-\def\ncx:hfile#1{\Ref{)F\Ref{)Q#1}F-}}
+\def\ncx:hfile#1{\LikeRef{)F\LikeRef{)Q#1}F-}}
+
+\ExplSyntaxOn
+% get filename for the section label
+% sometimes, TeX4ht returns list of file numbers for label. we must use just
+% the first number. we use the LaTeX 3 sequence list to get it.
+\tl_new:N\ncx:hfilename
+\def\ncx:newhfile#1{
+  \cs_if_exist_use:cTF{cw:)Q#1}{%
+    % cw:)Q#1 is csname of tag from the xref file. we convert it to sequence
+    \seq_set_from_clist:Nc\l_tmpa_seq{cw:)Q#1}
+  % get first item and put it to a token list
+    \seq_get_left:NN \l_tmpa_seq \l_tmpa_tl
+      % \RefFileNumber returns file name for the given file number
+      % \ncx:hfilename contains the filename for later use
+      \tl_set:Nx \ncx:hfilename {\RefFileNumber{\l_tmpa_tl}}
+  }{%
+      \tl_set:Nn \ncx:hfilename {nic}
+  }
+}
+\ExplSyntaxOff
 
 % define toc levels which should be included in the NCX file
 \NewConfigure{resettoclevels}{1}
@@ -349,7 +369,12 @@ href="#1" media-type="\a:CoverMimeType" />}}
  % We need to configure TocLink
  % in navmapsrc is link to the file and anchor, where chapter or section is located
  \def\navmapsrc{}  
- \Configure{TocLink}{\def\navmapsrc{\ncx:hfile{##2}\:sharp ##2}\opf:registerfilename{\ncx:hfile{##2}}##4}
+ \Configure{TocLink}{%
+   \ncx:newhfile{##2}
+   \def\navmapsrc{\ncx:hfilename\:sharp ##2}
+   \opf:registerfilename{\ncx:hfilename}
+   ##4
+ }
  % Configuraion of entries
  \expandafter\resettoclevels\expandafter{\a:resettoclevels}%
  \confnavsections%

@@ -1,5 +1,10 @@
 # Changes
 
+- 2021/08/22
+
+  - fixed [cross-referencing issue](https://tex.stackexchange.com/a/611611/2891) 
+    related to unnumbered equations.
+
 - 2021/07/26
 
   - released version `0.3d`
