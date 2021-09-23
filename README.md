@@ -297,6 +297,13 @@ See the `make4ht` documentation for an example and more information.
 
 # Troubleshooting
 
+## Kindle formats
+
+`tex4ebook` uses `kindlegen` command for the conversion to Kindle formats (`mobi`,
+`azw` and `azw3`). Unfortunatelly, Amazon discontinued this command, so we use
+also `ebook-convert` provided by Calibre if `kindlegen` fails.
+
+
 ## Fixed layout EPUB
 
 The basic support for the Fixed layout EPUB 3 can be enabled using the following configurations:
