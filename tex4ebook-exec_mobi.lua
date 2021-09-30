@@ -16,8 +16,8 @@ function kindlegen(source, outputfile)
   local command = "kindlegen " .. source .. " -o " .. outputfile
   local status, output = ebookutils.execute(command)
   log:debug("running kindlegen: " .. command, status)
-  -- kindlegen always runs with warnings
-  if status > 1 then
+  -- if we cannot find kindlegen, try ebook-convert
+  if not output:match("Amazon") then
     log:debug("kindlegen failed, trying epub-convert")
     local ebookcmd = "ebook-convert " .. source .. " " .. outputfile
     status, output = ebookutils.execute(ebookcmd)

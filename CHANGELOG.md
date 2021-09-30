@@ -1,5 +1,13 @@
 # Changes
 
+- 2021/09/30
+
+  - better detection if `kindlegen` was found.
+
+- 2021/09/23
+
+  - use `ebook-convert` for convertsion to Kindle formats if `kindlegen` fails.
+
 - 2021/08/22
 
   - fixed [cross-referencing issue](https://tex.stackexchange.com/a/611611/2891) 
