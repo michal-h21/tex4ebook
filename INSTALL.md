@@ -24,5 +24,9 @@ directory can be changed by passing it's location to the `BIN_DIR` variable:
     make install BIN_DIR=~/.local/bin/
 
 For Windows settings, see a 
-[guide](https://d800fotos.wordpress.com/2015/01/19/create-e-books-from-latex-tex-files-ebook-aus-latex-tex-dateien-erstellen/) by Volker Gottwald
+[guide](https://d800fotos.wordpress.com/2015/01/19/create-e-books-from-latex-tex-files-ebook-aus-latex-tex-dateien-erstellen/) by Volker Gottwald.
+
+If you want to produce ebooks for Amazon Kindle (MOBI, AZW and AZW3), you need
+to install Kindlegen or Calibre.
+
 
