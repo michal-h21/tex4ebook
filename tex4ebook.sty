@@ -166,4 +166,14 @@
 }
 %}
 
+
+% Fixes for AMS classess
+\AddToHook{class/after}{%
+  \ifx\authors\@empty%
+  \def\@maketitle@hook{
+  \global\let\Author\authors
+  }
+  \fi%
+}
+
 \newcommand\coverimage[2][]{\includegraphics[#1]{#2}}

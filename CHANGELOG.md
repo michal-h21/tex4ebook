@@ -1,5 +1,9 @@
 # Changes
 
+- 2021/10/08
+
+  - fix for `\author` support in `amsart` class
+
 - 2021/09/30
   - released version `0.3e`
   - better detection if `kindlegen` was found.
