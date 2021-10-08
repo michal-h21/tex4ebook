@@ -1,7 +1,7 @@
 # Changes
 
 - 2021/09/30
-
+  - released version `0.3e`
   - better detection if `kindlegen` was found.
 
 - 2021/09/23
