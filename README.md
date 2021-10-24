@@ -86,7 +86,7 @@ For example:
 `-e,--build-file (default nil)`  
 
 :    Specify make4ht build file^[https://github.com/michal-h21/make4ht#build-file].
-     Defaulf build file filename is `filename.mk4`, use this option if you use
+     Default build file filename is `filename.mk4`, use this option if you use
      different filename.
   
 `-f,--format (default epub)`
