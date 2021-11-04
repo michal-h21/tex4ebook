@@ -1,5 +1,11 @@
 # Changes
 
+
+- 2021/11/04
+
+  - fixed spurious numbers in NCX TOC caused by wrong use of `\cs_if_exist_use:cTF` 
+    command.
+
 - 2021/10/08
 
   - fix for `\author` support in `amsart` class

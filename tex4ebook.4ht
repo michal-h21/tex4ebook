@@ -326,7 +326,7 @@ href="#1" media-type="\a:CoverMimeType" />}}
 % the first number. we use the LaTeX 3 sequence list to get it.
 \tl_new:N\ncx:hfilename
 \def\ncx:newhfile#1{
-  \cs_if_exist_use:cTF{cw:)Q#1}{%
+  \cs_if_exist:cTF{cw:)Q#1}{%
     % cw:)Q#1 is csname of tag from the xref file. we convert it to sequence
     \seq_set_from_clist:Nc\l_tmpa_seq{cw:)Q#1}
   % get first item and put it to a token list
