@@ -334,8 +334,8 @@ href="#1" media-type="\a:CoverMimeType" />}}
       % \RefFileNumber returns file name for the given file number
       % \ncx:hfilename contains the filename for later use
       \tl_set:Nx \ncx:hfilename {\RefFileNumber{\l_tmpa_tl}}
-  }{%
-      \tl_set:Nn \ncx:hfilename {nic}
+  }{% This shouldn't happen?
+      \tl_set:Nn \ncx:hfilename {}
   }
 }
 \ExplSyntaxOff
