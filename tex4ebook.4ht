@@ -231,29 +231,29 @@ href="#1" media-type="\a:CoverMimeType" />}}
 % Support for: chapter, section, subsection
 
 \def\resettoclevels#1{%
-  \def\do##1{\csgdef{nav##1finish}{}}
-  \docsvlist{#1}
+  \def\do##1{\csgdef{nav##1finish}{}}%
+  \docsvlist{#1}%
 }
 \def\usetoclevels#1{%
   \def\do##1{\csuse{nav##1finish}}%
   \docsvlist{#1}%
 }
 \def\finishtoclevel#1{%
-  \csgdef{nav#1finish}{\d:NavSection}
+  \csgdef{nav#1finish}{\d:NavSection}%
 }
 
-\def\closelevels#1{
-  \expandafter\usetoclevels\expandafter{#1}
-  \expandafter\resettoclevels\expandafter{#1}
-}
+\def\closelevels#1{%
+  \expandafter\usetoclevels\expandafter{#1}%
+  \expandafter\resettoclevels\expandafter{#1}%
+}%
 % 1 - section type 2 - closed sections 
 
-\def\navsection#1#2{
+\def\navsection#1#2{%
   \ConfigureToc{#1}%
-  {\expandafter\closelevels\expandafter{#2}
-  \def\curr:sect:type{#1}\a:NavSection\Ncx:Mark}
-  {\c:NavSection}
-  {}
+  {\expandafter\closelevels\expandafter{#2}%
+  \def\curr:sect:type{#1}\a:NavSection\Ncx:Mark}%
+  {\c:NavSection}%
+  {}%
   {\b:NavSection%
     \expandafter\finishtoclevel\expandafter{#1}%
   }
@@ -261,20 +261,20 @@ href="#1" media-type="\a:CoverMimeType" />}}
 
 % define closing groups for all levels defined in \Configure{resettoclevels}
 
-\def\tmp:processlevel#1{
-  \bgroup
-  \csxdef{tmp:resettoclevels#1}{}
-  \def\do##1{\csxdef{tmp:resettoclevels#1}{\csname tmp:resettoclevels#1\endcsname ##1,like##1,\appendix:type{##1}}}
-  \def\tmp:parse##1#1##2\nil{
-    \docsvlist{#1##2}
+\def\tmp:processlevel#1{%
+  \bgroup%
+  \csxdef{tmp:resettoclevels#1}{}%
+  \def\do##1{\csxdef{tmp:resettoclevels#1}{\csname tmp:resettoclevels#1\endcsname ##1,like##1,\appendix:type{##1}}}%
+  \def\tmp:parse##1#1##2\nil{%
+    \docsvlist{#1##2}%
   }
-  \expandafter\tmp:parse\a:resettoclevels\nil
-  \egroup
-  \navsection{#1}{\csname tmp:resettoclevels#1\endcsname}
+  \expandafter\tmp:parse\a:resettoclevels\nil%
+  \egroup%
+  \navsection{#1}{\csname tmp:resettoclevels#1\endcsname}%
   % define hierarchy also for starred sections
-  \navsection{like#1}{\csname tmp:resettoclevels#1\endcsname}
+  \navsection{like#1}{\csname tmp:resettoclevels#1\endcsname}%
   % and for appendices
-  \ifcsdef{appendix:type:#1}{\navsection{\csuse{appendix:type:#1}}{\csname tmp:resettoclevels#1\endcsname}}{}
+  \ifcsdef{appendix:type:#1}{\navsection{\csuse{appendix:type:#1}}{\csname tmp:resettoclevels#1\endcsname}}{}%
 }
 
 % define children levels for each sectioning level
@@ -289,9 +289,9 @@ href="#1" media-type="\a:CoverMimeType" />}}
 % so just strip then out
 % \TitleMark does similar thing, but this solution is simpler, I hope it works correctly
 \def\Ncx:Mark#1{%
-  \edef\:temp{#1}
-  \def\z@ro{0}
-  \ifx\:temp\z@ro\else#1\fi
+  \edef\:temp{#1}%
+  \def\z@ro{0}%
+  \ifx\:temp\z@ro\else#1\fi%
 }
 
 % to create correct hiearchical NCX for appendices, we register corresponding appendix types 
@@ -305,16 +305,16 @@ href="#1" media-type="\a:CoverMimeType" />}}
 
 %
 \def\ncx:head{%
-\HCode{<head>\Hnewline}
-\HCode{<meta name="dtb:uid" content="\a:UniqueIdentifier"/>\Hnewline}
-\HCode{<meta name="dtb:depth" content="3"/>\Hnewline}
-\HCode{<meta name="dtb:totalPageCount" content="0"/>\Hnewline}
-\HCode{<meta name="dtb:maxPageNumber" content="0"/>\Hnewline}
-\HCode{</head>\Hnewline}
+\HCode{<head>\Hnewline}%
+\HCode{<meta name="dtb:uid" content="\a:UniqueIdentifier"/>\Hnewline}%
+\HCode{<meta name="dtb:depth" content="3"/>\Hnewline}%
+\HCode{<meta name="dtb:totalPageCount" content="0"/>\Hnewline}%
+\HCode{<meta name="dtb:maxPageNumber" content="0"/>\Hnewline}%
+\HCode{</head>\Hnewline}%
 }
 
 \def\ncx:title{%
-  \HCode{<docTitle>\Hnewline<text>}\Title\HCode{</text>\Hnewline</docTitle>\Hnewline}
+  \HCode{<docTitle>\Hnewline<text>}\Title\HCode{</text>\Hnewline</docTitle>\Hnewline}%
 }
 
 % Get filename from tableofcontents anchor
@@ -328,14 +328,14 @@ href="#1" media-type="\a:CoverMimeType" />}}
 \def\ncx:newhfile#1{
   \cs_if_exist:cTF{cw:)Q#1}{%
     % cw:)Q#1 is csname of tag from the xref file. we convert it to sequence
-    \seq_set_from_clist:Nc\l_tmpa_seq{cw:)Q#1}
+    \seq_set_from_clist:Nc\l_tmpa_seq{cw:)Q#1}%
   % get first item and put it to a token list
-    \seq_get_left:NN \l_tmpa_seq \l_tmpa_tl
+    \seq_get_left:NN \l_tmpa_seq \l_tmpa_tl%
       % \RefFileNumber returns file name for the given file number
       % \ncx:hfilename contains the filename for later use
-      \tl_set:Nx \ncx:hfilename {\RefFileNumber{\l_tmpa_tl}}
+      \tl_set:Nx \ncx:hfilename {\RefFileNumber{\l_tmpa_tl}}%
   }{% This shouldn't happen?
-      \tl_set:Nn \ncx:hfilename {}
+      \tl_set:Nn \ncx:hfilename {}%
   }
 }
 \ExplSyntaxOff
@@ -345,35 +345,35 @@ href="#1" media-type="\a:CoverMimeType" />}}
 \Configure{resettoclevels}{part,chapter,section,subsection,subsubsection,paragraph}
 
 \def\:tempa{%
-\EndP
-\HtmlParOff
-\setcounter{tocdepth}{3}
-\special{t4ht>\jobname.ncx}
+\EndP%
+\HtmlParOff%
+\setcounter{tocdepth}{3}%
+\special{t4ht>\jobname.ncx}%
 % We don't want crosslinks in xml
 % Basic sctructure of the ncx file
-\NoFonts
-{\HCode{<?xml version="1.0" encoding="utf-8"?>\Hnewline}}
-{\a:NcxDoctype}
-{\Tg<ncx xmlns="http://www.daisy.org/z3986/2005/ncx/" version="2005-1">}{}
+\NoFonts%
+{\HCode{<?xml version="1.0" encoding="utf-8"?>\Hnewline}}%
+{\a:NcxDoctype}%
+{\Tg<ncx xmlns="http://www.daisy.org/z3986/2005/ncx/" version="2005-1">}{}%
 % To print document map, we customize the tableofcontents. We don't want TOC title,
 % so:
-\let\contentsname=\empty
+\let\contentsname=\empty%
 \Configure{tableofcontents}{\boolfalse{tocnoempty}\Tg<navMap>}{%
 	\usetoclevels{part,appendix,chapter,likechapter,appendixsec,section,likesection,subsection,appendixsubsec,likesubsection,subsubsection,likesubsubsection,appendixsubsubsec,subsubsubsection,paragraph}%
 	\ifbool{tocnoempty}{}%
-	{\HCode{<navPoint id="mainentry" playOrder="1">
-	  <navLabel><text>Document</text></navLabel>
-	  <content src="\jobname.\:html" />
+	{\HCode{<navPoint id="mainentry" playOrder="1">%
+	  <navLabel><text>Document</text></navLabel>%
+	  <content src="\jobname.\:html" />%
 	  </navPoint>}}%
-	\Tg</navMap>}{}{}{}  
+	\Tg</navMap>}{}{}{}0
  % We need to configure TocLink
  % in navmapsrc is link to the file and anchor, where chapter or section is located
- \def\navmapsrc{}  
+ \def\navmapsrc{}%  
  \Configure{TocLink}{%
-   \ncx:newhfile{##2}
-   \def\navmapsrc{\ncx:hfilename\:sharp ##2}
-   \opf:registerfilename{\ncx:hfilename}
-   ##4
+   \ncx:newhfile{##2}%
+   \def\navmapsrc{\ncx:hfilename\:sharp ##2}%
+   \opf:registerfilename{\ncx:hfilename}%
+   ##4%
  }
  % Configuraion of entries
  \expandafter\resettoclevels\expandafter{\a:resettoclevels}%
@@ -386,14 +386,14 @@ href="#1" media-type="\a:CoverMimeType" />}}
 }{\HCode{</text>\Hnewline%
   </navLabel>\Hnewline}%
  \HCode{<content src="\navmapsrc" />}%
-}{\HCode{</navmark>}}{\HCode{</navPoint>\Hnewline}}
+}{\HCode{</navmark>}}{\HCode{</navPoint>\Hnewline}}%
 % Meta inf
-\ncx:head
+\ncx:head%
 % Book title
-\ncx:title
+\ncx:title%
 \tableofcontents[part,appendix,chapter,likechapter,appendixsec,section,likesection,appendixsubsec,subsection,likesubsection]%
 %Hack to get close tag working
-\HCode{</ncx>}
+\HCode{</ncx>}%
 \EndNoFonts
 \special{t4ht<\jobname.ncx}
  \HtmlParOn
