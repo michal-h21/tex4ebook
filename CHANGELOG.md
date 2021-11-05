@@ -1,7 +1,7 @@
 # Changes
 
 
-- 2021/11/04
+- 2021/11/05
 
   - released version `0.3f`
   - fixed spurious numbers in NCX TOC caused by wrong use of `\cs_if_exist_use:cTF` 
