@@ -365,7 +365,7 @@ href="#1" media-type="\a:CoverMimeType" />}}
 	  <navLabel><text>Document</text></navLabel>%
 	  <content src="\jobname.\:html" />%
 	  </navPoint>}}%
-	\Tg</navMap>}{}{}{}0
+	\Tg</navMap>}{}{}{}%
  % We need to configure TocLink
  % in navmapsrc is link to the file and anchor, where chapter or section is located
  \def\navmapsrc{}%  

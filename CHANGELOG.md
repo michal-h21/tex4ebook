@@ -1,5 +1,9 @@
 # Changes
 
+- 2021/11/08
+
+  - released version `0.3g`
+  - bug fix: removed spurious `0` character from the NCX file.
 
 - 2021/11/05
 
@@ -9,7 +13,7 @@
 
 - 2021/10/08
 
-  - fix for `\author` support in `amsart` class
+  - fix for `\author` support in `amsart` class.
 
 - 2021/09/30
   - released version `0.3e`
