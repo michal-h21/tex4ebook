@@ -1,5 +1,10 @@
 # Changes
 
+- 2021/12/04
+
+  - fixed support for 
+    [appendix chapters in Epub 3](https://github.com/michal-h21/tex4ebook/issues/85).
+
 - 2021/11/08
 
   - released version `0.3g`

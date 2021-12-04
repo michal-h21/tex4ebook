@@ -13,9 +13,10 @@
 %%%%%%%%%%%%%%%%%%%%%%%
 \Configure{tableofcontents}{
   \a:NavMap
-  \resettoclevels{part,chapter,section,subsection,subsubsection}
-  \navsection{part}{part,chapter,section,subsection,subsubsection}
-  \navsection{chapter}{chapter,section,subsection,subsubsection}
+  \resettoclevels{part,appendix,chapter,section,subsection,subsubsection}
+  \navsection{part}{part,appendix,chapter,section,subsection,subsubsection}
+  \navsection{appendix}{appendix,chapter,section,subsection,subsubsection}
+  \navsection{chapter}{appendix,chapter,section,subsection,subsubsection}
   \navsection{section}{section,subsection,subsubsection}
   \navsection{subsection}{subsection,subsubsection}
   \navsection{subsubsection}{subsubsection}
@@ -26,7 +27,7 @@
 \Configure{NavMap}{\ifvmode\IgnorePar\fi\EndP\boolfalse{tocnoempty}\HCode{<nav id="toc" epub:type="toc">\Hnewline<ol>}%
 \opf:registerfilename{\FileName}
 \opf:add:property{nav}
-}{\usetoclevels{part,chapter,section,subsection,subsubsection}%
+}{\usetoclevels{part,appendix,chapter,section,subsection,subsubsection}%
 	\ifbool{tocnoempty}{}{\HCode{<li><a href="\jobname.\:html">Document</a></li>}}
 	\HCode{</ol></nav>}}
 %%%%%%%%%%%
