@@ -1,5 +1,10 @@
 # Changes
 
+- 2021/12/07
+
+  - print space after section number in Epub 3 TOC.
+  - keep original elements in Epub 3 TOC.
+
 - 2021/12/04
 
   - fixed support for 

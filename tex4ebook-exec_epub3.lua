@@ -127,36 +127,31 @@ local function remove_spurious_TOC_elements(tocdom)
   for _, el in ipairs(tocdom:query_selector("ol")) do
     if count_child_elements(el) == 0 then 
       el:remove_node()
-      -- local newli = el:create_element("li")
-      -- local newspan = newli:create_element("span")
-      -- newli:add_child_node(newspan)
-      -- el:add_child_node(newli)
     end
   end
   -- place child elements of the <li> elements to an <a> element, epubcheck reports 
   -- error for text nodes that are direct child of <li>
   for _, el in ipairs(tocdom:query_selector("li")) do
-    local text = {}
-    local link  -- save the <a> element
+
+    local newa = el:create_element("a")
     for i, child in ipairs(el._children) do
-      if child:is_text()  then 
-        -- trim spurious spaces
-        local childtext = child._text:gsub("^%s*",""):gsub("%s*$","")
-        -- save the text for the later use
-        table.insert(text, childtext)
-        child:remove_node()
-      elseif child:is_element() and child:get_element_name() == "a"  then
-        link = child
-        table.insert(text, child:get_text())
+      -- put contents of <li> to a new <a> element
+      if child:is_element() and child:get_element_name() == "a"  then
+        -- set id and href of the new <a> element, if it isn't set already
+        if not newa:get_attribute("href") then
+          local id   = child:get_attribute("id") 
+          local href = child:get_attribute("href")
+          newa:set_attribute("id", id)
+          newa:set_attribute("href", href)
+        end
+        -- copy <a> contents to the new <a> element
+        for _, x in ipairs(child._children or {}) do newa:add_child_node(x:copy_node()) end
+      else
+        newa:add_child_node(child:copy_node())
       end
     end
-    if link then
-      local content = table.concat(text, " ")
-      -- remove the original text
-      link._children = {}
-      local text = link:create_text_node(content)
-      link:add_child_node(text)
-    end
+    -- set contents of <li> to be the new <a>
+    el._children = {newa}
   end
   return tocdom
 
