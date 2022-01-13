@@ -1,5 +1,9 @@
 # Changes
 
+- 2022/01/13
+
+  - fixed issue where child TOC elements were inserted into `<a>` element.
+
 - 2021/12/07
 
   - print space after section number in Epub 3 TOC.

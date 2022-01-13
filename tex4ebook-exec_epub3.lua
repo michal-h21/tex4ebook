@@ -113,6 +113,12 @@ local function add_media_overlays(content)
 end
 
 
+-- elements that shouldn't be put inside <a> in TOC
+local stop_toc_processing_elements = {
+  ol = true,
+  ul = true
+}
+
 local function remove_spurious_TOC_elements(tocdom)
   local function count_child_elements(el)
     -- count children elements of the current element
@@ -134,9 +140,14 @@ local function remove_spurious_TOC_elements(tocdom)
   for _, el in ipairs(tocdom:query_selector("li")) do
 
     local newa = el:create_element("a")
+    local newchildren = {newa}
+    -- we want to stop putting content as child of <a> when it 
+    -- finds child TOC entries
+    local keep_processing = true
     for i, child in ipairs(el._children) do
+      child_name = child:get_element_name()
       -- put contents of <li> to a new <a> element
-      if child:is_element() and child:get_element_name() == "a"  then
+      if child:is_element() and child_name == "a"  then
         -- set id and href of the new <a> element, if it isn't set already
         if not newa:get_attribute("href") then
           local id   = child:get_attribute("id") 
@@ -146,12 +157,20 @@ local function remove_spurious_TOC_elements(tocdom)
         end
         -- copy <a> contents to the new <a> element
         for _, x in ipairs(child._children or {}) do newa:add_child_node(x:copy_node()) end
-      else
+
+      elseif stop_toc_processing_elements[child_name] then
+        -- don't put child toc entries to the new <a>
+        keep_processing = false
+        newchildren[#newchildren+1] = child
+      elseif keep_processing == true then
+        -- put every node before <ol> or <ul> into the new <a>
         newa:add_child_node(child:copy_node())
+      else
+        newchildren[#newchildren+1] = child
       end
     end
     -- set contents of <li> to be the new <a>
-    el._children = {newa}
+    el._children = newchildren
   end
   return tocdom
 
