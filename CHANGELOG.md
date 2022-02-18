@@ -1,5 +1,9 @@
 # Changes
 
+- 2021/02/18
+
+  - released version `0.3h`.
+
 - 2022/01/13
 
   - fixed issue where child TOC elements were inserted into `<a>` element.
