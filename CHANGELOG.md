@@ -1,5 +1,9 @@
 # Changes
 
+- 2022/02/22
+
+  - print `\subsubsection` in the Epub TOC.
+
 - 2022/02/18
 
   - released version `0.3h`.
