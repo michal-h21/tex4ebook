@@ -43,7 +43,7 @@ tex4ebook [switches] filename ["tex4ht.sty op."] ["tex4ht op."] ["t4ht op"] ["la
   -j,--jobname (default nil)  Set the jobname
   -l,--lua  Use lualatex for document compilation
   -m,--mode (default default) Switch which can be used in the makefile
-  -r,--resolution (default 167)
+  -r,--resolution (default nil)  This option is obsolete, use build files instead!
   -s,--shell-escape  Enable shell escape in htlatex run
   -t,--tidy Run html tidy on html output. May result in wrong spacing!
   -x,--xetex Use xelatex for document compilation
@@ -149,6 +149,11 @@ local oldparams = {
   ,resolution=args.resolution
   ,packages="\\RequirePackage{tex4ebook}"
 }  
+
+if oldparams.resolution~="nil" then
+  log:warning("The resolution parameter is deprecated. Please use a build file")
+  log:warning("See information about Make:image() command in Make4ht documenation")
+end
 
 -- extend params
 for k,v in pairs(oldparams) do
