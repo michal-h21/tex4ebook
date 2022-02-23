@@ -107,11 +107,6 @@ For example:
      values are `default` and `draft`. In `draft` mode, document is compiled
      only once, instead of three times.
 
-`-r,--resolution`
-
-:    Resolution of generated images, for example math. It should meet resolution
-     of target devices, which is usually about 167 ppi.
-
 `-s,--shell-escape`
 
 :     Enable shell escape in the `htlatex` run. This is necessary for the execution of the external
@@ -279,13 +274,42 @@ Remarks:
 ## Build files
 
 `tex4ebook` uses `make4ht`^[https://github.com/michal-h21/make4ht] as a build
-system. See `make4ht` documentation for details on build files. 
+system. It provides support for build files written in Lua. These build files
+can be used to call additional commands, like Bib\TeX\ or Makeindex, post-process
+generated HTML files, change the way how images are created, or to modify
+parameters of the conversion.  
+
+Sample build file can look like this:
+
+    if mode=="draft" then
+      Make:htlatex {}
+    else
+      Make:htlatex {}
+      Make:htlatex {}
+      Make:htlatex {}
+    end
+    
+    Make:image("png$",
+    "dvipng -bg Transparent -T tight -o ${output} -D 170  -pp ${page} ${source}")
+
+The `mode` variable holds value of the `--mode` argument to `tex4ebook`. The `draft` 
+mode is used for  faster compilation, it calls LaTeX only once.
+
+The `Make:image` function can configure handling of images created by extraction from the 
+DVI file. It can be complex math, TikZ or PSTricks pictures, and so on. The `${<name>}` 
+placeholders are filled by `tex4ebook` with parameters like current page number of 
+the image DVI file, or output image name.
+
+You can compile your document with a build file using the `-e` option:
+
+    tex4ebook -m draft -e build.lua filename.tex
+
+See `make4ht` documentation for more details on configuration files.
 
 ## `.tex4ebook` configuration file
 
-It is possible to globally modify the build settings using the configuration
-file. New compilation commands can be added, extensions can be loaded or
-disabled and settings can be set.
+`tex4ebook` supports a default build file, which is loaded automatically
+without need to use the `-e` option.
 
 ### Location
 
