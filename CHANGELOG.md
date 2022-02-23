@@ -1,5 +1,10 @@
 # Changes
 
+- 2022/02/23
+
+  - extended the documentation about build files.
+  - deprecated the `--resolution` CLI argument.
+
 - 2022/02/22
 
   - print `\subsubsection` in the Epub TOC.
