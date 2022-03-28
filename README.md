@@ -251,8 +251,26 @@ Remarks:
    equivalent HTML code needs to be inserted. `UTF8` is not recognized at that place.
 - `UTF8` characters may be used in the `OpfMetadata` sections.
 
+##  \TeX4ht options
 
+\TeX4ht supports lot of options, that change produced HTML code without need to 
+use configurations. Their list is available in the [\TeX4ht
+documentation](https://www.kodymirus.cz/tex4ht-doc/texfourhtOptions.html).
+You can pass options to `tex4ebook` in the argument that follows filename:
 
+    tex4ebook filename.tex "option1,option2"
+
+Alternatively, they can be put in the `\Preamble` command in the config file:
+
+    \Preamble{xhtml,option1,option2}
+
+### Options provided by `tex4ebook`
+
+`no-cut`
+
+:    By default `tex4ebook` splits document to separate HTML pages on `\chapter` command when it is available.
+     Othervise, it splits on `\section`. This can be changed using the `\CutAt` command or numeric options, but 
+     you need to use the `no-cut` option to prevent fatal error.
 
 ## Commands available in the config file
 

@@ -1,5 +1,9 @@
 # Changes
 
+- 2022/03/28
+
+  - documented the `no-cut` option.
+
 - 2022/02/23
 
   - extended the documentation about build files.
