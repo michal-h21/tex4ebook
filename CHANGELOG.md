@@ -1,5 +1,10 @@
 # Changes
 
+- 2022/03/29
+
+  - fixed support for \TeX\ filenames that contain dot.
+  - removed spurious comma that was introduced earlier.
+  
 - 2022/03/28
 
   - documented the `no-cut` option.
