@@ -165,6 +165,8 @@ function make_opf()
 	end
 	local find_all_files= function(s,r)
 		local r = r or "([%a%d%_%-]*)%.([x]?html)"
+    -- find only href items
+    r = "href=." .. r 
 		local files = {}
 		for i, ext in s:gmatch(r) do
 			--local i, ext = s:match(r)-- do
@@ -201,7 +203,7 @@ function make_opf()
       used_files[filename] = true
     end
     local outside_spine = {}
-    local all_used_files = find_all_files(opf_complete[1],"([%a%d%-%_]+%.[%a%d]+)")
+    local all_used_files = find_all_files(opf_complete[1],"([%a%d%-%_%.]+%.[%a%d]+)")
     local used_paths = {}
     local used_ids   = {}
     for _,k in ipairs(lg_file["files"]) do
