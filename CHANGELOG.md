@@ -1,5 +1,9 @@
 # Changes
 
+- 2022/11/20
+
+  - added support for the `fn-in` option in the Epub 3 output.
+
 - 2022/03/29
 
   - fixed support for \TeX\ filenames that contain dot.

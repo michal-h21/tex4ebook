@@ -76,6 +76,9 @@
 
 % Structural elements
 
+\:CheckOption{fn-in}
+\if:Option
+\else
 % Foootnote configuration for epub3
 % Footnotes are printed directly after the paragraph they appeared in
 % footnotebox - configure box in which footnotes are printed
@@ -114,3 +117,4 @@
 
 \Css{.footnote{font-size:small;}}
 \Css{.footnotes hr{width:30\%;margin:0 auto 0 0;}}
+\fi
