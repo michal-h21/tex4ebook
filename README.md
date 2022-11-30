@@ -114,7 +114,7 @@ For example:
 
 `-t,--tidy`
 
-:     process output html files with `HTML tidy` command^[It needs to be installed separately].
+:     clean-up output HTML files using the `HTML tidy` command^[if it is available on your system].
 
 `-x,--xetex`
 
