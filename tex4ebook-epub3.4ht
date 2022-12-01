@@ -24,9 +24,10 @@
     \Configure{toTocLink}{}{}   
 }{\b:NavMap}{}{}{}
 %%%%%%%%%%%
-\Configure{NavMap}{\ifvmode\IgnorePar\fi\EndP\boolfalse{tocnoempty}\HCode{<nav id="toc" epub:type="toc">\Hnewline<ol>}%
+\newcount\:toccount
+\Configure{NavMap}{\ifvmode\IgnorePar\fi\EndP\boolfalse{tocnoempty}\global\advance\:toccount by1\HCode{<nav id="toc\the\:toccount" \ifnum\:toccount<2 epub:type="toc"\fi>\Hnewline<ol>}%
 \opf:registerfilename{\FileName}
-\opf:add:property{nav}
+\ifnum\:toccount<2 \opf:add:property{nav}\fi
 }{\usetoclevels{part,appendix,chapter,section,subsection,subsubsection}%
 	\ifbool{tocnoempty}{}{\HCode{<li><a href="\jobname.\:html">Document</a></li>}}
 	\HCode{</ol></nav>}}

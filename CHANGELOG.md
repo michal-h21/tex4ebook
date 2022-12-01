@@ -1,5 +1,9 @@
 # Changes
 
+- 2022/12/01
+
+  - fixed handling of multiple tables of contents in Epub 3.
+
 - 2022/11/20
 
   - added support for the `fn-in` option in the Epub 3 output.
