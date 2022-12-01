@@ -2,6 +2,7 @@
 
 - 2022/12/01
 
+  - set destinations for `\label` used inside of footnotes.
   - fixed handling of multiple tables of contents in Epub 3.
 
 - 2022/11/20

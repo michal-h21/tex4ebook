@@ -95,7 +95,7 @@
 	\ifvoid\footnotebox\else\unvbox\footnotebox\fi%
 	\IgnorePar%
 	\bgroup%
-	\fnlink{}{fn\FNnum x\minipageNum}\Tg<p>%
+	\fnlink{}{fn\FNnum x\minipageNum}\Tg<p>\AnchorLabel%
 }{\EndNoFonts}
 {%
 	\HCode{</p>\Hnewline}
