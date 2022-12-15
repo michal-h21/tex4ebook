@@ -1,5 +1,9 @@
 # Changes
 
+- 2022/12/15
+
+  - use lower case file extensions for mimetype matching. 
+
 - 2022/12/01
 
   - set destinations for `\label` used inside of footnotes.
