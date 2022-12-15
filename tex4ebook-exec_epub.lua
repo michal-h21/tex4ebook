@@ -150,7 +150,8 @@ function make_opf()
 	local lg_item = function(item)
 		-- Find mimetype and make item tag for each converted file in the lg file
 		local fname,ext = item:match("([%a%d%_%-]*)%p([%a%d]*)$")
-		local mimetype = mimetypes[ext] or ""
+    local lower_ext = string.lower(ext)
+		local mimetype = mimetypes[lower_ext] or ""
 		if mimetype == "" then log:info("Mimetype for "..ext.." is not registered"); return nil end
 		local dir_part = item:split("/")
 		table.remove(dir_part,#dir_part)
