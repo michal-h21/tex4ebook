@@ -153,6 +153,7 @@ function make_opf()
 	local lg_item = function(item)
 		-- Find mimetype and make item tag for each converted file in the lg file
 		local fname,ext = item:match("([^%/^%.]*)%.([%a%d]*)$")
+    if not ext then return nil end
     local lower_ext = string.lower(ext)
 		local mimetype = mimetypes[lower_ext] or ""
 		if mimetype == "" then log:info("Mimetype for "..ext.." is not registered"); return nil end
@@ -168,17 +169,15 @@ function make_opf()
 		return "<item id='"..id .. "' href='"..item.."' media-type='"..mimetype.."' />",id
 	end
 	local find_all_files= function(s,r)
+    -- find files that had been declared in the OPF file using \Configure{OpfMetadata}
 		local r = r or "(.*)%.([x]?html)"
-    -- find only href items
-    r = "href=." .. r 
 		local files = {}
 		for item in s:gmatch("href=\"(.-)\"") do
       local i, ext = item:match(r)
-      print(item, i, ext, r)
       if i then
         --local i, ext = s:match(r)-- do
         ext = ext or "true"
-        files[i] = ext 
+        files[item] = ext 
       end
 		end 
 		return files
@@ -198,7 +197,8 @@ function make_opf()
     local h_second = io.open(opf_second_part,"r")
     local opf_complete = {}
     table.insert(opf_complete,h_first:read("*all"))
-    local used_html = find_all_files(opf_complete[1])
+    -- we used to detect all declared HTML files, but this table wasn't used anymore, so I deprecate this use
+    -- local used_html = find_all_files(opf_complete[1])
     -- local lg_file = ebookutils.parse_lg(outputfilename..".lg")
     -- The lg_file has been already loaded by make4ht, it doesn't make sense to load it again
     -- Furthermore, it is now possible to add new files from Lua build files
@@ -206,12 +206,10 @@ function make_opf()
     local used_files = {}
     for _,filename in ipairs(lg_file["files"]) do
       -- we need to test the filenames in order to prevent duplicates
-      -- filenames are tested without paths, so there may be issues if 
-      -- the same filename is used in different directories. Is that a problem?
       used_files[filename] = true
     end
     local outside_spine = {}
-    local all_used_files = find_all_files(opf_complete[1],"(.+)%.([%a%d]+)$")
+    local all_used_files = find_all_files(opf_complete[1],"(.+)%.(.+)")
     local used_paths = {}
     local used_ids   = {}
     for _,k in ipairs(lg_file["files"]) do
@@ -222,8 +220,6 @@ function make_opf()
       table.remove(parts,#parts)
       --table.insert(parts,1,"OEBPS")
       table.insert(parts,1,outputdir)
-      -- print("SSSSS "..fn.." ext .." .. ext)
-      --if string.find("jpg gif png", ext) and not all_used_files[k] then
       local item,id = lg_item(k) 
       if item then
         local path = table.concat(parts)
@@ -242,7 +238,7 @@ function make_opf()
         end
         if not used_ids[id] then    
           ebookutils.copy(k, outputdir .. "/"..k)
-          if not all_used_files[fn] then
+          if not all_used_files[k] then
             table.insert(opf_complete,item)
             if allow_in_spine[ext] then 
               table.insert(outside_spine,id)
