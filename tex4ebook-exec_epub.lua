@@ -163,7 +163,7 @@ function make_opf()
     -- remove invalid characters from id start
     id = id:gsub("^[%.%-]*","")
     -- remove colons
-    id = id:gsub(":", "_")
+    id = id:gsub("[:%(%)]", "_")
     -- id cannot start by number, add trailing "x" character
     id = id:gsub("^([%d])", "x%1")
 		return "<item id='"..id .. "' href='"..item.."' media-type='"..mimetype.."' />",id

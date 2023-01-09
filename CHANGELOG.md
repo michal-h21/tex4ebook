@@ -1,5 +1,9 @@
 # Changes
 
+- 2023/01/09
+
+  - fixed handling of metadata for filenames with accented characters.
+
 - 2022/12/15
 
   - use lower case file extensions for mimetype matching. 
