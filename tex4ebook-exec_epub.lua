@@ -145,12 +145,14 @@ function remove_empty_guide(content)
   return content:gsub("<guide>%s*</guide>","")
 end
 
+
+
 function make_opf()
 	-- Join files content.opf and content-part2.opf
 	-- make item record for every converted image
 	local lg_item = function(item)
 		-- Find mimetype and make item tag for each converted file in the lg file
-		local fname,ext = item:match("([%a%d%_%-]*)%p([%a%d]*)$")
+		local fname,ext = item:match("([^%/^%.]*)%.([%a%d]*)$")
     local lower_ext = string.lower(ext)
 		local mimetype = mimetypes[lower_ext] or ""
 		if mimetype == "" then log:info("Mimetype for "..ext.." is not registered"); return nil end
@@ -166,14 +168,18 @@ function make_opf()
 		return "<item id='"..id .. "' href='"..item.."' media-type='"..mimetype.."' />",id
 	end
 	local find_all_files= function(s,r)
-		local r = r or "([%a%d%_%-]*)%.([x]?html)"
+		local r = r or "(.*)%.([x]?html)"
     -- find only href items
     r = "href=." .. r 
 		local files = {}
-		for i, ext in s:gmatch(r) do
-			--local i, ext = s:match(r)-- do
-			ext = ext or "true"
-			files[i] = ext 
+		for item in s:gmatch("href=\"(.-)\"") do
+      local i, ext = item:match(r)
+      print(item, i, ext, r)
+      if i then
+        --local i, ext = s:match(r)-- do
+        ext = ext or "true"
+        files[i] = ext 
+      end
 		end 
 		return files
 	end
@@ -205,7 +211,7 @@ function make_opf()
       used_files[filename] = true
     end
     local outside_spine = {}
-    local all_used_files = find_all_files(opf_complete[1],"([%a%d%-%_%.]+%.[%a%d]+)")
+    local all_used_files = find_all_files(opf_complete[1],"(.+)%.([%a%d]+)$")
     local used_paths = {}
     local used_ids   = {}
     for _,k in ipairs(lg_file["files"]) do
