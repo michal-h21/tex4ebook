@@ -161,10 +161,7 @@ function make_opf()
     if not ext then return nil end
     local lower_ext = string.lower(ext)
 		local mimetype = mimetypes[lower_ext] or ""
-		if mimetype == "" then 
-      log:info("Mimetype for the  "..ext.." extension is not registered. Using default mimetype.") 
-      mimetype = "application/xhtml+xml"
-    end
+		if mimetype == "" then log:info("Mimetype for the  "..ext.." extension is not registered"); return nil end
 		local dir_part = item:split("/")
 		table.remove(dir_part,#dir_part)
 		local id=table.concat(dir_part,"-")..fname.."_"..ext
