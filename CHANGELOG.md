@@ -1,5 +1,9 @@
 # Changes
 
+- 2023/01/12
+
+  - added all mimetypes supported in Epub.
+
 - 2023/01/09
 
   - fixed handling of metadata for filenames with accented characters.

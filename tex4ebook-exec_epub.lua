@@ -133,12 +133,17 @@ local mimetypes = {
 	html= "application/xhtml+xml",
 	xhtml= "application/xhtml+xml",
 	ncx = "application/x-dtbncx+xml",
-	otf = "application/opentype",
-	ttf = "application/truetype",
+	otf = "application/font-sfnt",
+	ttf = "application/font-sfnt",
 	woff = "application/font-woff",
+	woff2 = "font/woff2",
   js = "text/javascript",
   mp3 = "audio/mpeg",
-  smil = "application/smil+xml"
+  mp4 = "audio/mp4",
+  avi = "video/x-msvideo",
+  mkv = "video/x-matroska",
+  smil = "application/smil+xml",
+  pls = "application/pls+xml"
 }
 
 function remove_empty_guide(content)
