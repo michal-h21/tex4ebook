@@ -1,5 +1,9 @@
 # Changes
 
+- 2023/03/02
+
+  - check if file with TOC exists before processing.
+
 - 2023/01/12
 
   - added all mimetypes supported in Epub.

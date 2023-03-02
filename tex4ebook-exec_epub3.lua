@@ -186,6 +186,10 @@ local function cleanTOC(content)
       if filename then
         filename = outputdir .. "/" ..  filename
         local f = io.open(filename, "r")
+        if not f then
+          log:warning("Cannot open TOC file for clean-up: " .. filename)
+          return nil
+        end
         local t = f:read("*all")
         f:close()
         local tocdom = dom.parse(t)
