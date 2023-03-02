@@ -2,6 +2,7 @@
 
 - 2023/03/02
 
+  - released verision `0.3i`
   - check if file with TOC exists before processing.
 
 - 2023/01/12
