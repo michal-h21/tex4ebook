@@ -1,5 +1,9 @@
 # Changes
 
+- 2023/03/17
+
+  - fixed bug in generating of TOC in the NCX file.
+
 - 2023/03/02
 
   - released verision `0.3i`
