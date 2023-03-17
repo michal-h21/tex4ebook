@@ -2,11 +2,12 @@
 
 - 2023/03/17
 
+  - released version `0.3j`.
   - fixed bug in generating of TOC in the NCX file.
 
 - 2023/03/02
 
-  - released verision `0.3i`
+  - released verision `0.3i`.
   - check if file with TOC exists before processing.
 
 - 2023/01/12
