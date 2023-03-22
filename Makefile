@@ -58,6 +58,7 @@ build: doc $(tex_content) $(lua_content)
 	@mkdir -p $(BUILD_TEX4EBOOK)
 	@cp $(tex_content) $(lua_content)  tex4ebook-doc.pdf $(BUILD_TEX4EBOOK)
 	@cat tex4ebook | sed -e "s/{{version}}/${VERSION}/" >  $(BUILD_TEX4EBOOK)tex4ebook
+	@cat tex4ebook.sty | sed -e "s/{{version}}/${VERSION}/" | sed -e "s/{{date}}/${DATE}/" > $(BUILD_TEX4EBOOK)tex4ebook.sty
 	@cp README.md $(BUILD_TEX4EBOOK)README
 	cd $(BUILD_DIR) && zip -r tex4ebook.zip tex4ebook
 
