@@ -1,5 +1,9 @@
 # Changes
 
+- 2023/05/23
+
+  - removed spurious numbers from TOC in Epub 3.
+
 - 2023/03/17
 
   - released version `0.3j`.

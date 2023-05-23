@@ -25,7 +25,7 @@
 }{\b:NavMap}{}{}{}
 %%%%%%%%%%%
 \newcount\:toccount
-\Configure{NavMap}{\ifvmode\IgnorePar\fi\EndP\boolfalse{tocnoempty}\global\advance\:toccount by1\HCode{<nav id="toc\the\:toccount" \ifnum\:toccount<2 epub:type="toc"\fi>\Hnewline<ol>}%
+\Configure{NavMap}{\ifvmode\IgnorePar\fi\EndP\boolfalse{tocnoempty}\global\advance\:toccount by1\HCode{<nav id="toc\the\:toccount" class="toc" \ifnum\:toccount<2 epub:type="toc"\fi>\Hnewline<ol>}%
 \opf:registerfilename{\FileName}
 \ifnum\:toccount<2 \opf:add:property{nav}\fi
 }{\usetoclevels{part,appendix,chapter,section,subsection,subsubsection}%
@@ -36,7 +36,7 @@
 	\booltrue{tocnoempty}
 	\HCode{<li>}}{\HCode{<ol>\Hnewline}}{\ }{\Tg</ol>\Tg</li>}
 % Disable numbering of the TOC by the reading system, numbers are added by tex4ht
-\Css{nav\#toc ol{list-style: none;}}
+\Css{nav.toc ol{list-style: none;}}
 %%%% End toc nav configuration
 \def\CoverMetadata#1{%
 \special{t4ht+@File: #1}%
