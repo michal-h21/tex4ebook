@@ -144,12 +144,12 @@
 \let\tf@orig@author\author
 \newcommand\tf@author[1]{%
   \tf@orig@author{#1}%
-  \def\Author{#1}%
+  \gdef\Author{#1}%
 }
 
 \newcommand\tf@optauthor[2][]{%
   \tf@orig@author[#1]{#2}%
-  \def\Author{#2}%
+  \gdef\Author{#2}%
 }
 
 % support optiona argument for \author as well
@@ -162,7 +162,7 @@
 \let\origdate\date
 \renewcommand\date[1]{%
   \origdate{#1}%
-  \let\Date\@date%
+  \global\let\Date\@date%
 }
 %}
 

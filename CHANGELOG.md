@@ -1,5 +1,9 @@
 # Changes
 
+- 2023/05/29
+
+  - save author and date globally.
+
 - 2023/05/23
 
   - removed spurious numbers from TOC in Epub 3.
