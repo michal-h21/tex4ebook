@@ -292,7 +292,9 @@ function make_opf()
   end
 end
 local function find_zip()
-  if assert(io.popen("zip -v","r"):close()) then
+  local zip_handle = assert(io.popen("zip -v","r"))
+  if zip_handle then
+    zip_handle:close()
     return "zip"
   elseif assert(io.popen("miktex-zip -v","r"):close()) then
     return "miktex-zip"

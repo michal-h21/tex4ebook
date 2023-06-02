@@ -1,5 +1,9 @@
 # Changes
 
+- 2023/06/02
+
+  - prevent fatal errors in the `zip` command executable detection.
+
 - 2023/05/29
 
   - save author and date globally.
