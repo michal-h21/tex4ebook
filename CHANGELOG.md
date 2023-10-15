@@ -1,5 +1,9 @@
 # Changes
 
+- 2023/10/15
+
+  - don't set PNG as image format explicitly.
+
 - 2023/06/02
 
   - prevent fatal errors in the `zip` command executable detection.

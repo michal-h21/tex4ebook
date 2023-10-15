@@ -190,13 +190,9 @@ href="#1" media-type="\a:CoverMimeType" />}}
 % add explicit table of contents to OPF
 \let\old:toc\a:tableofcontents
 \def\a:tableofcontents{\old:toc\OpfRegisterFile}
-% Support for SVG isn't ready
-%\Configure{Picture}{.svg}
-\Configure{Picture}{.png}
 \Configure{()}{$}{$}
 \fi
 \:CheckOption{kindle} \if:Option
-\Configure{Picture}{.png}
 \fi
 
 %%
