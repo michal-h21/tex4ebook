@@ -52,7 +52,7 @@ function prepare(params)
 		end
 		lfs.chdir(current)
 	end
-	basedir = params.input.."-".. params.format
+	basedir = ebookutils.file_in_builddir(params.input.."-".. params.format, params)
 	outputdir= basedir.."/"..outputdir_name
   deletedir(basedir)
 	makedir(outputdir)
@@ -150,12 +150,20 @@ function remove_empty_guide(content)
   return content:gsub("<guide>%s*</guide>","")
 end
 
+local function remove_builddir(filename)
+  -- make4ht adds the build dir to all output files, 
+  -- but we don't want them there, because it is appended to the outdir
+  local builddir = Make.params.builddir
+  return filename:gsub("^" .. builddir .. "/", "")
+end
+
 
 
 function make_opf()
 	-- Join files content.opf and content-part2.opf
 	-- make item record for every converted image
 	local lg_item = function(item)
+    local item = remove_builddir(item)
 		-- Find mimetype and make item tag for each converted file in the lg file
 		local fname,ext = item:match("([^%/^%.]*)%.([%a%d]*)$")
     if not ext then return nil end
@@ -192,8 +200,8 @@ function make_opf()
 		tidyconf = kpse.find_file("tex4ebook-tidyconf.conf")
 	end
 	--local opf_first_part = outputdir .. "/content.opf" 
-	local opf_first_part =   "content.opf" 
-	local opf_second_part =  "content-part2.opf"
+	local opf_first_part =   ebookutils.file_in_builddir("content.opf", Make.params)
+	local opf_second_part =  ebookutils.file_in_builddir("content-part2.opf", Make.params)
 	--local opf_second_part = outputdir .. "/content-part2.opf"
 	if 
 		ebookutils.file_exists(opf_first_part) and ebookutils.file_exists(opf_second_part) 
@@ -242,8 +250,8 @@ function make_opf()
           end
         end
         if not used_ids[id] then    
-          ebookutils.copy(k, outputdir .. "/"..k)
-          if not all_used_files[k] then
+          ebookutils.copy(k, outputdir .. "/".. remove_builddir(k))
+          if not all_used_files[remove_builddir(k)] then
             table.insert(opf_complete,item)
             if allow_in_spine[ext] then 
               table.insert(outside_spine,id)
@@ -259,7 +267,7 @@ function make_opf()
       -- process the images only if they weren't registered in lg_file["files"]
       -- they would be processed twice otherwise
       if not used_files[f] and not used_ids[id] then
-        ebookutils.copy(f, outputdir .. "/"..f)
+        ebookutils.copy(f, outputdir .. "/".. remove_builddir(f))
         table.insert(opf_complete,p)
       end
       used_ids[id] = true
@@ -282,7 +290,7 @@ function make_opf()
     h_first:close()
     os.remove(opf_second_part)
     --ebookutils.copy(outputfilename ..".css",outputdir.."/")
-    ebookutils.copy(opf_first_part,outputdir.."/"..opf_first_part)
+    ebookutils.copy(opf_first_part,outputdir.."/".. remove_builddir(opf_first_part))
     --for c,v in pairs(lg_file["fonts"]) do
     --	print(c, table.concat(v,", "))
     --end
@@ -324,8 +332,7 @@ function pack_container()
     log:info("Tidy ncx "..
     os.execute("tidy -xml -i -q -utf8 -m " ..  ncxfilename))
     log:info("Tidy opf "..
-    os.execute("tidy -xml -i -q -utf8 -m " .. 
-    outputdir .. "/" .. "content.opf"))
+    os.execute("tidy -xml -i -q -utf8 -m " .. ebookutils.file_in_builddir("content.opf", Make.params)))
   end
   local zip = find_zip()
   -- we need to remove the epub file if it exists already, because it may contain files which aren't used anymore

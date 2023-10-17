@@ -1,5 +1,9 @@
 # Changes
 
+- 2023/10/17
+
+  - added the `--build-dir` command line option.
+
 - 2023/10/15
 
   - don't set PNG as image format explicitly.

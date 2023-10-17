@@ -37,6 +37,7 @@ tex4ebook [switches] filename ["tex4ht.sty op."] ["tex4ht op."] ["t4ht op"] ["la
                 possible values: debug, info, status, warning, error, fatal
   -c,--config (default xhtml) Custom config file
   -d,--output-dir (default nil)  Output directory
+  -B,--build-dir (default nil)  Build directory
   -e,--build-file (default nil)  If build file is different than `filename`.mk4
   -f,--format (default epub) Output format. Supported values: epub, epub3, mobi
   -h,--help  Display help message
@@ -124,6 +125,11 @@ local params = mkparams.process_args(args)
 local input = params.input
 log:status("Conversion started")
 log:status("Input file: ".. params.tex_file)
+
+if params.builddir ~= "" then
+  mkutils.make_path(params.builddir)
+end
+
 
 
 local output_format = params.output_format 
