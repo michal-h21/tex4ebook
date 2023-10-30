@@ -46,7 +46,7 @@ But it is optional. You shouldn't need to modify your \TeX\ files
 
 ## Available commands
 
-- `\coverimage[<graphicx options>]{coverimage.name}` - include cover image to
+- `\coverimage[<graphicx options>]{coverimage.name}` -- include cover image to
   the document. You can pass the same options as to `\includegraphics` command
   in the optional argument.
 
@@ -57,6 +57,8 @@ For example:
     \coverimage[scale=0.8]{coverimage.name} % include scaled cover image
     ...
     \pagestyle{headings}
+
+- `\epubpage` -- add page break to the document. 
 
 # Command line options
 

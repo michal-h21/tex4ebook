@@ -146,6 +146,13 @@ href="#1" media-type="\a:CoverMimeType" />}}
 \b:CoverImage%
 }
 
+\renewcommand\epubpage{\a:epubpage}
+\NewConfigure{epubpage}{1}
+\Configure{epubpage}{\ifvmode\IgnorePar\fi\EndP\HCode{<div class="newpage"></div>}}
+\Css{.newpage{page-break-before:always;}}
+
+
+
 \NewConfigure{CoverMimeType}{1}
 \Configure{CoverMimeType}{image/png}
 

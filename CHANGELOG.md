@@ -1,5 +1,9 @@
 # Changes
 
+- 2023/10/30
+
+  - added the `\epubpage` command
+
 - 2023/10/17
 
   - added the `--build-dir` command line option.
