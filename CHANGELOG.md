@@ -1,5 +1,9 @@
 # Changes
 
+- 2024/02/23
+
+  - version `0.4` released.
+
 - 2023/10/30
 
   - added the `\epubpage` command
