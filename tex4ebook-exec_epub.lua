@@ -302,17 +302,15 @@ end
 local function find_zip()
   local zip_handle = assert(io.popen("zip -v 2>&1","r"))
   local miktex_zip = assert(io.popen("miktex-zip -v 2>&1","r"))
-  if zip_handle:read("*all") ~= "" then
-    zip_handle:close()
-    miktex_zip:close()
-    return "zip"
-  elseif miktex_zip:read("*all") ~= "" then
-    zip_handle:close()
-    miktex_zip:close()
-    return "miktex-zip"
-  end
+  local zip_result = zip_handle:read("*all")
+  local miktex_result = miktex_zip:read("*all")
   zip_handle:close()
   miktex_zip:close()
+  if zip_result and zip_result:match("Zip") then
+    return "zip"
+  elseif miktex_result and miktex_result:match("Zip") then
+    return "miktex-zip"
+  end
   log:warning "It appears you don't have zip command installed. I can't pack the ebook"
   return "zip"
 end
