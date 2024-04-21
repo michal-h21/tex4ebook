@@ -1,5 +1,9 @@
 # Changes
 
+- 2024/04/21
+
+  - better detection of `zip` and `miktex-zip` commands.
+
 - 2024/02/23
 
   - version `0.4` released.

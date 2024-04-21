@@ -300,13 +300,19 @@ function make_opf()
   end
 end
 local function find_zip()
-  local zip_handle = assert(io.popen("zip -v","r"))
-  if zip_handle then
+  local zip_handle = assert(io.popen("zip -v 2>&1","r"))
+  local miktex_zip = assert(io.popen("miktex-zip -v 2>&1","r"))
+  if zip_handle:read("*all") ~= "" then
     zip_handle:close()
+    miktex_zip:close()
     return "zip"
-  elseif assert(io.popen("miktex-zip -v","r"):close()) then
+  elseif miktex_zip:read("*all") ~= "" then
+    zip_handle:close()
+    miktex_zip:close()
     return "miktex-zip"
   end
+  zip_handle:close()
+  miktex_zip:close()
   log:warning "It appears you don't have zip command installed. I can't pack the ebook"
   return "zip"
 end
