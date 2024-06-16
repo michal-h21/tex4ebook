@@ -150,11 +150,18 @@ function remove_empty_guide(content)
   return content:gsub("<guide>%s*</guide>","")
 end
 
+local function startswith(str, prefix)
+  return str:sub(1, prefix:len()) == prefix
+end
+
 local function remove_builddir(filename)
   -- make4ht adds the build dir to all output files, 
   -- but we don't want them there, because it is appended to the outdir
   local builddir = Make.params.builddir
-  return filename:gsub("^" .. builddir .. "/", "")
+  if startswith(filename, builddir .. "/") then
+    return filename:sub((builddir .. "/"):len() + 1)
+  end
+  return filename
 end
 
 
