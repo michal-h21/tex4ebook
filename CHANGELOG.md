@@ -1,5 +1,10 @@
 # Changes
 
+- 2024/06/16
+
+  - fixed support for `--build-dir` that contains dashes. Thanks to Danie-1.
+    https://github.com/michal-h21/tex4ebook/pull/132
+
 - 2024/04/21
 
   - better detection of `zip` and `miktex-zip` commands.
