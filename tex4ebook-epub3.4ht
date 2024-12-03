@@ -29,12 +29,12 @@
 \opf:registerfilename{\FileName}
 \ifnum\:toccount<2 \opf:add:property{nav}\fi
 }{\usetoclevels{part,appendix,chapter,section,subsection,subsubsection}%
-	\ifbool{tocnoempty}{}{\HCode{<li><a href="\jobname.\:html">Document</a></li>}}
-	\HCode{</ol></nav>}}
+    \ifbool{tocnoempty}{}{\HCode{<li><a href="\jobname.\:html">Document</a></li>}}
+    \HCode{</ol></nav>}}
 %%%%%%%%%%%
 \Configure{NavSection}{%
-	\booltrue{tocnoempty}
-	\HCode{<li>}}{\HCode{<ol>\Hnewline}}{\ }{\Tg</ol>\Tg</li>}
+    \booltrue{tocnoempty}
+    \HCode{<li>}}{\HCode{<ol>\Hnewline}}{\ }{\Tg</ol>\Tg</li>}
 % Disable numbering of the TOC by the reading system, numbers are added by tex4ht
 \Css{nav.toc ol{list-style: none;}}
 %%%% End toc nav configuration
@@ -68,7 +68,7 @@
 \Configure{@HEAD}{}
 \Configure{@HEAD}{\HCode{<meta charset="UTF-8" />\Hnewline}}
 \Configure{@HEAD}{\HCode{<meta name="generator" content="TeX4ht
-		(http://www.cse.ohio-state.edu/\string~gurari/TeX4ht/)" />\Hnewline}}
+        (http://www.cse.ohio-state.edu/\string~gurari/TeX4ht/)" />\Hnewline}}
 \Configure{@HEAD}{\HCode{<link
  rel="stylesheet" type="text/css"
  href="\expandafter\csname aa:CssFile\endcsname" />\Hnewline}}
@@ -85,37 +85,38 @@
 % footnotebox - configure box in which footnotes are printed
 % default configuration doesn't work in ibooks, don't know why
 \NewConfigure{footnotebox}{2}
-\Configure{footnotebox}{\HCode{<section epub:type="footnotes" class="footnotes">\Hnewline}}
-{\HCode{\Hnewline</section>\Hnewline}}
-\newbox\footnotebox
+\Configure{footnotebox}{\ifvmode\IgnorePar\fi\HCode{<section epub:type="footnotes" class="footnotes">\Hnewline}}%
+{\ifvmode\IgnorePar\fi\HCode{\Hnewline</section>\Hnewline}}%
+\newbox\footnotebox%
 % We must create new link command, so footnote mark can link to footnote text
 \LinkCommand\fnlink{aside,href,id,class="footnote" epub:type="footnote"}
-\Configure{footnotemark}{\NoFonts\Link[ epub:type="noteref"]{fn\FNnum x\minipageNum}{}}{\EndLink\EndNoFonts}
-\Configure{footnotetext}{\global\setbox\footnotebox=\vtop\bgroup\NoFonts%
-	\ifvoid\footnotebox\else\unvbox\footnotebox\fi%
-	\IgnorePar%
-	\bgroup%
-	\fnlink{}{fn\FNnum x\minipageNum}\Tg<p>\AnchorLabel%
+\Configure{footnotemark}{\NoFonts\Link[ epub:type="noteref"]{fn\FNnum x\minipageNum}{}}{\EndLink\EndNoFonts}%
+\Configure{footnotetext}{\SaveEndP\global\setbox\footnotebox=\vtop\bgroup\NoFonts%
+    \ifvoid\footnotebox\else\unvbox\footnotebox\fi%
+    \bgroup%
+  \IgnorePar%
+    \fnlink{}{fn\FNnum x\minipageNum}\par\AnchorLabel%
 }{\EndNoFonts}
 {%
-	\HCode{</p>\Hnewline}
-	\Endfnlink\egroup\egroup}%
+    \ifvmode\IgnorePar\fi\EndP\HCode{\Hnewline}%
+    \Endfnlink\egroup\egroup\RecallEndP}%
 
 \def\printfn{%
-	\ifvoid\footnotebox\else%
-	\a:footnotebox%
-	\box\footnotebox%
-	\b:footnotebox%
-	\fi%
+    \ifvoid\footnotebox\else%
+    \a:footnotebox%
+    \box\footnotebox%
+    \b:footnotebox%
+    \fi%
 }
 
 % configure HtmlPar to print footnotebox.
 \Configure{HtmlPar}
-{\EndP\HCode{<p class="noindent">}}
-{\EndP\HCode{<p class="indent">}}
-{\HCode{</p>\Hnewline}\printfn}
-{\HCode{</p>\Hnewline}\printfn}
+{\EndP\printfn\HCode{<p class="noindent">}}
+{\EndP\printfn\HCode{<p class="indent">}}
+{\HCode{</p>\Hnewline}}
+{\HCode{</p>\Hnewline}}
 
 \Css{.footnote{font-size:small;}}
 \Css{.footnotes hr{width:30\%;margin:0 auto 0 0;}}
+\Css{p + section.footnotes{margin-bottom: 1rem;}}
 \fi

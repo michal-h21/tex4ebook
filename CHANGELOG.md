@@ -1,5 +1,10 @@
 # Changes
 
+- 2024/12/03 
+
+  - fixed Epub 3 footnotes.
+    https://tex.stackexchange.com/a/732071/2891
+
 - 2024/06/16
 
   - fixed support for `--build-dir` that contains dashes. Thanks to Danie-1.
