@@ -172,23 +172,27 @@ href="#1" media-type="\a:CoverMimeType" />}}
 % add main html as first file in the OPF
 \opf:registerfilename{\jobname.\:html} % 
 
-% register all sectioning commands in the OPF
+% the following code should register files for all sectioning commands.
+% unfortunately, it doesn't work correctly. A better solution is below.
 \def\patch:sec:register#1{%
 \csgappto{c:#1}{\OpfRegisterFile}%
 }
-\patch:sec:register{part}
-\patch:sec:register{chapter}
-\patch:sec:register{section}
-\patch:sec:register{subsection}
-\patch:sec:register{subsubsection}
-\patch:sec:register{likechapter}
-\patch:sec:register{likesection}
-\patch:sec:register{likesubsection}
-\patch:sec:register{likesubsubsection}
-\patch:sec:register{appendix}
-\patch:sec:register{appendixsec}
-\patch:sec:register{appendixsubsec}
-\patch:sec:register{appendixsubsubsec}
+% \patch:sec:register{part}
+% \patch:sec:register{chapter}
+% \patch:sec:register{section}
+% \patch:sec:register{subsection}
+% \patch:sec:register{subsubsection}
+% \patch:sec:register{likechapter}
+% \patch:sec:register{likesection}
+% \patch:sec:register{likesubsection}
+% \patch:sec:register{likesubsubsection}
+% \patch:sec:register{appendix}
+% \patch:sec:register{appendixsec}
+% \patch:sec:register{appendixsubsec}
+% \patch:sec:register{appendixsubsubsec}
+
+% \Ttle is internal TeX4ht command used in sectioning commands
+\append:defIII\:Ttle{\OpfRegisterFile}
 
 \:CheckOption{epub}
 \if:Option

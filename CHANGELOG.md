@@ -1,5 +1,9 @@
 # Changes
 
+- 2025/01/10
+
+  - fixed adding of files for sections to the OPF file.
+
 - 2024/12/03 
 
   - fixed Epub 3 footnotes.
