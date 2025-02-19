@@ -1,5 +1,9 @@
 # Changes
 
+- 2025/02/19
+
+  - version `0.4a` released.
+
 - 2025/01/10
 
   - fixed adding of files for sections to the OPF file.
