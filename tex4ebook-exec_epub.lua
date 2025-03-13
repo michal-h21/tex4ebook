@@ -73,9 +73,7 @@ function prepare(params)
     if mode == "draft" then
       params.config_file.Make:htlatex()
     else
-      params.config_file.Make:htlatex()
-      params.config_file.Make:htlatex()
-      params.config_file.Make:htlatex() 
+      params.config_file.Make:autohtlatex()
     end
 	end
 	if #params.config_file.Make.image_patterns > 0 then

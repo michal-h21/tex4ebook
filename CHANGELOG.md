@@ -1,5 +1,9 @@
 # Changes
 
+- 2025/03/13
+
+  - use `Make:autohlatex` for the default compilation mode. 
+
 - 2025/02/19
 
   - version `0.4a` released.
