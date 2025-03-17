@@ -1,5 +1,10 @@
 # Changes
 
+- 2025/03/17
+
+  - redefine `\title` and `\author` after the document class is loaded.
+    https://github.com/michal-h21/tex4ebook/issues/138
+
 - 2025/03/13
 
   - use `Make:autohlatex` for the default compilation mode. 

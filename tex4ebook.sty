@@ -121,9 +121,6 @@
 \def\Title{Unnamed}
 \def\Author{Anonymous}
 
-% We need to save values of title, author etc.
-\let\tf@orig@title\title
-
 % normal \title
 \newcommand\tf@title[1]{%
   \tf@orig@title{#1}%
@@ -136,12 +133,6 @@
   \let\Title\@title%
 }
 
-% some classes (amsart) define \title command with optional argument
-\renewcommand\title{%
-\@ifnextchar[\tf@opttitle\tf@title%
-}
-
-\let\tf@orig@author\author
 \newcommand\tf@author[1]{%
   \tf@orig@author{#1}%
   \gdef\Author{#1}%
@@ -152,27 +143,33 @@
   \gdef\Author{#2}%
 }
 
-% support optiona argument for \author as well
-\renewcommand\author{%
-\@ifnextchar[\tf@optauthor\tf@author%
-}
-
-%\let\Author\@author
-\let\Date\today
-\let\origdate\date
-\renewcommand\date[1]{%
-  \origdate{#1}%
-  \global\let\Date\@date%
-}
-%}
-
-
-% Fixes for AMS classess
 \AddToHook{class/after}{%
-  \ifx\authors\@empty%
-  \def\@maketitle@hook{
-  \global\let\Author\authors
+  % We need to save values of title, author etc.
+  \let\tf@orig@title\title
+
+  % some classes (amsart) define \title command with optional argument
+  \renewcommand\title{%
+    \@ifnextchar[\tf@opttitle\tf@title%
   }
+
+  \let\tf@orig@author\author
+  % support optiona argument for \author as well
+  \renewcommand\author{%
+    \@ifnextchar[\tf@optauthor\tf@author%
+  }
+
+  \let\Date\today
+  \let\tf@orig@date\date
+  \renewcommand\date[1]{%
+    \tf@orig@date{#1}%
+    \global\let\Date\@date%
+  }
+
+  % Fixes for AMS classess
+  \ifx\authors\@empty%
+    \def\@maketitle@hook{
+      \global\let\Author\authors
+    }
   \fi%
 }
 
