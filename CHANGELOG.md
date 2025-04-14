@@ -1,5 +1,9 @@
 # Changes
 
+- 2025/04/14
+
+  - version `0.4b` released.
+
 - 2025/03/17
 
   - redefine `\title` and `\author` after the document class is loaded.
