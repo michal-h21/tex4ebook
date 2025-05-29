@@ -21,7 +21,9 @@ See the `make4ht` documentation to see the supported features.
 # Installation
 
 `tex4ebook` is included in major \TeX\ distributions such as [\TeX\ Live](https://www.tug.org/texlive/) 
-and [MiKTeX](https://miktex.org/), so manual installation is usually not required.  
+and [MiKTeX](https://miktex.org/), so manual installation is usually not required. 
+A working \TeX\ distribution that includes [\TeX4ht](https://tug.org/tex4ht/) is required to run
+`tex4ebook`, as it depends on \LaTeX\ and various programs and packages provided by \TeX\ distributions.
 
 You only need to install it manually if you want to use the development
 version. For detailed instructions, see the [`INSTALL.md`](./INSTALL.md) file.

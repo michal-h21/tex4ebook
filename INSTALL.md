@@ -1,9 +1,10 @@
 Installation
 ------------
 
-The stable version of `tex4ebook` is distributed by TeX distributions, it is
-included in both TeX Live and Miktex. The development version may be installed
-using the following instructions.
+The stable version of `tex4ebook` is distributed by TeX distributions, it is included in both TeX Live and Miktex. 
+A working \TeX\ distribution that includes [\TeX4ht](https://tug.org/tex4ht/) is required to run
+`tex4ebook`, as it depends on \LaTeX\ and various programs and packages provided by \TeX\ distributions.
+The development version may be installed using the following instructions.
 
 > This package depends on
 > [`make4ht`](https://github.com/michal-h21/make4ht#instalation) now, please
