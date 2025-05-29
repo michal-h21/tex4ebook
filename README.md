@@ -18,8 +18,16 @@ You can include custom `CSS` or fonts in a configuration file.
 These may be used for post-processing of the generated HTML files, or to configure the image conversion.
 See the `make4ht` documentation to see the supported features.
 
+# Installation
 
-## License
+`tex4ebook` is included in major \TeX\ distributions such as [\TeX\ Live](https://www.tug.org/texlive/) 
+and [MiKTeX](https://miktex.org/), so manual installation is usually not required.  
+
+You only need to install it manually if you want to use the development
+version. For detailed instructions, see the [`INSTALL.md`](./INSTALL.md) file.
+
+
+# License
 
 Permission is granted to copy, distribute and/or modify this software
 under the terms of the LaTeX Project Public License, version 1.3.
