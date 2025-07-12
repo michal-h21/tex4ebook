@@ -1,5 +1,11 @@
 # Changes
 
+- 2025/07/12
+
+  - added DAISY Schema.org Accessibility Metadata to Epub 3 (disable using the "daisy-" option)
+  - added missing `xml:lang` attributes in metadata 
+  - added ARIA `role` attributes for footnotes and TOC.
+
 - 2025/04/14
 
   - version `0.4b` released.
