@@ -27,10 +27,11 @@ local function makeTOC(document)
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml" 
  xmlns:epub="http://www.idpf.org/2007/ops"
+xml:lang="en" lang="en"
 >
 <head><title>TOC</title></head>
 <body>
-<nav id="pub-toc" epub:type="toc">
+<nav id="pub-toc" epub:type="toc" role="doc-toc">
  <h1>Table of contents</h1>
  <ol class="toc" hidden="hidden">
   <li>

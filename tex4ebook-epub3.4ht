@@ -26,7 +26,7 @@
 }{\b:NavMap}{}{}{}
 %%%%%%%%%%%
 \newcount\:toccount
-\Configure{NavMap}{\ifvmode\IgnorePar\fi\EndP\boolfalse{tocnoempty}\global\advance\:toccount by1\HCode{<nav id="toc\the\:toccount" class="toc" \ifnum\:toccount<2 epub:type="toc"\fi>\Hnewline<ol>}%
+\Configure{NavMap}{\ifvmode\IgnorePar\fi\EndP\boolfalse{tocnoempty}\global\advance\:toccount by1\HCode{<nav id="toc\the\:toccount" class="toc" \ifnum\:toccount<2 epub:type="toc" role="doc-toc"\fi>\Hnewline<ol>}%
 \opf:registerfilename{\FileName}
 \ifnum\:toccount<2 \opf:add:property{nav}\fi
 }{\usetoclevels{part,appendix,chapter,section,subsection,subsubsection}%
