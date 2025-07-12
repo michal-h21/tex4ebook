@@ -90,8 +90,8 @@
 {\ifvmode\IgnorePar\fi\HCode{\Hnewline</section>\Hnewline}}%
 \newbox\footnotebox%
 % We must create new link command, so footnote mark can link to footnote text
-\LinkCommand\fnlink{aside,href,id,class="footnote" epub:type="footnote"}
-\Configure{footnotemark}{\NoFonts\Link[ epub:type="noteref"]{fn\FNnum x\minipageNum}{}}{\EndLink\EndNoFonts}%
+\LinkCommand\fnlink{aside,href,id,class="footnote" epub:type="footnote" role="doc-footnote"}
+\Configure{footnotemark}{\NoFonts\Link[ epub:type="noteref" role="doc-noteref"]{fn\FNnum x\minipageNum}{}}{\EndLink\EndNoFonts}%
 \Configure{footnotetext}{\SaveEndP\global\setbox\footnotebox=\vtop\bgroup\NoFonts%
     \ifvoid\footnotebox\else\unvbox\footnotebox\fi%
     \bgroup%
