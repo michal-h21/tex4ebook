@@ -7,6 +7,7 @@
 \Configure{OpfScheme}{}
 
 \Configure{OpfMetadata}{\HCode{<meta property="dcterms:modified">}\:iso:date\HCode{</meta>}}
+\def\opf:package:lang{xml:lang="\GetLanguage"}
 
 %%%%%%%%%%%%%%%%%%%%%%%
 %% Configure toc nav %%

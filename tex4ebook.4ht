@@ -409,6 +409,8 @@ href="#1" media-type="\a:CoverMimeType" />}}
 %\else
 %\fi
 
+\def\opf:package:lang{}
+
 \def\print:opf:scheme#1{ opf:scheme="#1"}
 \def\:tempa{%
 % French language definition makes the : character active, which can cause compilation error
@@ -421,7 +423,7 @@ href="#1" media-type="\a:CoverMimeType" />}}
 \HtmlParOff
 {\HCode{<?xml version="1.0" encoding="utf-8"?>\Hnewline}}
 \HCode{<package xmlns="http://www.idpf.org/2007/opf" unique-identifier="dcidid"
-   version="\a:EpubVersion">\Hnewline}
+   version="\a:EpubVersion" \opf:package:lang>\Hnewline}
 {\HCode{<metadata\Hnewline xmlns:dc="http://purl.org/dc/elements/1.1/"\Hnewline  xmlns:opf="http://www.idpf.org/2007/opf">\Hnewline}}
 {\HCode{<dc:title>}\Title\HCode{</dc:title>\Hnewline}}
 {\HCode{<dc:language>}\GetLanguage\HCode{</dc:language>\Hnewline}}
