@@ -76,6 +76,26 @@
 \Configure{EpubVersion}{3.0}
 \Configure{OpfItemProperties}{properties="}{"}
 
+% Daisy configuration
+
+\:CheckOption{daisy-}\if:Option\else
+% This configuration is used to generate the DAISY accessibility metadata
+% https://kb.daisy.org/publishing/docs/metadata/schema.org/index.html
+\Configure{OpfMetadata}{\HCode{<meta property="dcterms:conformsTo" id="daisy-conf">EPUB Accessibility 1.1 - WCAG 2.0 Level AA</meta>}}
+% from https://kb.daisy.org/publishing/docs/metadata/schema.org/index.html#ex-01
+\Configure{OpfMetadata}{\HCode{<meta property="schema:accessMode">textual</meta>}}
+\Configure{OpfMetadata}{\HCode{<meta property="schema:accessMode">visual</meta>}}
+\Configure{OpfMetadata}{\HCode{<meta property="schema:accessModeSufficient">textual</meta>}}
+\Configure{OpfMetadata}{\HCode{<meta property="schema:accessibilityFeature">alternativeText</meta>}}
+\Configure{OpfMetadata}{\HCode{<meta property="schema:accessibilityFeature">MathML</meta>}}
+% highContrastDisplay, DisplayTransformability, index,  PrintPageNumbers, alternativeText, MathML, LongDescription, readingOrder, structuralNavigation, tableOfContents
+\Configure{OpfMetadata}{\HCode{<meta property="schema:accessibilityHazard">noFlashingHazard</meta>}}
+\Configure{OpfMetadata}{\HCode{<meta property="schema:accessibilityHazard">noSoundHazard</meta>}}
+\Configure{OpfMetadata}{\HCode{<meta property="schema:accessibilityHazard">noMotionSimulationHazard</meta>}}
+% I didn't find that specific wording (accessibilityhazard) in the descriptions of WCAG, but in the error messages during the publication process with my service party
+\Configure{OpfMetadata}{\HCode{<meta property="schema:accessibilitySummary">This publication conforms to WCAG 2.0 Level AA.</meta>}}
+\fi
+
 % Structural elements
 
 \:CheckOption{fn-in}
