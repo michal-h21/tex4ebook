@@ -271,10 +271,11 @@ local function cleanOPF()
 		content = content:gsub("<manifest>","<manifest>\n<item id='htmltoc'" ..
 		  " properties=\"nav\" media-type=\"application/xhtml+xml\" href=\""..
 			toc_name .."\" />\n")
-    content = content:gsub("<spine([^>]*)>", "<spine%1>\n<itemref idref=\"htmltoc\" linear=\"no\"/>\n")
-    -- remove empty guide element
+    -- we shouldn't add the TOC to the spine, because it is not linear and not linked from anywhere, 
+    -- resulting in error in EpubCheck
+    -- content = content:gsub("<spine([^>]*)>", "<spine%1>\n<itemref idref=\"htmltoc\" linear=\"no\"/>\n")
   end
-  -- content = content:gsub("<guide>%s*</guide>","")
+  -- remove empty guide element
   content = eb.remove_empty_guide(content)
 
   content = add_media_overlays(content)

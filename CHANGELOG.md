@@ -1,5 +1,9 @@
 # Changes
 
+- 2025/07/13
+
+  - don't add dummy TOC to the OPF spine, to prevent Epubcheck error.
+
 - 2025/07/12
 
   - added DAISY Schema.org Accessibility Metadata to Epub 3 (disable using the "daisy-" option)
