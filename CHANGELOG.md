@@ -2,7 +2,7 @@
 
 - 2025/07/13
 
-  - version `0.4b` released.
+  - version `0.4c` released.
   - don't add dummy TOC to the OPF spine, to prevent Epubcheck error.
 
 - 2025/07/12
