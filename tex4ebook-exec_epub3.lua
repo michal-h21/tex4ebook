@@ -31,7 +31,7 @@ xml:lang="en" lang="en"
 >
 <head><title>TOC</title></head>
 <body>
-<nav id="pub-toc" epub:type="toc" role="doc-toc">
+<nav class="toc" id="pub-toc" epub:type="toc" role="doc-toc">
  <h1>Table of contents</h1>
  <ol class="toc" hidden="hidden">
   <li>
