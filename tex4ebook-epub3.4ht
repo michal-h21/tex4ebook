@@ -37,7 +37,7 @@
     \booltrue{tocnoempty}
     \HCode{<li>}}{\HCode{<ol>\Hnewline}}{\ }{\Tg</ol>\Tg</li>}
 % Disable numbering of the TOC by the reading system, numbers are added by tex4ht
-\Css{nav.toc ol{list-style: none;}}
+\Css{nav.toc ol, nav ol.toc{list-style: none;}}
 %%%% End toc nav configuration
 \def\CoverMetadata#1{%
 \special{t4ht+@File: #1}%
