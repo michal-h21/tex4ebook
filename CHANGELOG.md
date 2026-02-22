@@ -1,5 +1,9 @@
 # Changes
 
+- 2026/02/22
+
+  - fixed support for files that contain dots in filenames.
+
 - 2025/09/17
   - modified the CSS rule for hiding list numbers in Epub 3 TOC.
     https://github.com/michal-h21/tex4ebook/issues/141

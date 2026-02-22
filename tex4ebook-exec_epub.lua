@@ -170,7 +170,7 @@ function make_opf()
 	local lg_item = function(item)
     local item = remove_builddir(item)
 		-- Find mimetype and make item tag for each converted file in the lg file
-		local fname,ext = item:match("([^%/^%.]*)%.([%a%d]*)$")
+		local fname,ext = item:match("([^%/]+)%.([%a%d^%.]*)$")
     if not ext then return nil end
     local lower_ext = string.lower(ext)
 		local mimetype = mimetypes[lower_ext] or ""
@@ -181,7 +181,7 @@ function make_opf()
     -- remove invalid characters from id start
     id = id:gsub("^[%.%-]*","")
     -- remove colons
-    id = id:gsub("[:%(%)]", "_")
+    id = id:gsub("[:%(%)%.]", "_")
     -- id cannot start by number, add trailing "x" character
     id = id:gsub("^([%d])", "x%1")
 		return "<item id='"..id .. "' href='"..item.."' media-type='"..mimetype.."' />",id
