@@ -1,6 +1,7 @@
 module(...,package.seeall)
 local eb = require("tex4ebook-exec_epub")
 local dom = require("luaxml-domobject")
+local ebookutils = require "mkutils"
 local log = logging.new "exec_epub3"
 
 local ext = "xhtml"
@@ -247,10 +248,13 @@ end
 local function cleanOPF()
   -- in epub3, there must be table of contents
 	-- if there is no toc in the document, we must add generic one
-	local opf =  "content.opf"
+	local opf =  ebookutils.file_in_builddir("content.opf", Make.params)
+  -- we will need to save changed opf file and possible dummy toc in the correct path in the build dir later
+  local builddir = Make.params.builddir 
+  if builddir ~= ""  and not builddir:match("/$") then builddir = builddir .. "/" end
 	local f = io.open(opf,"r")
 	if not f then 
-    log:info("Cannot open "..opf .. " for toc searching")
+    log:warning("Cannot open "..opf .. " for toc searching")
 		return nil
   end
   local content = f:read("*all")
@@ -264,7 +268,7 @@ local function cleanOPF()
     log:info("Main file name: ".. inputfile)
 		-- write toc file
     local toc_name = "generic_toc" .."."..ext
-		local f = io.open(outputdir .. "/" .. toc_name, "w")
+		local f = io.open(builddir .. outputdir .. "/" .. toc_name, "w")
 		f:write(makeTOC(inputfile))
 		f:close()
 		-- add toc file to the conten.opf
@@ -280,7 +284,8 @@ local function cleanOPF()
 
   content = add_media_overlays(content)
   content = fix_properties(content)
-  f = io.open(outputdir .. "/" ..opf,"w")
+
+  f = io.open( builddir .. outputdir .. "/content.opf" ,"w")
   f:write(content)
   f:close()
   --makeTOC(inputfile)

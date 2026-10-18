@@ -1,5 +1,10 @@
 # Changes
 
+- 2026/10/18
+
+  - fixed creation of a dummy Epub 3 TOC with the `--build-dir` option.
+    https://github.com/michal-h21/tex4ebook/issues/145
+
 - 2026/02/24
 
   - version `0.4d` released.
