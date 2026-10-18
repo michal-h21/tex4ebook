@@ -23,6 +23,14 @@ function run(out,params)
 end
 
 
+local function get_builddir()
+  -- we will need to save changed opf file and possible dummy toc in the correct path in the build dir later
+  local builddir = Make.params.builddir 
+  if builddir ~= ""  and not builddir:match("/$") then builddir = builddir .. "/" end
+  return builddir
+end
+
+
 local function makeTOC(document)
   local template = [[
 <!DOCTYPE html>
@@ -186,7 +194,8 @@ local function cleanTOC(content)
     if properties:match("nav") then
       local filename =  item:get_attribute("href")
       if filename then
-        filename = outputdir .. "/" ..  filename
+        local builddir = get_builddir()
+        filename = builddir .. outputdir .. "/" ..  filename
         local f = io.open(filename, "r")
         if not f then
           log:warning("Cannot open TOC file for clean-up: " .. filename)
@@ -249,9 +258,7 @@ local function cleanOPF()
   -- in epub3, there must be table of contents
 	-- if there is no toc in the document, we must add generic one
 	local opf =  ebookutils.file_in_builddir("content.opf", Make.params)
-  -- we will need to save changed opf file and possible dummy toc in the correct path in the build dir later
-  local builddir = Make.params.builddir 
-  if builddir ~= ""  and not builddir:match("/$") then builddir = builddir .. "/" end
+  local builddir = get_builddir()
 	local f = io.open(opf,"r")
 	if not f then 
     log:warning("Cannot open "..opf .. " for toc searching")

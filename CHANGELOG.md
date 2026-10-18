@@ -2,7 +2,7 @@
 
 - 2026/10/18
 
-  - fixed creation of a dummy Epub 3 TOC with the `--build-dir` option.
+  - fixed handling of Epub 3 TOC with the `--build-dir` option.
     https://github.com/michal-h21/tex4ebook/issues/145
 
 - 2026/02/24
