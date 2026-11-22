@@ -1,5 +1,10 @@
 # Changes
 
+- 2026/11/22 
+
+  - new code for testing of the presence of the `zip` command.
+    https://github.com/michal-h21/tex4ebook/issues/115#issuecomment-7078852951
+
 - 2026/10/18
 
   - fixed handling of Epub 3 TOC with the `--build-dir` option.

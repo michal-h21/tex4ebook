@@ -304,19 +304,26 @@ function make_opf()
     log:warning("Missing opf file")
   end
 end
+
 local function find_zip()
-  local zip_handle = assert(io.popen("zip -v 2>&1","r"))
-  local miktex_zip = assert(io.popen("miktex-zip -v 2>&1","r"))
-  local zip_result = zip_handle:read("*all")
-  local miktex_result = miktex_zip:read("*all")
-  zip_handle:close()
-  miktex_zip:close()
-  if zip_result and zip_result:match("Zip") then
+  local function test_command(command)
+    local handle = io.popen(command .. " -v < " ..
+      (os.type == "windows" and "NUL" or "/dev/null") .. " 2>&1", "r")
+    if not handle then
+      return false
+    end
+    local result = handle:read("*all")
+    local success = handle:close()
+    return success and result and result:match("Zip")
+  end
+
+  if test_command("zip") then
     return "zip"
-  elseif miktex_result and miktex_result:match("Zip") then
+  elseif test_command("miktex-zip") then
     return "miktex-zip"
   end
-  log:warning "It appears you don't have zip command installed. I can't pack the ebook"
+
+  log:warning "Could not verify that zip is installed. Trying zip anyway."
   return "zip"
 end
 
