@@ -72,6 +72,10 @@ function prepare(params)
 	if params.config_file.Make:length() < 1 then
     if mode == "draft" then
       params.config_file.Make:htlatex()
+    elseif mode == "fast" then
+      -- tenkana is a tool which makes a snapshot of latex run and then it can be used to run latex multiple times without recompiling the whole document
+      local tenkana = "tenkana " ..  params.htlatex
+      params.config_file.Make:autohtlatex {htlatex = tenkana}
     else
       params.config_file.Make:autohtlatex()
     end

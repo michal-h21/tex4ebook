@@ -1,5 +1,9 @@
 # Changes
 
+- 2026/11/23 
+
+  - added the `fast` mode.
+
 - 2026/11/22 
 
   - new code for testing of the presence of the `zip` command.
