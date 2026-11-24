@@ -1,6 +1,7 @@
 module(...,package.seeall)
 local eb = require("tex4ebook-exec_epub")
 local dom = require("luaxml-domobject")
+local transform = require "luaxml-transform"
 local ebookutils = require "mkutils"
 local log = logging.new "exec_epub3"
 
@@ -30,27 +31,83 @@ local function get_builddir()
   return builddir
 end
 
+local transform = require "luaxml-transform"
+
+local function ncx_to_html(ncx)
+  local xml_dom = dom.parse(ncx)
+  local transformer = transform.new()
+  -- transformer contains escape mapping to LaTeX commands for some characters, we need to change that to HTML escapes
+  transformer.unicodes = {
+    [60] = "&lt;",
+    [62] = "&gt;",
+    [38] = "&amp;",
+    [34] = "&quot;",
+    [39] = "&apos;"
+  }
+
+  for _, link in ipairs(xml_dom:query_selector("content")) do
+    -- set the src attribute from content to the corresponding navLabel, so it can be used in the transformation rule
+    local src = link:get_attribute("src")
+    if src then
+      for _, sibling in ipairs(link:get_siblings()) do
+        if sibling:get_element_name() == "navLabel" then
+          sibling:set_attribute("href", src)
+        end
+      end
+    end
+  end
+
+  -- transform navPoint and navLabel to the correct HTML list structure
+  transformer:add_action("navLabel", "<li><a href='@{href}'>@<.></a></li>\n")
+  -- we just use flat structure, it seems that nested <ol> cause epubcheck errors
+  -- transformer:add_action("navPoint navPoint", "<ol>@<.></ol>")
+  transformer:add_action("docTitle", "")
+  transformer:add_action("head", "")
+  -- remove unnecesary spaces
+  return transformer:process_dom(xml_dom):gsub("> *", ">"):gsub(" *<", "<")
+
+end
+
 
 local function makeTOC(document)
+  -- default TOC content that is used if we cannot open the NCX file
+  local content = [[
+  <li>
+   <a href="${document}">Document wtf</a>
+  </li>
+  ]] % {document=document}
+  -- try to read TOC from the NCX file
+  local ncx = ebookutils.file_in_builddir(outputdir .. "/" .. input .. ".ncx", Make.params)
+  local f = io.open(ncx,"r")
+  if f then
+    local ncx_content = f:read("*all")
+    f:close()
+    -- replace content with the NCX table transformed to HTML TOC
+    content = ncx_to_html(ncx_content)
+  end
+
   local template = [[
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml" 
  xmlns:epub="http://www.idpf.org/2007/ops"
 xml:lang="en" lang="en"
 >
-<head><title>TOC</title></head>
+<head>
+<title>TOC</title>
+<style type="text/css">
+li {list-style-type: none;}
+</style>
+</head>
 <body>
 <nav class="toc" id="pub-toc" epub:type="toc" role="doc-toc">
  <h1>Table of contents</h1>
- <ol class="toc" hidden="hidden">
-  <li>
-   <a href="${document}">Document</a>
-  </li>
+ <ol class="toc">
+  ${document}
  </ol>
 </nav>
 </body>
 </html>
-]] % {document=document}
+]] % {document=content}
   return template
 end
 
