@@ -356,6 +356,9 @@ local function cleanOPF()
 end
 
 
+function finalize()
+  eb.finalize()
+end
 
 function writeContainer()			
 	--local ret =  eb.writeContainer()
@@ -364,6 +367,7 @@ function writeContainer()
 	cleanOPF()
   eb.clean_xml_files()
 	local ret = eb.pack_container()
+  finalize()
 	return ret
 end
 

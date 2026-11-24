@@ -3,6 +3,7 @@
 - 2026/11/24 
 
   - use actual sections and chapters used in the document in the generic TOC in Epub 3
+  - added `finalize()` hooks that is executed after ebook packing.
 
 - 2026/11/23 
 

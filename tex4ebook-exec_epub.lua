@@ -476,10 +476,16 @@ function clean_xml_files()
 
 end
 
+function finalize()
+  -- hook to be executed after writiting of the container
+  -- it can be redefined by user in a build file 
+end
+
 function writeContainer()
   make_opf()
   clean_xml_files()
   pack_container()
+  finalize()
 end
 
 local function deldir(path)

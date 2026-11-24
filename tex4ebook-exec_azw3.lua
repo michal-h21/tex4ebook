@@ -32,8 +32,13 @@ function writeContainer()
       ebookutils.cp(azwfile, azwdist)
     end
   end
+  finalize()
 
 	return ret
+end
+
+function finalize()
+  eb.finalize()
 end
 
 function clean()
