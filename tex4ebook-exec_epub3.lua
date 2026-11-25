@@ -82,8 +82,12 @@ local function makeTOC(document)
   if f then
     local ncx_content = f:read("*all")
     f:close()
-    -- replace content with the NCX table transformed to HTML TOC
-    content = ncx_to_html(ncx_content)
+    if ncx_content and ncx_content:match("<navMap>")  then
+      -- remove leading spaces, they cause errors in XML parsing
+      ncx_content = ncx_content:gsub("^%s*","")
+      -- replace content with the NCX table transformed to HTML TOC
+      content = ncx_to_html(ncx_content)
+    end
   end
 
   local template = [[
