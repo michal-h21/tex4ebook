@@ -484,8 +484,8 @@ end
 function writeContainer()
   make_opf()
   clean_xml_files()
-  pack_container()
   finalize()
+  pack_container()
 end
 
 local function deldir(path)

@@ -47,7 +47,6 @@ function writeContainer()
       ebookutils.cp(mobifile, mobidist)
     end
   end
-  finalize()
 	return ret
 end
 

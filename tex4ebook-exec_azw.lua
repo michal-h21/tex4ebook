@@ -29,7 +29,6 @@ function writeContainer()
       ebookutils.cp(azwfile, azwdist)
     end
   end
-  finalize()
 
 	return ret
 end
